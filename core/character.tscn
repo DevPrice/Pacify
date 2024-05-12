@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7gskgungub07"]
+
+[ext_resource type="Script" path="res://scripts/character.gd" id="1_llamu"]
+[ext_resource type="Shader" path="res://materials/shaders/flat.gdshader" id="2_4quj4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eyh12"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_toucl"]
+render_priority = 0
+shader = ExtResource("2_4quj4")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/tint = Color(1, 1, 0.52, 1)
+shader_parameter/specular_size = 0.0
+shader_parameter/noise_scale = 0.25
+shader_parameter/wobble_speed = 4.0
+shader_parameter/wobble_scale = 0.02
+shader_parameter/scale_min_distance = 10.0
+shader_parameter/scale_max_distance = 80.0
+shader_parameter/scale_max = 4.0
+shader_parameter/hatch_spacing = Vector2(6, 6)
+shader_parameter/shadow_threshold = 0.5
+shader_parameter/roughness = 0.2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cduba"]
+material = SubResource("ShaderMaterial_toucl")
+
+[sub_resource type="SphereMesh" id="SphereMesh_egicc"]
+material = SubResource("ShaderMaterial_toucl")
+radius = 0.6
+height = 1.2
+
+[node name="Character" type="CharacterBody3D"]
+script = ExtResource("1_llamu")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_eyh12")
+
+[node name="Body" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Capsule" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_cduba")
+skeleton = NodePath("../..")
+
+[node name="Head" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.649, -0.128156)
+mesh = SubResource("SphereMesh_egicc")
+
+[node name="CameraArm" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+
+[node name="Camera" type="Camera3D" parent="CameraArm"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.978148, 0.207912, 0, -0.207912, 0.978148, 6, 9, 24)
+projection = 1
+current = true
+fov = 90.0
+size = 12.0
+near = 1.0
+far = 200.0

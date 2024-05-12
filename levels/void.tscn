@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://csp2nkbtfsphk"]
+
+[ext_resource type="PackedScene" uid="uid://cdx6vcwe4dfkd" path="res://blender/void.blend" id="1_megdj"]
+[ext_resource type="PackedScene" uid="uid://b7gskgungub07" path="res://core/character.tscn" id="2_ibh2c"]
+[ext_resource type="Shader" path="res://materials/shaders/outline.gdshader" id="3_7ow1e"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7ey73"]
+sky_top_color = Color(0.637, 0.7399, 0.98, 1)
+sky_horizon_color = Color(0.637, 0.7399, 0.98, 1)
+sky_energy_multiplier = 1.2
+ground_bottom_color = Color(0.7238, 0.73461, 0.94, 1)
+ground_horizon_color = Color(0.637, 0.7399, 0.98, 1)
+ground_energy_multiplier = 1.2
+
+[sub_resource type="Sky" id="Sky_8l6gb"]
+sky_material = SubResource("ProceduralSkyMaterial_7ey73")
+
+[sub_resource type="Environment" id="Environment_r2c2d"]
+background_mode = 2
+sky = SubResource("Sky_8l6gb")
+sky_custom_fov = 40.0
+tonemap_mode = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8suw4"]
+render_priority = 0
+shader = ExtResource("3_7ow1e")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_size = 1.0
+shader_parameter/depth_sensitivity = 0.1
+shader_parameter/normal_sensitivity = 0.25
+shader_parameter/color_sensitivity = 0.2
+
+[sub_resource type="QuadMesh" id="QuadMesh_66e4o"]
+material = SubResource("ShaderMaterial_8suw4")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="VoidLevel" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.493163, 0.858026, 0.143462, -0.692962, 0.287761, 0.661058, 0.525922, -0.425423, 0.736492, 5.01265, 5.12324, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 200.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r2c2d")
+
+[node name="void" parent="." instance=ExtResource("1_megdj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65312, 0)
+
+[node name="Character" parent="void" instance=ExtResource("2_ibh2c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2069, -0.638382, 15.734)
+
+[node name="Outline" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -2.98023e-08, 2.98023e-08, -1.49012e-08, 1, 0, 1.49012e-08, 0, 1, 0, 0, 0)
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_66e4o")
+skeleton = NodePath("")

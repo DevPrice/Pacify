@@ -1,0 +1,16 @@
+[gd_resource type="NoiseTexture3D" load_steps=3 format=3 uid="uid://yygh8mea50v5"]
+
+[sub_resource type="Gradient" id="Gradient_6cusv"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ncpan"]
+noise_type = 3
+fractal_type = 0
+
+[resource]
+width = 512
+height = 512
+depth = 512
+seamless = true
+seamless_blend_skirt = 0.25
+color_ramp = SubResource("Gradient_6cusv")
+noise = SubResource("FastNoiseLite_ncpan")

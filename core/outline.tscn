@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://oqrmsctsf0m"]
+
+[ext_resource type="Shader" path="res://materials/shaders/outline.gdshader" id="1_d3nrv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8suw4"]
+render_priority = 0
+shader = ExtResource("1_d3nrv")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_size = 1.0
+shader_parameter/depth_sensitivity = 0.2
+shader_parameter/normal_sensitivity = 0.1
+shader_parameter/color_sensitivity = 0.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_66e4o"]
+material = SubResource("ShaderMaterial_8suw4")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="Outline" type="MeshInstance3D"]
+transform = Transform3D(1, -2.98023e-08, 2.98023e-08, -1.49012e-08, 1, 0, 1.49012e-08, 0, 1, 0, 0, 0)
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_66e4o")
