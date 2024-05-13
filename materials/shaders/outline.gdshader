@@ -6,12 +6,11 @@ uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_l
 uniform sampler2D depth_texture : hint_depth_texture, repeat_disable, filter_linear_mipmap;
 uniform sampler2D normal_roughness_texture : hint_normal_roughness_texture, repeat_disable, filter_linear_mipmap;
 
-uniform vec3 outline_color : source_color = vec3(0.f, 0.f, 0.f);
+uniform vec4 outline_color : source_color = vec4(0.f, 0.f, 0.f, 1.f);
 uniform float outline_size : hint_range(0.f, 20.f) = 1.f;
 uniform float depth_sensitivity : hint_range(0.01f, 2.f) = .2f;
 uniform float normal_sensitivity : hint_range(0.01f, 1.f) = .1f;
 uniform float color_sensitivity : hint_range(0.01f, 100.f) = .5f;
-uniform float outline_alpha : hint_range(0.f, 1.f) = 1.f;
 
 void vertex() {
 	POSITION = vec4(VERTEX, 1.f);
@@ -85,7 +84,7 @@ float edge(vec2 uv, vec2 viewportSize, mat4 invProjection, float scale) {
 void fragment() {
 	float edge_strength = edge(SCREEN_UV, VIEWPORT_SIZE, INV_PROJECTION_MATRIX, outline_size);
 	vec3 base_color = texture(screen_texture, SCREEN_UV).rgb;
-	vec3 edge_color = mix(base_color, outline_color, outline_alpha);
+	vec3 edge_color = mix(base_color, outline_color.rgb, outline_color.a);
 	vec3 result = mix(base_color, edge_color, edge_strength);
 
 	ALBEDO = result;

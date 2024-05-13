@@ -22,12 +22,11 @@ tonemap_mode = 2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8suw4"]
 render_priority = 0
 shader = ExtResource("3_7ow1e")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 0.95)
 shader_parameter/outline_size = 1.0
 shader_parameter/depth_sensitivity = 0.1
 shader_parameter/normal_sensitivity = 0.25
 shader_parameter/color_sensitivity = 0.2
-shader_parameter/outline_alpha = 0.95
 
 [sub_resource type="QuadMesh" id="QuadMesh_66e4o"]
 material = SubResource("ShaderMaterial_8suw4")
