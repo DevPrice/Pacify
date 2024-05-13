@@ -2,12 +2,14 @@ shader_type spatial;
 
 render_mode diffuse_toon, specular_toon;
 
-uniform vec2 uv_scale = vec2(1.f, 1.f);
-uniform vec3 tint : source_color = vec3(1.f, 1.f, 1.f);
+global uniform sampler3D noise_texture : hint_default_white, filter_linear_mipmap, repeat_enable;
+
+instance uniform vec3 modulate : source_color = vec3(1.f);
+
+uniform vec2 uv_scale = vec2(1.f);
+uniform vec3 tint : source_color = vec3(1.f);
 uniform sampler2D base_color : source_color, hint_default_white;
 uniform float specular_size = 0.f;
-
-global uniform sampler3D noise_texture : hint_default_white, filter_linear_mipmap, repeat_enable;
 uniform float noise_scale = .25f;
 uniform float wobble_speed = 4.f;
 uniform float wobble_scale = .02f;
@@ -41,7 +43,7 @@ void vertex() {
 }
 
 void fragment() {
-	ALBEDO = tint * texture(base_color, UV * uv_scale).rgb * COLOR.rgb;
+	ALBEDO = modulate * tint * texture(base_color, UV * uv_scale).rgb * COLOR.rgb;
 	ROUGHNESS = roughness;
 }
 
