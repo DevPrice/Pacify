@@ -9,6 +9,7 @@ uniform sampler2D normal_roughness_texture : hint_normal_roughness_texture, repe
 uniform vec4 outline_color : source_color = vec4(0.f, 0.f, 0.f, 1.f);
 uniform float outline_size : hint_range(0.f, 20.f) = 1.f;
 uniform float depth_sensitivity : hint_range(0.01f, 2.f) = .2f;
+uniform bool log_depth = true;
 uniform float normal_sensitivity : hint_range(0.01f, 1.f) = .1f;
 uniform float color_sensitivity : hint_range(0.01f, 100.f) = .5f;
 
@@ -28,6 +29,10 @@ float logDepth(vec2 uv, mat4 invProjection) {
 	return log(linearDepth(uv, invProjection));
 }
 
+float depthEdge(vec2 uv, mat4 invProjection) {
+	return log_depth ? logDepth(uv, invProjection) : linearDepth(uv, invProjection);
+}
+
 float edge(vec2 uv, vec2 viewportSize, mat4 invProjection, float scale) {
 	vec2 pixelSize = scale / viewportSize;
 	vec2 topLeft = uv - pixelSize;
@@ -42,15 +47,15 @@ float edge(vec2 uv, vec2 viewportSize, mat4 invProjection, float scale) {
 
 	float roughness = texture(normal_roughness_texture, uv).w;
 
-	float depthResult = logDepth(topLeft, invProjection) * -.5f
-		+ logDepth(midLeft, invProjection) * -1.5f
-		+ logDepth(bottomLeft, invProjection) * -.5f
-		+ logDepth(topCenter, invProjection) * -1.5f
-		+ logDepth(center, invProjection) * 8.f
-		+ logDepth(bottomCenter, invProjection) * -1.5f
-		+ logDepth(topRight, invProjection) * -.5f
-		+ logDepth(midRight, invProjection) * -1.5f
-		+ logDepth(bottomRight, invProjection) * -.5f;
+	float depthResult = depthEdge(topLeft, invProjection) * -.5f
+		+ depthEdge(midLeft, invProjection) * -1.5f
+		+ depthEdge(bottomLeft, invProjection) * -.5f
+		+ depthEdge(topCenter, invProjection) * -1.5f
+		+ depthEdge(center, invProjection) * 8.f
+		+ depthEdge(bottomCenter, invProjection) * -1.5f
+		+ depthEdge(topRight, invProjection) * -.5f
+		+ depthEdge(midRight, invProjection) * -1.5f
+		+ depthEdge(bottomRight, invProjection) * -.5f;
 
 	float depthEdge = step(depth_sensitivity * depth_sensitivity, abs(depthResult));
 
