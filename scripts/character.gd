@@ -1,11 +1,11 @@
-extends CharacterBody3D
+class_name Character extends CharacterBody3D
 
-@export var movement_speed = 6.0
-@export var jump_velocity = 4.5
-@export var mass = 1.0
+@export var movement_speed: float = 6.0
+@export var jump_velocity: float = 4.5
+@export var mass: float = 0.1
+@export var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var _camera_pos_index: int = 0
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -16,35 +16,43 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var movement_basis = get_viewport().get_camera_3d().global_basis
-	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direction = (movement_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var input_dir: Vector2 = _get_movement_input()
+	var movement_strength: float = input_dir.length()
+
+	var movement_basis: Basis = get_viewport().get_camera_3d().global_basis
+
+	var raw_direction: Vector3 = movement_basis * Vector3(input_dir.x, 0, input_dir.y)
+	var direction = Vector3(raw_direction.x, 0, raw_direction.z).normalized() * movement_strength
 	if direction:
+		%Body.look_at(%Body.global_position + Vector3(direction.x, %Body.position.y, direction.z))
 		velocity.x = direction.x * movement_speed
 		velocity.z = direction.z * movement_speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 		velocity.z = move_toward(velocity.z, 0, movement_speed)
-	if direction:
-		%Body.look_at(%Body.global_position + Vector3(direction.x, %Body.position.y, direction.z))
 
 	var speed = velocity.length()
+	var inertia = mass * speed
 
 	if move_and_slide():
 		for i in get_slide_collision_count():
 			var c = get_slide_collision(i)
 			if c.get_collider() is RigidBody3D:
-				c.get_collider().apply_impulse(-c.get_normal() * mass * speed, c.get_position())
+				c.get_collider().apply_impulse(-c.get_normal() * inertia * .2, c.get_position())
+				c.get_collider().apply_central_impulse(-c.get_normal() * inertia * .8)
 
 func _input(event):
 	if event.is_action_pressed("camera_left"):
-		_rotate_camera(-PI / 2)
+		_rotate_camera(1)
 	if event.is_action_pressed("camera_right"):
-		_rotate_camera(PI / 2)
+		_rotate_camera(-1)
 
-func _rotate_camera(amount: float):
+func _rotate_camera(amount: int) -> void:
+	_camera_pos_index += amount
 	var tween = create_tween()
-	tween.tween_property(%CameraArm, "rotation", %CameraArm.rotation + Vector3(0, amount, 0), .2) \
+	var result_rotation = _camera_pos_index * Vector3(0, PI / 2, 0)
+	tween.tween_property(%CameraArm, "rotation", result_rotation, .2) \
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+
+func _get_movement_input() -> Vector2:
+	return Input.get_vector("move_left", "move_right", "move_up", "move_down")

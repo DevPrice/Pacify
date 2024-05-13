@@ -16,6 +16,7 @@ uniform float scale_min_distance = 10.f;
 uniform float scale_max_distance = 80.f;
 uniform float scale_max = 4.f;
 
+uniform float hatch_intensity = 1.f;
 uniform vec2 hatch_spacing = vec2(6.f);
 uniform float shadow_threshold = .5f;
 
@@ -27,11 +28,16 @@ float mapToRange(float x, float inMin, float inMax, float outMin, float outMax) 
 }
 
 void vertex() {
-	vec4 noise = texture(noise_texture, VERTEX * noise_scale + floor(TIME * wobble_speed) * .73f);
+	vec3 noise = vec3(
+		texture(noise_texture, VERTEX * .73f * noise_scale + floor(TIME * wobble_speed) * .73f).x,
+		texture(noise_texture, VERTEX * .8989f * noise_scale + floor(TIME * wobble_speed) * .8989f).y,
+		texture(noise_texture, VERTEX * 1.117f * noise_scale + floor(TIME * wobble_speed) * 1.117f).z
+	) - vec3(.5f);
 	vec3 world_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	float dist = length(CAMERA_POSITION_WORLD - world_position);
 	float distance_scale = mapToRange(dist, scale_min_distance, scale_max_distance, 1.f, scale_max);
-	VERTEX += (noise.xyz - vec3(.5f, .5f, .5f)) * wobble_scale * distance_scale;
+
+	VERTEX += noise.xyz * wobble_scale * distance_scale;
 }
 
 void fragment() {
@@ -65,7 +71,9 @@ void light() {
 	float attenuation = step(shadow_threshold, ATTENUATION);
 	vec3 shadow_pattern = mix(lit_color, vec3(-1.f), hatch(screen_uv, 1.f / VIEWPORT_SIZE, hatch_spacing, attenuation));
 
-	vec3 result = mix(shadow_pattern, lit_color, attenuation);
+	vec3 unlit_color = mix(vec3(0.f), shadow_pattern, hatch_intensity);
+
+	vec3 result = mix(unlit_color, lit_color, attenuation);
 	float is_already_lit = step(1e-4f, length(DIFFUSE_LIGHT));
 	DIFFUSE_LIGHT = mix(result, max(DIFFUSE_LIGHT, result), is_already_lit);
 

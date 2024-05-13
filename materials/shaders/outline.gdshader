@@ -11,17 +11,22 @@ uniform float outline_size : hint_range(0.f, 20.f) = 1.f;
 uniform float depth_sensitivity : hint_range(0.01f, 2.f) = .2f;
 uniform float normal_sensitivity : hint_range(0.01f, 1.f) = .1f;
 uniform float color_sensitivity : hint_range(0.01f, 100.f) = .5f;
+uniform float outline_alpha : hint_range(0.f, 1.f) = 1.f;
 
 void vertex() {
 	POSITION = vec4(VERTEX, 1.f);
 }
 
-float logDepth(vec2 uv, mat4 invProjection) {
+float linearDepth(vec2 uv, mat4 invProjection) {
 	float depth = texture(depth_texture, uv).r;
 	vec3 ndc = vec3(uv * 2.0 - 1.0, depth);
 	vec4 view = invProjection * vec4(ndc, 1.0);
   	view.xyz /= view.w;
   	return log(-view.z);
+}
+
+float logDepth(vec2 uv, mat4 invProjection) {
+	return log(linearDepth(uv, invProjection));
 }
 
 float edge(vec2 uv, vec2 viewportSize, mat4 invProjection, float scale) {
@@ -78,8 +83,10 @@ float edge(vec2 uv, vec2 viewportSize, mat4 invProjection, float scale) {
 }
 
 void fragment() {
-	float edgeStrength = edge(SCREEN_UV, VIEWPORT_SIZE, INV_PROJECTION_MATRIX, outline_size);
-	vec3 result = mix(texture(screen_texture, SCREEN_UV).rgb, outline_color, edgeStrength);
+	float edge_strength = edge(SCREEN_UV, VIEWPORT_SIZE, INV_PROJECTION_MATRIX, outline_size);
+	vec3 base_color = texture(screen_texture, SCREEN_UV).rgb;
+	vec3 edge_color = mix(base_color, outline_color, outline_alpha);
+	vec3 result = mix(base_color, edge_color, edge_strength);
 
 	ALBEDO = result;
 }
