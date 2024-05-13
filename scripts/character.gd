@@ -8,21 +8,20 @@ class_name Character extends CharacterBody3D
 var _camera_pos_index: int = 0
 
 func _physics_process(delta):
-	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 
 	var input_dir: Vector2 = _get_movement_input()
 	var movement_strength: float = input_dir.length()
 
-	var movement_basis: Basis = get_viewport().get_camera_3d().global_basis
-
+	var camera = get_viewport().get_camera_3d()
+	var movement_basis: Basis = Basis(Vector3.UP, camera.global_rotation.y)
 	var raw_direction: Vector3 = movement_basis * Vector3(input_dir.x, 0, input_dir.y)
-	var direction = Vector3(raw_direction.x, 0, raw_direction.z).normalized() * movement_strength
+	var direction = raw_direction.normalized() * movement_strength
+
 	if direction:
 		%Body.look_at(%Body.global_position + Vector3(direction.x, %Body.position.y, direction.z))
 		velocity.x = direction.x * movement_speed
