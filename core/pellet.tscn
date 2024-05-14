@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbuyx8jif60i8"]
+[gd_scene load_steps=6 format=3 uid="uid://cbuyx8jif60i8"]
 
 [ext_resource type="Script" path="res://core/pellet.gd" id="1_6uuej"]
 [ext_resource type="Material" uid="uid://dggf6722udriq" path="res://materials/pellet.tres" id="1_8o1fk"]
+[ext_resource type="PackedScene" uid="uid://cg3ca82k1wxi1" path="res://core/pellet_burst.tscn" id="3_04a67"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_mywqk"]
 material = ExtResource("1_8o1fk")
@@ -17,6 +18,7 @@ radius = 0.4
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_6uuej")
+_consume_effect = ExtResource("3_04a67")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
