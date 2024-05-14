@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://chv7c8m054dx5"]
+
+[ext_resource type="PackedScene" uid="uid://cgcnefkhg2s8f" path="res://blender/gridmap.blend" id="1_tqw0f"]
+
+[node name="gridmap" instance=ExtResource("1_tqw0f")]

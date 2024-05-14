@@ -8,6 +8,7 @@ shader = ExtResource("1_d3nrv")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_size = 1.0
 shader_parameter/depth_sensitivity = 0.2
+shader_parameter/log_depth = true
 shader_parameter/normal_sensitivity = 0.1
 shader_parameter/color_sensitivity = 0.5
 
