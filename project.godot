@@ -94,7 +94,7 @@ pause={
 [rendering]
 
 renderer/rendering_method.mobile="gl_compatibility"
-anti_aliasing/quality/use_taa=true
+scaling_3d/mode=2
 
 [shader_globals]
 
