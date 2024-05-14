@@ -1,5 +1,8 @@
 extends Node
 
+func _init():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 func _input(event: InputEvent):
 	if event.is_action_pressed("fullscreen"):
 		toggle_fullscreen()
