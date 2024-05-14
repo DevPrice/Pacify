@@ -72,6 +72,11 @@ fullscreen={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Env"
+3d_physics/layer_2="Actor"
+
 [physics]
 
 3d/run_on_separate_thread=true

@@ -5,6 +5,8 @@ render_mode diffuse_toon, specular_toon, world_vertex_coords;
 global uniform sampler3D noise_texture : hint_default_white, filter_linear_mipmap, repeat_enable;
 
 instance uniform vec3 modulate : source_color = vec3(1.f);
+instance uniform float modulate_wobble_scale = 1.f;
+instance uniform float modulate_wobble_speed = 1.f;
 
 uniform vec2 uv_scale = vec2(1.f);
 uniform vec3 tint : source_color = vec3(1.f);
@@ -30,15 +32,16 @@ float mapToRange(float x, float inMin, float inMax, float outMin, float outMax) 
 }
 
 void vertex() {
+	float wobble_time = floor(TIME * wobble_speed * modulate_wobble_speed);
 	vec3 noise = vec3(
-		texture(noise_texture, VERTEX * noise_scale + floor(TIME * wobble_speed) * .73f).x,
-		texture(noise_texture, VERTEX * noise_scale + floor(TIME * wobble_speed) * .8989f).y,
-		texture(noise_texture, VERTEX * noise_scale + floor(TIME * wobble_speed) * 1.117f).z
+		texture(noise_texture, VERTEX * noise_scale + wobble_time * .73f).x,
+		texture(noise_texture, VERTEX * noise_scale + wobble_time * .8989f).y,
+		texture(noise_texture, VERTEX * noise_scale + wobble_time * 1.117f).z
 	) - vec3(.5f);
 	float dist = length(CAMERA_POSITION_WORLD - VERTEX);
 	float distance_scale = mapToRange(dist, scale_min_distance, scale_max_distance, 1.f, scale_max);
 
-	VERTEX += noise * wobble_scale * distance_scale;
+	VERTEX += noise * wobble_scale * modulate_wobble_scale * distance_scale;
 }
 
 void fragment() {

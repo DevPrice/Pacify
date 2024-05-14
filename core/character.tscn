@@ -31,6 +31,7 @@ radius = 0.6
 height = 1.2
 
 [node name="Character" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_llamu")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
