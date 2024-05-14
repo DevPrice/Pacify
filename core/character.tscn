@@ -8,6 +8,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_toucl"]
 render_priority = 0
 shader = ExtResource("2_4quj4")
+shader_parameter/is_dynamic = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/tint = Color(1, 1, 0.52, 1)
 shader_parameter/specular_size = 0.0
