@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1bgm2h5qht5u"]
+
+[ext_resource type="PackedScene" uid="uid://b5av0w6u1u3hi" path="res://blender/ghost.blend" id="1_gygm3"]
+[ext_resource type="Script" path="res://core/ghost.gd" id="1_n76hl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hlnk2"]
+radius = 0.6
+height = 2.5
+
+[node name="Ghost" type="CharacterBody3D"]
+script = ExtResource("1_n76hl")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("CapsuleShape3D_hlnk2")
+
+[node name="Body" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Mesh" parent="Body" instance=ExtResource("1_gygm3")]

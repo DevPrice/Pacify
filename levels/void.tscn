@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://csp2nkbtfsphk"]
+[gd_scene load_steps=12 format=3 uid="uid://csp2nkbtfsphk"]
 
 [ext_resource type="PackedScene" uid="uid://cpb65bej6sqp3" path="res://levels/maze.tscn" id="1_2sene"]
 [ext_resource type="PackedScene" uid="uid://cdx6vcwe4dfkd" path="res://blender/void.blend" id="1_megdj"]
 [ext_resource type="PackedScene" uid="uid://b7gskgungub07" path="res://core/character.tscn" id="2_ibh2c"]
 [ext_resource type="Shader" path="res://materials/shaders/outline.gdshader" id="3_7ow1e"]
+[ext_resource type="PackedScene" uid="uid://d1bgm2h5qht5u" path="res://core/ghost.tscn" id="5_2u6ba"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7ey73"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -52,7 +53,7 @@ environment = SubResource("Environment_r2c2d")
 [node name="Level" type="Node3D" parent="."]
 
 [node name="Maze" parent="Level" instance=ExtResource("1_2sene")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.13918, -0.255091, 27.1349)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 26)
 
 [node name="void" parent="Level" instance=ExtResource("1_megdj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -71,3 +72,8 @@ mesh = SubResource("QuadMesh_66e4o")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape3D_jlth1")
+
+[node name="Ghost" parent="." instance=ExtResource("5_2u6ba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9878, 0.266797, 25.9944)
+gravity = 9.8
+ghost_color = Color(0.894493, 0.446626, 0.685537, 1)
