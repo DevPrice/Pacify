@@ -59,7 +59,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 26)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Character" parent="." instance=ExtResource("2_ibh2c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 30)
 movement_speed = 4.0
 
 [node name="Outline" type="MeshInstance3D" parent="."]
@@ -73,7 +73,8 @@ mesh = SubResource("QuadMesh_66e4o")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape3D_jlth1")
 
-[node name="Ghost" parent="." instance=ExtResource("5_2u6ba")]
+[node name="Ghost" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_2u6ba")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9878, 0.266797, 25.9944)
 gravity = 9.8
 ghost_color = Color(0.894493, 0.446626, 0.685537, 1)
+target = NodePath("../Character")

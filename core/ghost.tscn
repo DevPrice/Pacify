@@ -4,10 +4,13 @@
 [ext_resource type="Script" path="res://core/ghost.gd" id="1_n76hl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hlnk2"]
-radius = 0.6
 height = 2.5
 
 [node name="Ghost" type="CharacterBody3D"]
+collision_layer = 2
+axis_lock_linear_y = true
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_n76hl")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -19,3 +22,6 @@ shape = SubResource("CapsuleShape3D_hlnk2")
 unique_name_in_owner = true
 
 [node name="Mesh" parent="Body" instance=ExtResource("1_gygm3")]
+
+[node name="NavigationAgent" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
