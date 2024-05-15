@@ -6,7 +6,7 @@ signal consumed
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
-	scale = Vector3.ZERO
+	scale = Vector3.ONE * .01
 	%AnimationPlayer.play("spawn")
 
 func _on_body_entered(body: Node3D) -> void:
