@@ -11,6 +11,7 @@ class_name Ghost extends CharacterBody3D
 		if is_node_ready(): _update_color()
 
 @export var target: Node3D
+@export var wander_position: Vector3
 
 var mode: Mode = Mode.IDLE
 
@@ -18,8 +19,11 @@ func _ready():
 	_update_color()
 
 func _process(_delta):
-	if target:
+	if mode == Mode.CHASE and target:
 		%NavigationAgent.target_position = target.global_position
+	elif mode == Mode.WANDER and global_position.distance_to(%NavigationAgent.target_position) < 1:
+		var random_nearby = Vector3(randf() * 16 - 8, 0, randf() * 16 - 8)
+		%NavigationAgent.target_position = NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, global_position + random_nearby)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -50,5 +54,21 @@ func _update_color() -> void:
 	for geometry in %Body.find_children("*", "GeometryInstance3D"):
 		if geometry is GeometryInstance3D:
 			geometry.set_instance_shader_parameter("modulate", ghost_color)
+
+func start(wait_time: float) -> void:
+	mode = Ghost.Mode.CHASE
+	var timer = Timer.new()
+	timer.wait_time = wait_time
+	timer.autostart = true
+	timer.timeout.connect(_change_mode)
+	add_child(timer)
+
+func _change_mode() -> void:
+	match mode:
+		Mode.WANDER:
+			mode = Mode.CHASE
+		Mode.CHASE:
+			mode = Mode.WANDER
+			%NavigationAgent.target_position = wander_position
 
 enum Mode { IDLE, WANDER, CHASE, FLEE }

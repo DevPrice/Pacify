@@ -83,6 +83,7 @@ pause={
 3d_physics/layer_1="Env"
 3d_physics/layer_2="Actor"
 3d_physics/layer_3="Navigation"
+3d_physics/layer_4="Enemy"
 
 [navigation]
 

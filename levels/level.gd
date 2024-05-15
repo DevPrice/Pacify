@@ -50,6 +50,7 @@ func _spawn_ghosts() -> void:
 		ghost.position = map.map_to_local(ghost_spawn.location) + Vector3(0, -.5, 0)
 		ghost.ghost_color = ghost_spawn.color
 		ghost.target = _player
+		ghost.wander_position = map.map_to_local(ghost_spawn.wander_location) + global_position
 		add_child(ghost)
 		ghost.add_to_group("ghost")
 		if ghost_spawn.delay_seconds > 0:
@@ -57,10 +58,10 @@ func _spawn_ghosts() -> void:
 			timer.one_shot = true
 			timer.autostart = true
 			timer.wait_time = ghost_spawn.delay_seconds
-			timer.timeout.connect(func (): ghost.mode = Ghost.Mode.CHASE)
+			timer.timeout.connect(func (): ghost.start(ghost_spawn.chase_interval))
 			ghost.add_child(timer)
 		else:
-			ghost.mode = Ghost.Mode.CHASE
+			ghost.start(ghost_spawn.chase_interval)
 
 func start_level() -> void:
 	clear_level()
