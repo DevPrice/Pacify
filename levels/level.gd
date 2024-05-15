@@ -3,7 +3,7 @@ class_name Level extends Node3D
 @export var pellet_scene: PackedScene
 @export var map: GridMap
 
-signal pellets_remaining_changed
+signal pellets_remaining_changed(remaining: int)
 signal level_completed
 
 var _nav_ready = false
