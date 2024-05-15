@@ -11,15 +11,14 @@ var _current_level: Level:
 		return _levels[_current_level_index]
 
 func _ready():
+	%Character.process_mode = PROCESS_MODE_DISABLED
 	await get_tree().create_timer(2.0).timeout
 	start_next_level()
-	var ghosts = find_children("*", "Ghost", false)
-	for ghost in ghosts:
-		ghost.mode = Ghost.Mode.CHASE
 
 func start_current_level() -> void:
 	var level = _current_level
 	if level:
+		level.level_completed.connect(start_next_level)
 		level.start_level()
 
 func start_next_level() -> void:
@@ -29,4 +28,14 @@ func start_next_level() -> void:
 	_current_level_index += 1
 	var next_level = _current_level
 	if next_level:
+		next_level.level_failed.connect(_on_level_failed)
 		next_level.start_level()
+	%Character.process_mode = PROCESS_MODE_PAUSABLE
+
+func _on_level_failed():
+	var level = _current_level
+	if level:
+		level.clear_level()
+		%Character.process_mode = PROCESS_MODE_DISABLED
+		await get_tree().create_timer(2.0).timeout
+		get_tree().reload_current_scene()

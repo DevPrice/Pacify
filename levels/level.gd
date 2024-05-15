@@ -8,6 +8,7 @@ class_name Level extends Node3D
 
 signal pellets_remaining_changed(remaining: int)
 signal level_completed
+signal level_failed
 
 var _nav_ready = false
 
@@ -53,6 +54,7 @@ func _spawn_ghosts() -> void:
 		ghost.wander_position = map.map_to_local(ghost_spawn.wander_location) + global_position
 		add_child(ghost)
 		ghost.add_to_group("ghost")
+		ghost.touched_character.connect(_on_ghost_touched_character)
 		if ghost_spawn.delay_seconds > 0:
 			var timer = Timer.new()
 			timer.one_shot = true
@@ -69,5 +71,9 @@ func start_level() -> void:
 	_spawn_ghosts()
 
 func clear_level() -> void:
-	get_tree().call_group("pellet", "free")
-	get_tree().call_group("ghost", "free")
+	get_tree().call_group("pellet", "queue_free")
+	get_tree().call_group("ghost", "queue_free")
+
+func _on_ghost_touched_character(character: Character):
+	if character == _player:
+		level_failed.emit()

@@ -15,8 +15,15 @@ class_name Ghost extends CharacterBody3D
 
 var mode: Mode = Mode.IDLE
 
+signal touched_character(character: Character)
+
 func _ready():
 	_update_color()
+	%TouchArea.body_entered.connect(
+		func (body: Node3D):
+			if body is Character:
+				touched_character.emit(body)
+	)
 
 func _process(_delta):
 	if mode == Mode.CHASE and target:
