@@ -21,12 +21,16 @@ func _ready():
 func _spawn_pellets() -> void:
 	if map and pellet_scene:
 		for tile_location in map.get_used_cells():
+			if tile_location.x == 0 and tile_location.y == 0 and abs(tile_location.z) <= 1: continue
 			var local_position = map.map_to_local(tile_location)
 			var pos = map.map_to_local(tile_location) + global_position
 			var closest_point = NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, pos)
 			if pos.distance_to(closest_point) < .5:
-				var pellet: Pellet = pellet_scene.instantiate()
-				pellet.position = local_position
-				add_child(pellet)
-				remaining_pellets += 1
-				pellet.consumed.connect(func (): remaining_pellets -= 1)
+				_spawn_pellet(local_position)
+
+func _spawn_pellet(at: Vector3) -> void:
+	var pellet: Pellet = pellet_scene.instantiate()
+	pellet.position = at
+	add_child(pellet)
+	remaining_pellets += 1
+	pellet.consumed.connect(func (): remaining_pellets -= 1)
