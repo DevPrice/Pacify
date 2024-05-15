@@ -12,6 +12,8 @@ class_name Ghost extends CharacterBody3D
 
 @export var target: Node3D
 
+var mode: Mode = Mode.IDLE
+
 func _ready():
 	_update_color()
 
@@ -33,7 +35,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _get_movement() -> Vector3:
-	if not is_node_ready() or not target: return Vector3.ZERO
+	if not is_node_ready() or not target or mode == Mode.IDLE: return Vector3.ZERO
 
 	var target_position = %NavigationAgent.target_position
 	var distance_to_target = (target_position - global_position).length()
@@ -48,3 +50,5 @@ func _update_color() -> void:
 	for geometry in %Body.find_children("*", "GeometryInstance3D"):
 		if geometry is GeometryInstance3D:
 			geometry.set_instance_shader_parameter("modulate", ghost_color)
+
+enum Mode { IDLE, WANDER, CHASE, FLEE }

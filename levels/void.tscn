@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://csp2nkbtfsphk"]
+[gd_scene load_steps=13 format=3 uid="uid://csp2nkbtfsphk"]
 
 [ext_resource type="PackedScene" uid="uid://cpb65bej6sqp3" path="res://levels/maze.tscn" id="1_2sene"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_5q3t5"]
 [ext_resource type="PackedScene" uid="uid://cdx6vcwe4dfkd" path="res://blender/void.blend" id="1_megdj"]
 [ext_resource type="PackedScene" uid="uid://b7gskgungub07" path="res://core/character.tscn" id="2_ibh2c"]
 [ext_resource type="Shader" path="res://materials/shaders/outline.gdshader" id="3_7ow1e"]
@@ -40,7 +41,9 @@ size = Vector2(2, 2)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jlth1"]
 
-[node name="World" type="Node3D"]
+[node name="World" type="Node3D" node_paths=PackedStringArray("_levels")]
+script = ExtResource("1_5q3t5")
+_levels = [NodePath("Level/Maze")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.493163, 0.858026, 0.143462, -0.692962, 0.287761, 0.661058, 0.525922, -0.425423, 0.736492, 5.01265, 5.12324, 0)

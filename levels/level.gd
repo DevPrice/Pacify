@@ -6,6 +6,8 @@ class_name Level extends Node3D
 signal pellets_remaining_changed
 signal level_completed
 
+var _nav_ready = false
+
 var remaining_pellets: int = 0:
 	get: return remaining_pellets
 	set(value):
@@ -16,9 +18,11 @@ var remaining_pellets: int = 0:
 
 func _ready():
 	await NavigationServer3D.map_changed
-	_spawn_pellets()
+	_nav_ready = true
 
 func _spawn_pellets() -> void:
+	if not _nav_ready: await NavigationServer3D.map_changed
+
 	if map and pellet_scene:
 		for tile_location in map.get_used_cells():
 			if tile_location.x == 0 and tile_location.y == 0 and abs(tile_location.z) <= 1: continue
@@ -33,4 +37,12 @@ func _spawn_pellet(at: Vector3) -> void:
 	pellet.position = at
 	add_child(pellet)
 	remaining_pellets += 1
-	pellet.consumed.connect(func (): remaining_pellets -= 1)
+	pellet.tree_exited.connect(func (): remaining_pellets -= 1)
+	pellet.add_to_group("pellet")
+
+func start_level() -> void:
+	clear_level()
+	_spawn_pellets()
+
+func clear_level() -> void:
+	get_tree().call_group("pellet", "free")
