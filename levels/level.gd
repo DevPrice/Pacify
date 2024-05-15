@@ -4,12 +4,15 @@ class_name Level extends Node3D
 @export var map: GridMap
 
 signal pellets_remaining_changed
+signal level_completed
 
 var remaining_pellets: int = 0:
 	get: return remaining_pellets
 	set(value):
+		var win = remaining_pellets > 0 and value <= 0
 		remaining_pellets = value
 		pellets_remaining_changed.emit(value)
+		if win: level_completed.emit()
 
 func _ready():
 	await NavigationServer3D.map_changed
@@ -27,4 +30,3 @@ func _spawn_pellets() -> void:
 				add_child(pellet)
 				remaining_pellets += 1
 				pellet.consumed.connect(func (): remaining_pellets -= 1)
-				
