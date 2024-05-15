@@ -25,6 +25,7 @@ func _ready():
 				touched_character.emit(body)
 	)
 	_set_shader_params("seed", randf())
+	_face_camera()
 
 func _process(_delta):
 	if mode == Mode.CHASE and target:
@@ -32,6 +33,7 @@ func _process(_delta):
 	elif mode == Mode.WANDER and global_position.distance_to(%NavigationAgent.target_position) < 1:
 		var random_nearby = Vector3(randf() * 16 - 8, 0, randf() * 16 - 8)
 		%NavigationAgent.target_position = NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, global_position + random_nearby)
+	_face_camera()
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -81,5 +83,11 @@ func _change_mode() -> void:
 		Mode.CHASE:
 			mode = Mode.WANDER
 			%NavigationAgent.target_position = wander_position
+
+func _face_camera() -> void:
+	var camera = get_viewport().get_camera_3d()
+	if camera:
+		var direction: Vector3 = Basis(Vector3.UP, camera.global_rotation.y) * Vector3.BACK
+		%Body.look_at(%Body.global_position + Vector3(direction.x, %Body.position.y, direction.z))
 
 enum Mode { IDLE, WANDER, CHASE, FLEE }

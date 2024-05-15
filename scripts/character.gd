@@ -19,10 +19,10 @@ func _physics_process(delta):
 	var input_dir: Vector2 = _get_movement_input()
 	var movement_strength: float = input_dir.length()
 
-	var camera = get_viewport().get_camera_3d()
+	var camera: Camera3D = get_viewport().get_camera_3d()
 	var movement_basis: Basis = Basis(Vector3.UP, camera.global_rotation.y)
 	var raw_direction: Vector3 = movement_basis * Vector3(input_dir.x, 0, input_dir.y)
-	var direction = raw_direction.normalized() * movement_strength
+	var direction: Vector3 = raw_direction.normalized() * movement_strength
 
 	if direction:
 		%Body.look_at(%Body.global_position + Vector3(direction.x, %Body.position.y, direction.z))

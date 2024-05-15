@@ -51,13 +51,20 @@ void vertex() {
 	VERTEX += noise * wobble_scale * modulate_wobble_scale * distance_scale;
 }
 
-void fragment() {
-	ALBEDO = modulate * tint * texture(base_color, UV * uv_scale).rgb * COLOR.rgb;
-	ROUGHNESS = roughness;
-}
-
 float saturate(float x) {
 	return clamp(x, 0.f, 1.f);
+}
+
+float band(float band_size, float x) {
+	if (band_size <= 0.f) return x;
+	return saturate(round(x / band_size) * band_size);
+}
+
+void fragment() {
+	vec3 base = modulate * tint * COLOR.rgb;
+	vec4 texel = texture(base_color, UV * uv_scale);
+	ALBEDO = mix(base, base * texel.rgb, round(texel.a) * .9f); // TODO: Fix underlying asset
+	ROUGHNESS = roughness;
 }
 
 vec3 reflection(vec3 normal, vec3 light) {
