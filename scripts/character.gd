@@ -1,18 +1,15 @@
 class_name Character extends CharacterBody3D
 
 @export var movement_speed: float = 6.0
-@export var jump_velocity: float = 4.5
 @export var mass: float = 0.1
 @export var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+@export var jump_ability: Ability
 
 var _camera_pos_index: int = 0
 
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_velocity
 
 	var input_dir: Vector2 = _get_movement_input()
 	var movement_strength: float = input_dir.length()
@@ -45,6 +42,8 @@ func _input(event):
 		_rotate_camera(1)
 	if event.is_action_pressed("camera_right"):
 		_rotate_camera(-1)
+	if event.is_action_pressed("jump") and jump_ability:
+		jump_ability.try_activate()
 
 func _rotate_camera(amount: int) -> void:
 	_camera_pos_index += amount

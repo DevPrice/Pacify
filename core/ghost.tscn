@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1bgm2h5qht5u"]
 
 [ext_resource type="PackedScene" uid="uid://b5av0w6u1u3hi" path="res://blender/ghost.blend" id="1_gygm3"]
-[ext_resource type="Script" path="res://core/ghost.gd" id="1_n76hl"]
+[ext_resource type="Script" path="res://scripts/ghost.gd" id="1_plmjs"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hlnk2"]
 height = 2.5
@@ -11,7 +11,7 @@ collision_layer = 2
 axis_lock_linear_y = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_n76hl")
+script = ExtResource("1_plmjs")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
