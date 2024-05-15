@@ -1,7 +1,6 @@
 class_name Ghost extends CharacterBody3D
 
 @export var movement_speed: float = 3.0
-@export var jump_velocity: float = 4.5
 @export var mass: float = 0.1
 @export var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 

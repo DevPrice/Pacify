@@ -16,7 +16,7 @@ func _on_character_entered(_character: Character) -> void:
 	if _consume_effect:
 		var fx = _consume_effect.instantiate()
 		get_parent_node_3d().add_child(fx)
-		if fx is VisualInstance3D:
+		if fx is Node3D:
 			fx.global_position = %Collision.global_position
 		if fx is GPUParticles3D:
 			fx.emitting = true
