@@ -12,7 +12,6 @@ var _current_level: Level:
 
 func _ready():
 	%Character.process_mode = PROCESS_MODE_DISABLED
-	await get_tree().create_timer(2.0).timeout
 	start_next_level()
 
 func start_current_level() -> void:
@@ -29,7 +28,7 @@ func start_next_level() -> void:
 	var next_level = _current_level
 	if next_level:
 		next_level.level_failed.connect(_on_level_failed)
-		next_level.start_level()
+		await next_level.start_level()
 	%Character.process_mode = PROCESS_MODE_PAUSABLE
 
 func _on_level_failed():

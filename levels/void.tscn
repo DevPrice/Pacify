@@ -63,7 +63,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Character" parent="." instance=ExtResource("2_ibh2c")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.2, 26)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.268, 26)
 movement_speed = 4.0
 
 [node name="Outline" type="MeshInstance3D" parent="."]

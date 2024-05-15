@@ -27,14 +27,27 @@ func _ready():
 func _spawn_pellets() -> void:
 	if not _nav_ready: await NavigationServer3D.map_changed
 
+	var player_tile_location = map.local_to_map(_player.global_position - global_position)
+
+	var cells = map.get_used_cells()
+	cells.sort_custom(
+		func (a: Vector3i, b: Vector3i):
+			if a.x != b.x:
+				return a.x < b.x
+			if a.z != b.z:
+				return a.z > b.z
+			return a.y < b.y
+	)
+
 	if map and pellet_scene:
-		for tile_location in map.get_used_cells():
-			if tile_location.x == 0 and tile_location.y == 0 and abs(tile_location.z) <= 1: continue
+		for tile_location in cells:
+			if tile_location == player_tile_location or (tile_location.x == 0 and tile_location.y == 0 and abs(tile_location.z) <= 1): continue
 			var local_position = map.map_to_local(tile_location)
 			var pos = map.map_to_local(tile_location) + global_position
 			var closest_point = NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, pos)
 			if pos.distance_to(closest_point) < .5:
 				_spawn_pellet(local_position)
+				await get_tree().create_timer(.016).timeout
 
 func _spawn_pellet(at: Vector3) -> void:
 	var pellet: Pellet = pellet_scene.instantiate()
@@ -67,8 +80,11 @@ func _spawn_ghosts() -> void:
 
 func start_level() -> void:
 	clear_level()
-	_spawn_pellets()
 	_spawn_ghosts()
+	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_DISABLED)
+	await get_tree().create_timer(2.0).timeout
+	await _spawn_pellets()
+	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_PAUSABLE)
 
 func clear_level() -> void:
 	get_tree().call_group("pellet", "queue_free")
