@@ -84,7 +84,7 @@ func start_level() -> void:
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_DISABLED)
 	await get_tree().create_timer(2.0).timeout
 	await _spawn_pellets()
-	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_PAUSABLE)
+	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_INHERIT)
 
 func clear_level() -> void:
 	get_tree().call_group("pellet", "queue_free")
@@ -92,4 +92,7 @@ func clear_level() -> void:
 
 func _on_ghost_touched_character(character: Character):
 	if character == _player:
+		var ghosts = get_tree().get_nodes_in_group("ghost")
+		for g in ghosts:
+			g.mode = Ghost.Mode.IDLE
 		level_failed.emit()

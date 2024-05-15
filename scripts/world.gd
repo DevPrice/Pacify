@@ -29,12 +29,11 @@ func start_next_level() -> void:
 	if next_level:
 		next_level.level_failed.connect(_on_level_failed)
 		await next_level.start_level()
-	%Character.process_mode = PROCESS_MODE_PAUSABLE
+	%Character.process_mode = Node.PROCESS_MODE_INHERIT
 
 func _on_level_failed():
 	var level = _current_level
 	if level:
-		level.clear_level()
 		%Character.process_mode = PROCESS_MODE_DISABLED
 		await get_tree().create_timer(2.0).timeout
 		get_tree().reload_current_scene()
