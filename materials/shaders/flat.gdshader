@@ -7,6 +7,7 @@ global uniform sampler3D noise_texture : hint_default_white, filter_linear_mipma
 instance uniform vec3 modulate : source_color = vec3(1.f);
 instance uniform float modulate_wobble_scale = 1.f;
 instance uniform float modulate_wobble_speed = 1.f;
+instance uniform float seed = 0.f;
 
 uniform bool is_dynamic = false;
 
@@ -36,11 +37,12 @@ float mapToRange(float x, float inMin, float inMax, float outMin, float outMax) 
 void vertex() {
 	vec3 position = is_dynamic ? VERTEX - NODE_POSITION_WORLD : VERTEX;
 
-	float wobble_time = floor(TIME * wobble_speed * modulate_wobble_speed);
+	float wobble_time = floor(TIME * wobble_speed * modulate_wobble_speed) * (1.f + seed) + 10.f * seed;
+	vec3 noise_coord = position * noise_scale;
 	vec3 noise = vec3(
-		texture(noise_texture, position * noise_scale + wobble_time * .73f).x,
-		texture(noise_texture, position * noise_scale + wobble_time * .8989f).y,
-		texture(noise_texture, position * noise_scale + wobble_time * 1.117f).z
+		texture(noise_texture, noise_coord + wobble_time * .73f).x,
+		texture(noise_texture, noise_coord + wobble_time * .8989f).y,
+		texture(noise_texture, noise_coord + wobble_time * 1.117f).z
 	) - vec3(.5f);
 
 	float dist = length(CAMERA_POSITION_WORLD - VERTEX);

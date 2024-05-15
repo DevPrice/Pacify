@@ -41,8 +41,8 @@ _consume_effect = ExtResource("3_04a67")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 cast_shadow = 0
 instance_shader_parameters/modulate = Color(1, 1, 1, 1)
-instance_shader_parameters/modulate_wobble_scale = 0.5
-instance_shader_parameters/modulate_wobble_speed = 2.0
+instance_shader_parameters/modulate_wobble_scale = 1.0
+instance_shader_parameters/modulate_wobble_speed = 1.0
 mesh = SubResource("SphereMesh_mywqk")
 
 [node name="Collision" type="CollisionShape3D" parent="."]

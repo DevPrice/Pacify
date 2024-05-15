@@ -24,6 +24,7 @@ func _ready():
 			if body is Character:
 				touched_character.emit(body)
 	)
+	_set_shader_params("seed", randf())
 
 func _process(_delta):
 	if mode == Mode.CHASE and target:
@@ -58,9 +59,12 @@ func _get_movement() -> Vector3:
 	return (next_path - global_position).normalized()
 
 func _update_color() -> void:
+	_set_shader_params("modulate", ghost_color)
+
+func _set_shader_params(param: String, value: Variant):
 	for geometry in %Body.find_children("*", "GeometryInstance3D"):
 		if geometry is GeometryInstance3D:
-			geometry.set_instance_shader_parameter("modulate", ghost_color)
+			geometry.set_instance_shader_parameter(param, value)
 
 func start(wait_time: float) -> void:
 	mode = Ghost.Mode.CHASE
