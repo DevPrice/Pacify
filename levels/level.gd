@@ -1,7 +1,10 @@
 class_name Level extends Node3D
 
 @export var pellet_scene: PackedScene
+@export var ghost_scene: PackedScene
 @export var map: GridMap
+@export var ghost_spawns: Array[GhostSpawn] = []
+@export var _player: Character
 
 signal pellets_remaining_changed(remaining: int)
 signal level_completed
@@ -40,9 +43,30 @@ func _spawn_pellet(at: Vector3) -> void:
 	pellet.tree_exited.connect(func (): remaining_pellets -= 1)
 	pellet.add_to_group("pellet")
 
+func _spawn_ghosts() -> void:
+	if not ghost_scene or not map: return
+	for ghost_spawn in ghost_spawns:
+		var ghost: Ghost = ghost_scene.instantiate()
+		ghost.position = map.map_to_local(ghost_spawn.location) + Vector3(0, -.5, 0)
+		ghost.ghost_color = ghost_spawn.color
+		ghost.target = _player
+		add_child(ghost)
+		ghost.add_to_group("ghost")
+		if ghost_spawn.delay_seconds > 0:
+			var timer = Timer.new()
+			timer.one_shot = true
+			timer.autostart = true
+			timer.wait_time = ghost_spawn.delay_seconds
+			timer.timeout.connect(func (): ghost.mode = Ghost.Mode.CHASE)
+			ghost.add_child(timer)
+		else:
+			ghost.mode = Ghost.Mode.CHASE
+
 func start_level() -> void:
 	clear_level()
 	_spawn_pellets()
+	_spawn_ghosts()
 
 func clear_level() -> void:
 	get_tree().call_group("pellet", "free")
+	get_tree().call_group("ghost", "free")
