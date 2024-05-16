@@ -78,4 +78,5 @@ mesh = SubResource("QuadMesh_66e4o")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape3D_jlth1")
 
-[node name="Control" parent="." instance=ExtResource("6_vupde")]
+[node name="MainMenu" parent="." instance=ExtResource("6_vupde")]
+unique_name_in_owner = true

@@ -12,6 +12,8 @@ var _current_level: Level:
 
 func _ready():
 	%Character.process_mode = PROCESS_MODE_DISABLED
+	await %MainMenu.start_pressed
+	%MainMenu.dismiss()
 	start_next_level()
 
 func start_current_level() -> void:
