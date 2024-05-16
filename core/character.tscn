@@ -113,6 +113,7 @@ far = 200.0
 
 [node name="JumpAbility" type="Node" parent="."]
 script = ExtResource("3_4h2eb")
+input_action = "jump"
 cooldown_seconds = 8.0
 icon = ExtResource("4_gyjvj")
 

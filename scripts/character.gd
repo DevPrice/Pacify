@@ -48,10 +48,10 @@ func _physics_process(delta):
 func _input(event):
 	if event.is_action_pressed("camera_left"):
 		_rotate_camera(1)
+		get_viewport().set_input_as_handled()
 	if event.is_action_pressed("camera_right"):
 		_rotate_camera(-1)
-	if event.is_action_pressed("jump") and jump_ability:
-		jump_ability.try_activate()
+		get_viewport().set_input_as_handled()
 
 func _rotate_camera(amount: int) -> void:
 	_camera_pos_index += amount
