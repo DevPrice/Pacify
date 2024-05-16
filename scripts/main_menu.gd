@@ -13,6 +13,6 @@ func _on_exit():
 	get_tree().quit()
 
 func dismiss() -> void:
-	%AnimationPlayer.play("dismiss")
-	await %AnimationPlayer.animation_finished
+	%UIAnimations.play("dismiss")
+	await %UIAnimations.animation_finished
 	queue_free()

@@ -1,9 +1,6 @@
 extends Control
 
-func _gui_input(event):
-	_handle_focus(event)
-
-func _unhandled_input(event):
+func _input(event):
 	_handle_focus(event)
 
 func _handle_focus(event: InputEvent):
