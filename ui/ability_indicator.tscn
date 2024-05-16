@@ -9,7 +9,7 @@
 resource_local_to_scene = true
 shader = ExtResource("2_dxgxr")
 shader_parameter/tint = Vector3(0.8, 0.8, 0.8)
-shader_parameter/cooldown_percent = 1.0
+shader_parameter/cooldown_percent = 0.9
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5l10h"]
 bg_color = Color(1, 1, 1, 1)
