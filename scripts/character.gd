@@ -9,9 +9,6 @@ signal killed(source: Node)
 
 var _camera_pos_index: int = 0
 
-func _init():
-	disable_mode = DISABLE_MODE_KEEP_ACTIVE
-
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta

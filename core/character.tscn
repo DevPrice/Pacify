@@ -33,6 +33,7 @@ radius = 0.6
 height = 1.2
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("jump_ability")]
+disable_mode = 2
 collision_layer = 18
 script = ExtResource("1_llamu")
 jump_ability = NodePath("JumpAbility")
