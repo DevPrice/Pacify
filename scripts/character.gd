@@ -9,6 +9,10 @@ signal killed(source: Node)
 
 var _camera_pos_index: int = 0
 
+func reset() -> void:
+	for ability in find_children("*", "Ability", false):
+		ability.remaining_cooldown = 0
+
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta

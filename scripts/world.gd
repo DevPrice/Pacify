@@ -46,6 +46,8 @@ func _start_level(level: Level) -> void:
 	level.level_failed.connect(_on_level_failed)
 	await level.start_level()
 	%Character.process_mode = Node.PROCESS_MODE_INHERIT
+	%Character.velocity = Vector3.ZERO
+	%Character.reset()
 
 func _on_level_failed():
 	GameInstance.pausable = false
