@@ -39,5 +39,7 @@ instance_shader_parameters/modulate_wobble_speed = 0.5
 emitting = false
 one_shot = true
 explosiveness = 1.0
+fixed_fps = 12
+interpolate = false
 process_material = SubResource("ParticleProcessMaterial_p43if")
 draw_pass_1 = SubResource("SphereMesh_i6dwq")
