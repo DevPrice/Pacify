@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cdx6vcwe4dfkd" path="res://blender/void.blend" id="1_megdj"]
 [ext_resource type="PackedScene" uid="uid://b7gskgungub07" path="res://core/character.tscn" id="2_ibh2c"]
 [ext_resource type="Shader" path="res://materials/shaders/outline.gdshader" id="3_7ow1e"]
-[ext_resource type="PackedScene" uid="uid://b6oevb2fve0ye" path="res://main_menu.tscn" id="6_vupde"]
+[ext_resource type="PackedScene" uid="uid://b6oevb2fve0ye" path="res://ui/main_menu.tscn" id="6_vupde"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7ey73"]
 sky_top_color = Color(1, 1, 1, 1)
