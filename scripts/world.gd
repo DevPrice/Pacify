@@ -1,6 +1,7 @@
 extends Node3D
 
 @export var _paused_scene: PackedScene
+@export var _ability_indicator_scene: PackedScene
 @export var _levels: Array[Level] = []
 
 var _current_level_index: int = -1
@@ -17,6 +18,16 @@ func _ready():
 	%MainMenu.dismiss()
 	GameInstance.pausable = true
 	start_next_level()
+	_init_hud()
+
+func _init_hud():
+	%Hud.visible = true
+
+	if _ability_indicator_scene:
+		for ability in %Character.find_children("*", "Ability", false):
+			var ability_indicator: AbilityIndicator = _ability_indicator_scene.instantiate()
+			ability_indicator.ability = ability
+			%Hud.add_ability(ability_indicator)
 
 func start_current_level() -> void:
 	var level = _current_level

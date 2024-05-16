@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://b7gskgungub07"]
+[gd_scene load_steps=21 format=3 uid="uid://b7gskgungub07"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_llamu"]
 [ext_resource type="Shader" path="res://materials/shaders/flat.gdshader" id="2_4quj4"]
 [ext_resource type="Script" path="res://scripts/jump_ability.gd" id="3_4h2eb"]
+[ext_resource type="Texture2D" uid="uid://dl2n5gxgovcvs" path="res://textures/arrow_n.svg" id="4_gyjvj"]
 [ext_resource type="AudioStream" uid="uid://ctl1qsrraw5nt" path="res://audio/footstep_concrete_000.ogg" id="4_stnt8"]
 [ext_resource type="AudioStream" uid="uid://bpeege1skghev" path="res://audio/footstep_concrete_001.ogg" id="5_vfsnp"]
 [ext_resource type="AudioStream" uid="uid://dwmf3ia7n2qe2" path="res://audio/footstep_concrete_002.ogg" id="6_8qivi"]
@@ -112,7 +113,8 @@ far = 200.0
 
 [node name="JumpAbility" type="Node" parent="."]
 script = ExtResource("3_4h2eb")
-cooldown_seconds = 8
+cooldown_seconds = 8.0
+icon = ExtResource("4_gyjvj")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="JumpAbility"]
 stream = SubResource("AudioStreamRandomizer_12mcx")

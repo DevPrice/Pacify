@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjjtoxqrrekvj"]
+
+[ext_resource type="Script" path="res://scripts/ability_indicator.gd" id="1_g4dat"]
+[ext_resource type="Material" uid="uid://blu5erxlyjf1k" path="res://materials/ui/icon.tres" id="2_8b5xv"]
+[ext_resource type="Shader" path="res://materials/shaders/cooldown.gdshader" id="2_dxgxr"]
+[ext_resource type="Texture2D" uid="uid://dl2n5gxgovcvs" path="res://textures/arrow_n.svg" id="2_q5lvu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_016y5"]
+resource_local_to_scene = true
+shader = ExtResource("2_dxgxr")
+shader_parameter/tint = Vector3(0.8, 0.8, 0.8)
+shader_parameter/cooldown_percent = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5l10h"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.95)
+corner_detail = 4
+
+[node name="AbilityIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g4dat")
+
+[node name="CooldownContainer" type="CanvasGroup" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_016y5")
+
+[node name="CooldownContainer" type="PanelContainer" parent="CooldownContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5l10h")
+
+[node name="MarginContainer" type="MarginContainer" parent="CooldownContainer/CooldownContainer"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CooldownContainer/CooldownContainer/MarginContainer"]
+unique_name_in_owner = true
+material = ExtResource("2_8b5xv")
+layout_mode = 2
+texture = ExtResource("2_q5lvu")

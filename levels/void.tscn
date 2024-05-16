@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://csp2nkbtfsphk"]
+[gd_scene load_steps=17 format=3 uid="uid://csp2nkbtfsphk"]
 
 [ext_resource type="PackedScene" uid="uid://cpb65bej6sqp3" path="res://levels/maze.tscn" id="1_2sene"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_5q3t5"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://de3ytn4pq28ro" path="res://ui/pause_menu.tscn" id="2_0vk6k"]
 [ext_resource type="PackedScene" uid="uid://b7gskgungub07" path="res://core/character.tscn" id="2_ibh2c"]
 [ext_resource type="Shader" path="res://materials/shaders/outline.gdshader" id="3_7ow1e"]
+[ext_resource type="PackedScene" uid="uid://cjjtoxqrrekvj" path="res://ui/ability_indicator.tscn" id="3_vcnw0"]
+[ext_resource type="PackedScene" uid="uid://3je4aljuxv2f" path="res://ui/hud.tscn" id="6_eum3a"]
 [ext_resource type="PackedScene" uid="uid://b6oevb2fve0ye" path="res://ui/main_menu.tscn" id="6_vupde"]
 [ext_resource type="Script" path="res://scripts/auto_focus.gd" id="7_2hxet"]
 
@@ -46,6 +48,7 @@ size = Vector2(2, 2)
 [node name="World" type="Node3D" node_paths=PackedStringArray("_levels")]
 script = ExtResource("1_5q3t5")
 _paused_scene = ExtResource("2_0vk6k")
+_ability_indicator_scene = ExtResource("3_vcnw0")
 _levels = [NodePath("Level/Maze")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -69,6 +72,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.268, 26)
 movement_speed = 4.0
+
+[node name="Hud" parent="Character" instance=ExtResource("6_eum3a")]
+unique_name_in_owner = true
+visible = false
 
 [node name="Outline" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, -2.98023e-08, 2.98023e-08, -1.49012e-08, 1, 0, 1.49012e-08, 0, 1, 0, 0, 0)

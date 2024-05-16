@@ -1,8 +1,9 @@
 class_name Ability extends Node
 
-@export var cooldown_seconds = 0
+@export var cooldown_seconds: float = 0
+@export var icon: Texture2D
 
-var _remaining_cooldown = 0
+var _remaining_cooldown: float = 0
 
 func _physics_process(delta):
 	_remaining_cooldown = move_toward(_remaining_cooldown, 0, delta)
@@ -24,3 +25,7 @@ func _activate() -> void:
 func _fx() -> void:
 	for audio in find_children("*", "AudioStreamPlayer", false):
 		audio.play()
+
+func cooldown_percent() -> float:
+	if cooldown_seconds <= 0: return 1
+	return 1 - _remaining_cooldown / cooldown_seconds
