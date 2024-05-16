@@ -2,7 +2,7 @@
 
 [sub_resource type="Gradient" id="Gradient_5dwmu"]
 offsets = PackedFloat32Array(0, 0.802326, 1)
-colors = PackedColorArray(1, 1, 1, 0.5, 1, 0.83, 0.83, 0.5, 0.875, 0.83, 1, 0.5)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.83, 0.83, 1, 0.875, 0.83, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_lmi37"]
 gradient = SubResource("Gradient_5dwmu")
@@ -10,3 +10,4 @@ fill_to = Vector2(1, 1)
 
 [resource]
 texture = SubResource("GradientTexture2D_lmi37")
+modulate_color = Color(1, 1, 1, 0.8)
