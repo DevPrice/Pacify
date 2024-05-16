@@ -33,6 +33,8 @@ func _process(_delta):
 	elif mode == Mode.WANDER and global_position.distance_to(%NavigationAgent.target_position) < 1:
 		var random_nearby = Vector3(randf() * 16 - 8, 0, randf() * 16 - 8)
 		%NavigationAgent.target_position = NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, global_position + random_nearby)
+	elif mode == Mode.FLEE and target:
+		%NavigationAgent.target_position = _find_flee_target()
 	_face_camera()
 
 func _physics_process(delta):
@@ -85,9 +87,34 @@ func _change_mode() -> void:
 			%NavigationAgent.target_position = wander_position
 
 func _face_camera() -> void:
-	var camera = get_viewport().get_camera_3d()
+	var camera := get_viewport().get_camera_3d()
 	if camera:
 		var direction: Vector3 = Basis(Vector3.UP, camera.global_rotation.y) * Vector3.BACK
 		%Body.look_at(%Body.global_position + Vector3(direction.x, %Body.position.y, direction.z))
+
+func _find_flee_target() -> Vector3:
+	if not target: return global_position
+
+	var direction := (global_position - target.global_position).normalized()
+
+	if global_position.distance_to(target.global_position) < 5:
+		var test_point := NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, global_position + direction * 5)
+		if test_point.distance_to(global_position) > 1:
+			return test_point
+
+	var test_points := [
+		Vector3(10, 0, 0),
+		Vector3(0, 0, 10),
+		Vector3(-10, 0, 0),
+		Vector3(0, 0, -10),
+	].map(
+		func (test_point: Vector3):
+			return NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, global_position + test_point)
+	)
+	test_points.sort_custom(
+		func (a: Vector3, b: Vector3) -> bool:
+			return a.distance_squared_to(target.global_position) > b.distance_squared_to(target.global_position)
+	)
+	return test_points[0]
 
 enum Mode { IDLE, WANDER, CHASE, FLEE }
