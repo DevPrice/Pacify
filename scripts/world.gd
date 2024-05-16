@@ -16,7 +16,6 @@ func _ready():
 	%Character.process_mode = PROCESS_MODE_DISABLED
 	await %MainMenu.start_pressed
 	%MainMenu.dismiss()
-	GameInstance.pausable = true
 	start_next_level()
 	_init_hud()
 
@@ -43,6 +42,7 @@ func start_next_level() -> void:
 	if next_level: _start_level(next_level)
 
 func _start_level(level: Level) -> void:
+	GameInstance.pausable = true
 	level.level_failed.connect(_on_level_failed)
 	await level.start_level()
 	%Character.process_mode = Node.PROCESS_MODE_INHERIT
