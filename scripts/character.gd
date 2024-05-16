@@ -31,8 +31,12 @@ func _physics_process(delta):
 
 	var speed = velocity.length()
 	var inertia = mass * speed
+	var fall_velocity = abs(velocity.y) if velocity.y < -1 else 0
 
 	if move_and_slide():
+		if %LandSound and fall_velocity and abs(velocity.y) < .25:
+			%LandSound.volume_db = lerpf(-20, -8, clampf(abs(fall_velocity) / 4.5, 0, 1))
+			%LandSound.play()
 		for i in get_slide_collision_count():
 			var c = get_slide_collision(i)
 			if c.get_collider() is RigidBody3D:

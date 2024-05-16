@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b7gskgungub07"]
+[gd_scene load_steps=20 format=3 uid="uid://b7gskgungub07"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_llamu"]
 [ext_resource type="Shader" path="res://materials/shaders/flat.gdshader" id="2_4quj4"]
@@ -8,6 +8,11 @@
 [ext_resource type="AudioStream" uid="uid://dwmf3ia7n2qe2" path="res://audio/footstep_concrete_002.ogg" id="6_8qivi"]
 [ext_resource type="AudioStream" uid="uid://blp5b5td1pgl1" path="res://audio/footstep_concrete_003.ogg" id="7_eq7p7"]
 [ext_resource type="AudioStream" uid="uid://bufgomwss7n7v" path="res://audio/footstep_concrete_004.ogg" id="8_2rxm4"]
+[ext_resource type="AudioStream" uid="uid://csgk02flua2sp" path="res://audio/impactPlank_medium_000.ogg" id="9_traxw"]
+[ext_resource type="AudioStream" uid="uid://usbqqkp2rw6k" path="res://audio/impactPlank_medium_001.ogg" id="10_qhjfj"]
+[ext_resource type="AudioStream" uid="uid://cmqgav3lewnrg" path="res://audio/impactPlank_medium_002.ogg" id="11_0j3oy"]
+[ext_resource type="AudioStream" uid="uid://vqkgkt20761b" path="res://audio/impactPlank_medium_003.ogg" id="12_ifsta"]
+[ext_resource type="AudioStream" uid="uid://vuq3vx6xsbbv" path="res://audio/impactPlank_medium_004.ogg" id="13_ntx8f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eyh12"]
 
@@ -48,6 +53,21 @@ stream_2/weight = 1.0
 stream_3/stream = ExtResource("7_eq7p7")
 stream_3/weight = 1.0
 stream_4/stream = ExtResource("8_2rxm4")
+stream_4/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_13vb1"]
+random_pitch = 1.5
+random_volume_offset_db = 3.0
+streams_count = 5
+stream_0/stream = ExtResource("9_traxw")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("10_qhjfj")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("11_0j3oy")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("12_ifsta")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("13_ntx8f")
 stream_4/weight = 1.0
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("jump_ability")]
@@ -96,4 +116,10 @@ cooldown_seconds = 8
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="JumpAbility"]
 stream = SubResource("AudioStreamRandomizer_12mcx")
+bus = &"Effects"
+
+[node name="LandSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_13vb1")
+volume_db = -6.0
 bus = &"Effects"

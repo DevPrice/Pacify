@@ -36,6 +36,7 @@ func start_next_level() -> void:
 	%Character.process_mode = Node.PROCESS_MODE_INHERIT
 
 func _on_level_failed():
+	GameInstance.pausable = false
 	var level = _current_level
 	if level:
 		%Character.process_mode = PROCESS_MODE_DISABLED
