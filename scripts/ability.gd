@@ -5,6 +5,8 @@ class_name Ability extends Node
 
 var _remaining_cooldown: float = 0
 
+signal activated
+
 func _physics_process(delta):
 	_remaining_cooldown = move_toward(_remaining_cooldown, 0, delta)
 
@@ -16,6 +18,7 @@ func try_activate() -> bool:
 		_activate()
 		_fx()
 		_remaining_cooldown = cooldown_seconds
+		activated.emit()
 		return true
 	return false
 

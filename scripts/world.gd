@@ -50,6 +50,7 @@ func _on_level_failed():
 	GameInstance.pausable = false
 	var level = _current_level
 	if level:
+		level.level_failed.disconnect(_on_level_failed)
 		%Character.process_mode = PROCESS_MODE_DISABLED
 		await get_tree().create_timer(2.0).timeout
 		get_tree().reload_current_scene()
