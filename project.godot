@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 GameInstance="*res://scripts/game_instance.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [input]
 
 ui_accept={
