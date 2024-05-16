@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://csp2nkbtfsphk"]
+[gd_scene load_steps=13 format=3 uid="uid://csp2nkbtfsphk"]
 
 [ext_resource type="PackedScene" uid="uid://cpb65bej6sqp3" path="res://levels/maze.tscn" id="1_2sene"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_5q3t5"]
 [ext_resource type="PackedScene" uid="uid://cdx6vcwe4dfkd" path="res://blender/void.blend" id="1_megdj"]
 [ext_resource type="PackedScene" uid="uid://b7gskgungub07" path="res://core/character.tscn" id="2_ibh2c"]
 [ext_resource type="Shader" path="res://materials/shaders/outline.gdshader" id="3_7ow1e"]
+[ext_resource type="PackedScene" uid="uid://b6oevb2fve0ye" path="res://main_menu.tscn" id="6_vupde"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7ey73"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -76,3 +77,5 @@ mesh = SubResource("QuadMesh_66e4o")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape3D_jlth1")
+
+[node name="Control" parent="." instance=ExtResource("6_vupde")]
