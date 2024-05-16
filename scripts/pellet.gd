@@ -27,6 +27,7 @@ func _on_character_entered(_character: Character) -> void:
 		var player = AudioStreamPlayer.new()
 		player.stream = _consume_sound
 		player.autoplay = true
+		player.bus = "Effects"
 		player.finished.connect(player.queue_free)
 		add_sibling(player)
 	_consume()

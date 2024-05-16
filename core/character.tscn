@@ -96,3 +96,4 @@ cooldown_seconds = 8
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="JumpAbility"]
 stream = SubResource("AudioStreamRandomizer_12mcx")
+bus = &"Effects"
