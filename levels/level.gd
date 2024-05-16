@@ -93,10 +93,12 @@ func clear_level() -> void:
 
 func _reset_player() -> void:
 	if not _player: return
-	var tween = create_tween()
-	tween.tween_property(_player, "global_position", %PlayerSpawn.global_position, .25)
-	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
+
+	if _player.global_position.distance_to(%PlayerSpawn.global_position) > .2:
+		var tween = create_tween()
+		tween.tween_property(_player, "global_position", %PlayerSpawn.global_position, .25)
+		tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+		await tween.finished
 
 func _on_ghost_touched_character(character: Character):
 	if character == _player:
