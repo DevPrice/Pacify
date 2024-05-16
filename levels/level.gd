@@ -80,6 +80,7 @@ func _spawn_ghosts() -> void:
 
 func start_level() -> void:
 	clear_level()
+	await _reset_player()
 	_spawn_ghosts()
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_DISABLED)
 	await get_tree().create_timer(2.0).timeout
@@ -89,6 +90,13 @@ func start_level() -> void:
 func clear_level() -> void:
 	get_tree().call_group("pellet", "queue_free")
 	get_tree().call_group("ghost", "queue_free")
+
+func _reset_player() -> void:
+	if not _player: return
+	var tween = create_tween()
+	tween.tween_property(_player, "global_position", %PlayerSpawn.global_position, .25)
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
 
 func _on_ghost_touched_character(character: Character):
 	if character == _player:

@@ -37,13 +37,14 @@ func start_current_level() -> void:
 
 func start_next_level() -> void:
 	var level = _current_level
-	if level:
-		level.clear_level()
+	if level: level.clear_level()
 	_current_level_index += 1
 	var next_level = _current_level
-	if next_level:
-		next_level.level_failed.connect(_on_level_failed)
-		await next_level.start_level()
+	if next_level: _start_level(next_level)
+
+func _start_level(level: Level) -> void:
+	level.level_failed.connect(_on_level_failed)
+	await level.start_level()
 	%Character.process_mode = Node.PROCESS_MODE_INHERIT
 
 func _on_level_failed():
@@ -53,7 +54,7 @@ func _on_level_failed():
 		level.level_failed.disconnect(_on_level_failed)
 		%Character.process_mode = PROCESS_MODE_DISABLED
 		await get_tree().create_timer(2.0).timeout
-		get_tree().reload_current_scene()
+		_start_level(level)
 
 func _notification(what):
 	if what == NOTIFICATION_PAUSED:
