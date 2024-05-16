@@ -1,8 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7gskgungub07"]
+[gd_scene load_steps=14 format=3 uid="uid://b7gskgungub07"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_llamu"]
 [ext_resource type="Shader" path="res://materials/shaders/flat.gdshader" id="2_4quj4"]
 [ext_resource type="Script" path="res://scripts/jump_ability.gd" id="3_4h2eb"]
+[ext_resource type="AudioStream" uid="uid://ctl1qsrraw5nt" path="res://audio/footstep_concrete_000.ogg" id="4_stnt8"]
+[ext_resource type="AudioStream" uid="uid://bpeege1skghev" path="res://audio/footstep_concrete_001.ogg" id="5_vfsnp"]
+[ext_resource type="AudioStream" uid="uid://dwmf3ia7n2qe2" path="res://audio/footstep_concrete_002.ogg" id="6_8qivi"]
+[ext_resource type="AudioStream" uid="uid://blp5b5td1pgl1" path="res://audio/footstep_concrete_003.ogg" id="7_eq7p7"]
+[ext_resource type="AudioStream" uid="uid://bufgomwss7n7v" path="res://audio/footstep_concrete_004.ogg" id="8_2rxm4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eyh12"]
 
@@ -31,6 +36,19 @@ material = SubResource("ShaderMaterial_toucl")
 material = SubResource("ShaderMaterial_toucl")
 radius = 0.6
 height = 1.2
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_12mcx"]
+streams_count = 5
+stream_0/stream = ExtResource("4_stnt8")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_vfsnp")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_8qivi")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("7_eq7p7")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("8_2rxm4")
+stream_4/weight = 1.0
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("jump_ability")]
 disable_mode = 2
@@ -75,3 +93,6 @@ far = 200.0
 [node name="JumpAbility" type="Node" parent="."]
 script = ExtResource("3_4h2eb")
 cooldown_seconds = 8
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="JumpAbility"]
+stream = SubResource("AudioStreamRandomizer_12mcx")

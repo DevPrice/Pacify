@@ -111,3 +111,5 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion/NavBlockers/StaticBody3D5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0816269, 0.928101, 0.335022)
 shape = SubResource("BoxShape3D_sfie7")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

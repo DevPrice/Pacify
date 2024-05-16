@@ -1,8 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbuyx8jif60i8"]
+[gd_scene load_steps=10 format=3 uid="uid://cbuyx8jif60i8"]
 
 [ext_resource type="Material" uid="uid://dggf6722udriq" path="res://materials/pellet.tres" id="1_8o1fk"]
 [ext_resource type="Script" path="res://scripts/pellet.gd" id="1_opwps"]
 [ext_resource type="PackedScene" uid="uid://cg3ca82k1wxi1" path="res://core/pellet_burst.tscn" id="3_04a67"]
+[ext_resource type="AudioStream" uid="uid://casdkohsd0gvt" path="res://audio/rollover2.ogg" id="3_tck5k"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6r70d"]
+playback_mode = 1
+random_pitch = 2.0
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("3_tck5k")
+stream_0/weight = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_mywqk"]
 material = ExtResource("1_8o1fk")
@@ -37,6 +46,7 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_opwps")
 _consume_effect = ExtResource("3_04a67")
+_consume_sound = SubResource("AudioStreamRandomizer_6r70d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 cast_shadow = 0

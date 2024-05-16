@@ -13,9 +13,14 @@ func can_activate() -> bool:
 func try_activate() -> bool:
 	if can_activate():
 		_activate()
+		_fx()
 		_remaining_cooldown = cooldown_seconds
 		return true
 	return false
 
 func _activate() -> void:
 	pass
+
+func _fx() -> void:
+	for audio in find_children("*", "AudioStreamPlayer", false):
+		audio.play()
