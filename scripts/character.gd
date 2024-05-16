@@ -5,8 +5,6 @@ class_name Character extends CharacterBody3D
 @export var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var jump_ability: Ability
 
-signal killed(source: Node)
-
 var _camera_pos_index: int = 0
 
 func reset() -> void:

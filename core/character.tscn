@@ -103,7 +103,7 @@ unique_name_in_owner = true
 [node name="Camera" type="Camera3D" parent="CameraHolder/CameraArm"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 24, 24)
-v_offset = 3.0
+v_offset = 2.0
 projection = 1
 current = true
 fov = 90.0
