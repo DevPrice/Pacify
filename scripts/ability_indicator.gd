@@ -8,7 +8,7 @@ class_name AbilityIndicator extends Control
 		if ability: ability.activated.connect(_on_activated)
 		if is_node_ready(): _update_icon()
 
-var _was_ready := false
+var _was_ready := true
 
 func _ready():
 	_update_icon()
