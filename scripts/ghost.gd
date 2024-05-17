@@ -26,6 +26,8 @@ var mode: Mode = Mode.IDLE:
 
 signal touched_character(character: Character)
 
+var _dialog_character: Resource
+
 func _ready():
 	_home_position = global_position
 	_update_color()
@@ -36,6 +38,7 @@ func _ready():
 	)
 	_set_shader_params("seed", randf())
 	_face_camera()
+	_get_dialog_character()
 
 func _process(_delta):
 	if mode == Mode.CHASE and target:
@@ -160,8 +163,13 @@ func _get_movement_speed_modifier() -> float:
 		Mode.RESPAWN: return 2
 	return 1
 
+func _get_dialog_character() -> Resource:
+	if spawn_settings and spawn_settings.dialog_character and not _dialog_character:
+		_dialog_character = load(spawn_settings.dialog_character)
+	return _dialog_character
+
 func register_character(layout: Node) -> void:
-	if spawn_settings and spawn_settings.dialog_character:
-		layout.register_character(load(spawn_settings.dialog_character), %DialogNode)
+	var c = _get_dialog_character()
+	if c: layout.register_character(c, %DialogNode)
 
 enum Mode { IDLE, WANDER, CHASE, FLEE, RESPAWN }

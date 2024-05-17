@@ -6,7 +6,12 @@ class_name Character extends CharacterBody3D
 @export var jump_ability: Ability
 @export_file("*.dch") var dialog_character: String
 
+var _character_resource: Resource
+
 var _camera_pos_index: int = 0
+
+func _ready() -> void:
+	_get_dialog_character()
 
 func reset() -> void:
 	for ability in find_children("*", "Ability", false):
@@ -64,6 +69,12 @@ func _rotate_camera(amount: int) -> void:
 func _get_movement_input() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
+
+func _get_dialog_character() -> Resource:
+	if not _character_resource:
+		_character_resource = load(dialog_character)
+	return _character_resource
+
 func register_character(layout: Node) -> void:
-	if dialog_character:
-		layout.register_character(load(dialog_character), %DialogNode)
+	var c = _get_dialog_character()
+	if c: layout.register_character(c, %DialogNode)
