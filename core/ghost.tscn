@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1bgm2h5qht5u"]
+[gd_scene load_steps=8 format=3 uid="uid://d1bgm2h5qht5u"]
 
 [ext_resource type="PackedScene" uid="uid://b5av0w6u1u3hi" path="res://blender/ghost.blend" id="1_gygm3"]
 [ext_resource type="Script" path="res://scripts/ghost.gd" id="1_plmjs"]
@@ -8,6 +8,33 @@ height = 2.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ywurr"]
 radius = 0.6
+
+[sub_resource type="Animation" id="Animation_vjgx6"]
+resource_name = "shrink"
+step = 0.05
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.2, 1, 0.4, 0.4, 0.4)
+
+[sub_resource type="Animation" id="Animation_6pmqw"]
+resource_name = "grow"
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.4, 0.4, 0.4, 0.2, 1, 1, 1, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_12v1b"]
+_data = {
+"grow": SubResource("Animation_6pmqw"),
+"shrink": SubResource("Animation_vjgx6")
+}
 
 [node name="Ghost" type="CharacterBody3D"]
 collision_layer = 10
@@ -44,3 +71,9 @@ shape = SubResource("SphereShape3D_ywurr")
 [node name="DialogNode" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_12v1b")
+}

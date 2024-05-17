@@ -170,3 +170,7 @@ func _end_flee():
 func _on_ghost_eaten(ghost: Ghost):
 	ghost.mode = Ghost.Mode.RESPAWN
 	%GhostConsumeSound.play()
+	Engine.time_scale = .05
+	var timer = get_tree().create_timer(.2, true, false, true)
+	await timer.timeout
+	Engine.time_scale = 1

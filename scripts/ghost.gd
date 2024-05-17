@@ -100,10 +100,11 @@ func _update_color() -> void:
 	else:
 		_set_shader_params("modulate", ghost_color)
 
+	# pretend this is color so the function name makes sense
 	if mode == Mode.RESPAWN:
-		%Body.scale = Vector3.ONE * .4
-	else:
-		%Body.scale = Vector3.ONE
+		%AnimationPlayer.play("shrink")
+	elif %Body.scale.distance_to(Vector3.ONE) > .25:
+		%AnimationPlayer.play("grow")
 
 func _set_shader_params(param: String, value: Variant):
 	for geometry in %Body.find_children("*", "GeometryInstance3D"):
