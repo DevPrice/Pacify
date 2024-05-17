@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dlx7jcvm52tyw"]
+[gd_scene load_steps=17 format=3 uid="uid://dnahiwbdr582g"]
 
 [ext_resource type="Script" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble.gd" id="1_jdhpk"]
 [ext_resource type="Shader" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/speech_bubble.gdshader" id="2_1mhvf"]
@@ -52,16 +52,8 @@ shader_parameter/curve_sampler = SubResource("CurveTexture_q6qf6")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6ls0"]
 content_margin_left = 5.0
 content_margin_right = 5.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 0.95)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+bg_color = Color(0.901961, 0.901961, 0.901961, 1)
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4yjl"]
 draw_center = false
@@ -73,7 +65,6 @@ layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_jdhpk")
-padding = Vector2(8, 8)
 
 [node name="Tail" type="Line2D" parent="."]
 width = 96.0
@@ -82,8 +73,10 @@ width_curve = SubResource("Curve_0j8nu")
 [node name="Background" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_60xbe")
 layout_mode = 1
-offset_right = 294.0
-offset_bottom = 100.0
+offset_left = -69.0
+offset_top = -21.0
+offset_right = 225.0
+offset_bottom = 79.0
 mouse_filter = 2
 
 [node name="DialogText" type="RichTextLabel" parent="."]
@@ -115,9 +108,8 @@ script = ExtResource("4_7bm4b")
 layout_mode = 1
 anchors_preset = -1
 offset_left = 16.0
-offset_top = -40.0
+offset_top = -26.0
 offset_right = 27.0
-offset_bottom = -14.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h6ls0")

@@ -10,7 +10,7 @@ var base_position := Vector2.ZERO
 
 var base_direction := Vector2(1.0, -1.0).normalized()
 var safe_zone := 50.0
-var padding := Vector2()
+@export var padding := Vector2()
 
 
 func get_tail() -> Line2D:
@@ -36,23 +36,27 @@ func get_name_label() -> DialogicNode_NameLabel:
 func get_dialog_text() -> DialogicNode_DialogText:
 	return %DialogText
 
-
 func _ready() -> void:
 	scale = Vector2.ZERO
 	modulate.a = 0.0
-	if speaker_node:
+	if character:
+		get_name_label_panel().self_modulate = character.color
+	if speaker_node and is_instance_valid(speaker_node):
 		if speaker_node is Node2D:
 			position = speaker_node.get_global_transform_with_canvas().origin
 		if speaker_node is Node3D:
-			position = get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
-
+			var camera = get_viewport().get_camera_3d()
+			if camera:
+				position = get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
 
 func _process(delta):
-	if speaker_node:
+	if speaker_node and is_instance_valid(speaker_node):
 		if speaker_node is Node2D:
 			position = speaker_node.get_global_transform_with_canvas().origin
 		if speaker_node is Node3D:
-			position = get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
+			var camera = get_viewport().get_camera_3d()
+			if camera:
+				position = get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
 
 	var center := get_viewport_rect().size / 2.0
 

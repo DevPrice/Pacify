@@ -176,7 +176,9 @@ func update_name_label(character:DialogicCharacter) -> void:
 				name_label.text = translated_display_name
 
 			if !'use_character_color' in name_label or name_label.use_character_color:
-				name_label.self_modulate = character.color
+				name_label.self_modulate = Color.BLACK
+				# FIXME
+				# name_label.self_modulate = character.color
 
 		else:
 			name_label.text = ''

@@ -113,6 +113,8 @@ func bubble_apply_overrides(bubble:DialogicNode_TextBubble) -> void:
 		nl.add_theme_font_override(&'font', load(name_label_font) as Font)
 
 	nl.use_character_color = name_label_use_character_color
+	# if !nl.use_character_color:
+		# nl.add_theme_color_override(&"font_color", name_label_color)
 
 	var nlp: PanelContainer = bubble.get_name_label_panel()
 	nlp.self_modulate = name_label_box_modulate

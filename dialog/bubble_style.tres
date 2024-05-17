@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/dialogic/Modules/DefaultLayoutParts/Base_TextBubble/text_bubble_base.gd" id="1_pvlxf"]
 [ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="2_pe2fc"]
 [ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="3_vi5ey"]
-[ext_resource type="PackedScene" uid="uid://d2it0xiap3gnt" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble_layer.tscn" id="4_30nno"]
+[ext_resource type="PackedScene" uid="uid://cqtihd0vy6pt3" path="res://ui/dialog/TextbubbleLayer/custom_text_bubble_layer.tscn" id="4_57vdg"]
 [ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style.gd" id="5_rdpl1"]
 
 [sub_resource type="PackedScene" id="PackedScene_8cfdp"]
@@ -33,7 +33,7 @@ overrides = {}
 
 [sub_resource type="Resource" id="Resource_niy78"]
 script = ExtResource("3_vi5ey")
-scene = ExtResource("4_30nno")
+scene = ExtResource("4_57vdg")
 overrides = {
 "box_modulate_by_character_color": "true",
 "name_label_font": "\"res://fonts/SueEllenFrancisco-Regular.ttf\"",
