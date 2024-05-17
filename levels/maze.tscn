@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cpb65bej6sqp3"]
+[gd_scene load_steps=37 format=3 uid="uid://cpb65bej6sqp3"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_op5oo"]
 [ext_resource type="MeshLibrary" uid="uid://cueyskc4kvs74" path="res://levels/grid_terrain.tres" id="1_ukg3o"]
@@ -17,6 +17,10 @@
 [ext_resource type="AudioStream" uid="uid://bcf3g4cgf1044" path="res://audio/jingles_HIT09.ogg" id="13_l2xtx"]
 [ext_resource type="AudioStream" uid="uid://ca3am2d77124m" path="res://audio/jingles_HIT05.ogg" id="14_8xfes"]
 
+[sub_resource type="Resource" id="Resource_bptf4"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/red_haha.dtl"
+
 [sub_resource type="Resource" id="Resource_jk0qg"]
 script = ExtResource("3_wje1x")
 color = Color(0.89, 0.445, 0.445, 1)
@@ -25,6 +29,11 @@ delay_seconds = 0.0
 wander_location = Vector3i(4, 0, -3)
 chase_interval = 7.0
 dialog_character = "res://dialog/red.dch"
+victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_bptf4")])
+
+[sub_resource type="Resource" id="Resource_0lgwf"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/pink_dismissive.dtl"
 
 [sub_resource type="Resource" id="Resource_ou0vl"]
 script = ExtResource("3_wje1x")
@@ -34,6 +43,11 @@ delay_seconds = 4.0
 wander_location = Vector3i(-4, 0, -3)
 chase_interval = 8.0
 dialog_character = "res://dialog/pink.dch"
+victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_0lgwf")])
+
+[sub_resource type="Resource" id="Resource_0a75g"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/stinky_easy.dtl"
 
 [sub_resource type="Resource" id="Resource_r41sr"]
 script = ExtResource("3_wje1x")
@@ -43,6 +57,11 @@ delay_seconds = 10.0
 wander_location = Vector3i(-4, 0, 3)
 chase_interval = 6.0
 dialog_character = "res://dialog/stinky.dch"
+victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_0a75g")])
+
+[sub_resource type="Resource" id="Resource_6jbgq"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/blurple_silent.dtl"
 
 [sub_resource type="Resource" id="Resource_u2kau"]
 script = ExtResource("3_wje1x")
@@ -52,6 +71,7 @@ delay_seconds = 18.0
 wander_location = Vector3i(4, 0, 3)
 chase_interval = 5.0
 dialog_character = "res://dialog/blurple.dch"
+victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_6jbgq")])
 
 [sub_resource type="Resource" id="Resource_vgyv8"]
 script = ExtResource("6_wg6f0")
@@ -76,6 +96,10 @@ timeline = "res://dialog/begin_waste_time.dtl"
 [sub_resource type="Resource" id="Resource_weobx"]
 script = ExtResource("6_wg6f0")
 timeline = "res://dialog/begin_failure.dtl"
+
+[sub_resource type="Resource" id="Resource_f2fu0"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/begin_what_captain.dtl"
 
 [sub_resource type="Resource" id="Resource_g3n1m"]
 script = ExtResource("6_wg6f0")
@@ -120,7 +144,7 @@ power_pellet_scene = ExtResource("3_vjvh1")
 ghost_scene = ExtResource("3_ep4hy")
 map = NodePath("NavigationRegion/GridMap")
 ghost_spawns = Array[ExtResource("3_wje1x")]([SubResource("Resource_jk0qg"), SubResource("Resource_ou0vl"), SubResource("Resource_r41sr"), SubResource("Resource_u2kau")])
-begin_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_vgyv8"), SubResource("Resource_qjirn"), SubResource("Resource_c66sj"), SubResource("Resource_oedjn"), SubResource("Resource_78igl"), SubResource("Resource_weobx")])
+begin_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_vgyv8"), SubResource("Resource_qjirn"), SubResource("Resource_c66sj"), SubResource("Resource_oedjn"), SubResource("Resource_78igl"), SubResource("Resource_weobx"), SubResource("Resource_f2fu0")])
 initial_dialog = SubResource("Resource_g3n1m")
 
 [node name="GhostConsumeSound" type="AudioStreamPlayer" parent="."]

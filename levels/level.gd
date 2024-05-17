@@ -111,15 +111,11 @@ func start_level() -> void:
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_DISABLED)
 	await get_tree().create_timer(2.0).timeout
 	if begin_dialogs and begin_dialogs.size() > 0:
-		var ghosts = get_tree().get_nodes_in_group("ghost")
 		var dialog = initial_dialog if _attempts == 0 and initial_dialog else begin_dialogs.pick_random()
-		Dialogic.VAR.attempts = _attempts
-		var layout := Dialogic.start(dialog.timeline)
-		if _player: _player.register_character(layout)
+		var ghosts = get_tree().get_nodes_in_group("ghost")
 		for g in ghosts:
 			g.process_mode = Node.PROCESS_MODE_DISABLED
-			g.register_character(layout)
-		await Dialogic.timeline_ended
+		await _play_timeline(dialog.timeline)
 	await _spawn_pellets()
 	await get_tree().create_timer(1, false).timeout
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_INHERIT)
@@ -147,7 +143,22 @@ func _on_ghost_touched_character(ghost: Ghost, character: Character):
 			for g in ghosts:
 				g.mode = Ghost.Mode.IDLE
 			%LoseSound.play()
+			_player.process_mode = Node.PROCESS_MODE_DISABLED
+			if ghost.spawn_settings and ghost.spawn_settings.victory_dialogs and ghost.spawn_settings.victory_dialogs.size() > 0:
+				var dialog = ghost.spawn_settings.victory_dialogs.pick_random()
+				for g in ghosts:
+					g.process_mode = Node.PROCESS_MODE_DISABLED
+				await _play_timeline(dialog.timeline)
 			level_failed.emit()
+
+func _play_timeline(timeline):
+	Dialogic.VAR.attempts = _attempts
+	var layout := Dialogic.start(timeline)
+	if _player: _player.register_character(layout)
+	var ghosts = get_tree().get_nodes_in_group("ghost")
+	for g in ghosts:
+		g.register_character(layout)
+	await Dialogic.timeline_ended
 
 func _on_power_pellet_consumed():
 	var existing_timer := get_node_or_null("FleeTimer")
