@@ -3,6 +3,7 @@ class_name Ghost extends CharacterBody3D
 @export var movement_speed: float = 3.0
 @export var mass: float = 0.1
 @export var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+@export_color_no_alpha var flee_color: Color
 
 @export_color_no_alpha var ghost_color: Color = Color.WHITE:
 	get: return ghost_color
@@ -13,7 +14,11 @@ class_name Ghost extends CharacterBody3D
 @export var target: Node3D
 @export var wander_position: Vector3
 
-var mode: Mode = Mode.IDLE
+var mode: Mode = Mode.IDLE:
+	get: return mode
+	set(value):
+		mode = value
+		if is_node_ready(): _update_color()
 
 signal touched_character(character: Character)
 
@@ -43,7 +48,7 @@ func _physics_process(delta):
 
 	var direction = _get_movement()
 	if direction:
-		velocity = direction * movement_speed
+		velocity = direction * movement_speed * _get_movement_speed_modifier()
 	else:
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 		velocity.z = move_toward(velocity.z, 0, movement_speed)
@@ -63,7 +68,10 @@ func _get_movement() -> Vector3:
 	return (next_path - global_position).normalized()
 
 func _update_color() -> void:
-	_set_shader_params("modulate", ghost_color)
+	if mode == Mode.FLEE:
+		_set_shader_params("modulate", flee_color)
+	else:
+		_set_shader_params("modulate", ghost_color)
 
 func _set_shader_params(param: String, value: Variant):
 	for geometry in %Body.find_children("*", "GeometryInstance3D"):
@@ -117,4 +125,9 @@ func _find_flee_target() -> Vector3:
 	)
 	return test_points[0]
 
-enum Mode { IDLE, WANDER, CHASE, FLEE }
+func _get_movement_speed_modifier() -> float:
+	if mode == Mode.FLEE:
+		return .5
+	return 1
+
+enum Mode { IDLE, WANDER, CHASE, FLEE, RESPAWN }

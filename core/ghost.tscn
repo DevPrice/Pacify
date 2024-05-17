@@ -15,6 +15,7 @@ axis_lock_linear_y = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_plmjs")
+flee_color = Color(0.279535, 0.000418352, 0.970969, 1)
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true

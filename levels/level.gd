@@ -72,6 +72,7 @@ func _spawn_power_pellet(at: Vector3) -> void:
 	add_child(pellet)
 	remaining_pellets += 1
 	pellet.tree_exited.connect(func (): remaining_pellets -= 1)
+	pellet.consumed.connect(_on_power_pellet_consumed)
 	pellet.add_to_group("pellet")
 
 func _spawn_ghosts() -> void:
@@ -84,7 +85,10 @@ func _spawn_ghosts() -> void:
 		ghost.wander_position = map.map_to_local(ghost_spawn.wander_location) + global_position
 		add_child(ghost)
 		ghost.add_to_group("ghost")
-		ghost.touched_character.connect(_on_ghost_touched_character)
+		ghost.touched_character.connect(
+			func (character: Character):
+				_on_ghost_touched_character(ghost, character)
+		)
 		if ghost_spawn.delay_seconds > 0:
 			var timer = Timer.new()
 			timer.one_shot = true
@@ -117,9 +121,37 @@ func _reset_player() -> void:
 		tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 		await tween.finished
 
-func _on_ghost_touched_character(character: Character):
+func _on_ghost_touched_character(ghost: Ghost, character: Character):
 	if character == _player:
 		var ghosts = get_tree().get_nodes_in_group("ghost")
-		for g in ghosts:
-			g.mode = Ghost.Mode.IDLE
-		level_failed.emit()
+		if ghost.mode == Ghost.Mode.FLEE:
+			_on_ghost_eaten(ghost)
+		elif ghost.mode != Ghost.Mode.RESPAWN:
+			for g in ghosts:
+				g.mode = Ghost.Mode.IDLE
+			level_failed.emit()
+
+func _on_power_pellet_consumed():
+	var existing_timer := get_node_or_null("FleeTimer")
+	if existing_timer: existing_timer.queue_free()
+
+	var ghosts := get_tree().get_nodes_in_group("ghost")
+	for g in ghosts:
+		if g.mode != Ghost.Mode.IDLE:
+			g.mode = Ghost.Mode.FLEE
+	var timer := Timer.new()
+	timer.one_shot = true
+	timer.wait_time = 6
+	timer.autostart = true
+	timer.name = "FleeTimer"
+	add_child(timer)
+	timer.timeout.connect(_end_flee)
+
+func _end_flee():
+	var ghosts := get_tree().get_nodes_in_group("ghost")
+	for g in ghosts:
+		if g.mode == Ghost.Mode.FLEE:
+			g.mode = Ghost.Mode.CHASE if randf() < .5 else Ghost.Mode.WANDER
+
+func _on_ghost_eaten(ghost: Ghost):
+	ghost.mode = Ghost.Mode.RESPAWN
