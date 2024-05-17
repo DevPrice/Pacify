@@ -612,6 +612,8 @@ func update_preview(force:=false) -> void:
 
 
 func _on_some_resource_saved(file:Variant) -> void:
+	if not current_previewed_scene: return
+
 	if file is Resource and file == current_previewed_scene.script:
 		update_preview(true)
 

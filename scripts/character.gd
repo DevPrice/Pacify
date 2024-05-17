@@ -4,6 +4,7 @@ class_name Character extends CharacterBody3D
 @export var mass: float = 0.1
 @export var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var jump_ability: Ability
+@export_file("*.dch") var dialog_character: String
 
 var _camera_pos_index: int = 0
 
@@ -62,3 +63,7 @@ func _rotate_camera(amount: int) -> void:
 
 func _get_movement_input() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_up", "move_down")
+
+func register_character(layout: Node) -> void:
+	if dialog_character:
+		layout.register_character(load(dialog_character), %DialogNode)

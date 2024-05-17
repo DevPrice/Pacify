@@ -113,6 +113,7 @@ func start_level() -> void:
 		var ghosts = get_tree().get_nodes_in_group("ghost")
 		var dialog = begin_dialogs.pick_random()
 		var layout := Dialogic.start(dialog.timeline)
+		if _player: _player.register_character(layout)
 		for g in ghosts:
 			g.process_mode = Node.PROCESS_MODE_DISABLED
 			g.register_character(layout)
