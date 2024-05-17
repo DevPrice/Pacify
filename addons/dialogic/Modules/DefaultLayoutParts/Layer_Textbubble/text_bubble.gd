@@ -11,6 +11,7 @@ var base_position := Vector2.ZERO
 var base_direction := Vector2(1.0, -1.0).normalized()
 var safe_zone := 50.0
 @export var padding := Vector2()
+@export var bubble_offset := Vector2()
 
 
 func get_tail() -> Line2D:
@@ -36,27 +37,21 @@ func get_name_label() -> DialogicNode_NameLabel:
 func get_dialog_text() -> DialogicNode_DialogText:
 	return %DialogText
 
+func _update_bubble_position() -> void:
+	if speaker_node and is_instance_valid(speaker_node):
+		position = _get_speaker_position() + bubble_offset
+		if position.y < get_viewport().size.y * .1:
+			position.y -= 3 * bubble_offset.y
+
 func _ready() -> void:
 	scale = Vector2.ZERO
 	modulate.a = 0.0
 	if character:
 		get_name_label_panel().self_modulate = character.color
-	if speaker_node and is_instance_valid(speaker_node):
-		if speaker_node is Node2D:
-			position = speaker_node.get_global_transform_with_canvas().origin
-		if speaker_node is Node3D:
-			var camera = get_viewport().get_camera_3d()
-			if camera:
-				position = get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
+	_update_bubble_position()
 
 func _process(delta):
-	if speaker_node and is_instance_valid(speaker_node):
-		if speaker_node is Node2D:
-			position = speaker_node.get_global_transform_with_canvas().origin
-		if speaker_node is Node3D:
-			var camera = get_viewport().get_camera_3d()
-			if camera:
-				position = get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
+	_update_bubble_position()
 
 	var center := get_viewport_rect().size / 2.0
 
@@ -78,12 +73,13 @@ func _process(delta):
 	position = lerp(position, p, 10.0 * delta)
 
 	var point_a : Vector2 = Vector2.ZERO
-	var point_b : Vector2 = (base_position - position) * 0.5
+
+	var point_b : Vector2 = _get_speaker_position() - position
 
 	var offset = Vector2.from_angle(point_a.angle_to_point(point_b)) * bubble_rect.size * abs(direction.x) * 0.4
 
 	point_a += offset
-	point_b += offset * 0.5
+	# point_b += offset * 0.5
 
 	var curve := Curve2D.new()
 	var direction_point := Vector2(0, (point_b.y - point_a.y))
@@ -144,4 +140,15 @@ func _resize_bubble() -> void:
 		bubble_ratio.x = bubble_rect.size.x / bubble_rect.size.y
 
 	bubble.material.set(&"shader_parameter/ratio", bubble_ratio)
+
+func _get_speaker_position() -> Vector2:
+	if not speaker_node or not is_instance_valid(speaker_node): return Vector2.ZERO
+
+	if speaker_node is Node2D:
+		return speaker_node.get_global_transform_with_canvas().origin
+	if speaker_node is Node3D:
+		var camera = get_viewport().get_camera_3d()
+		if camera:
+			return get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
+	return Vector2.ZERO
 

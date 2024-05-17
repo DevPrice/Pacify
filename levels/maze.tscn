@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cpb65bej6sqp3"]
+[gd_scene load_steps=32 format=3 uid="uid://cpb65bej6sqp3"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_op5oo"]
 [ext_resource type="MeshLibrary" uid="uid://cueyskc4kvs74" path="res://levels/grid_terrain.tres" id="1_ukg3o"]
@@ -53,7 +53,31 @@ wander_location = Vector3i(4, 0, 3)
 chase_interval = 5.0
 dialog_character = "res://dialog/blurple.dch"
 
-[sub_resource type="Resource" id="Resource_3j8ge"]
+[sub_resource type="Resource" id="Resource_vgyv8"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/begin_futile.dtl"
+
+[sub_resource type="Resource" id="Resource_qjirn"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/begin_get_out.dtl"
+
+[sub_resource type="Resource" id="Resource_c66sj"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/begin_plea.dtl"
+
+[sub_resource type="Resource" id="Resource_oedjn"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/begin_why.dtl"
+
+[sub_resource type="Resource" id="Resource_78igl"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/begin_waste_time.dtl"
+
+[sub_resource type="Resource" id="Resource_weobx"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/begin_failure.dtl"
+
+[sub_resource type="Resource" id="Resource_g3n1m"]
 script = ExtResource("6_wg6f0")
 timeline = "res://dialog/intro_timeline.dtl"
 
@@ -96,7 +120,8 @@ power_pellet_scene = ExtResource("3_vjvh1")
 ghost_scene = ExtResource("3_ep4hy")
 map = NodePath("NavigationRegion/GridMap")
 ghost_spawns = Array[ExtResource("3_wje1x")]([SubResource("Resource_jk0qg"), SubResource("Resource_ou0vl"), SubResource("Resource_r41sr"), SubResource("Resource_u2kau")])
-begin_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_3j8ge")])
+begin_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_vgyv8"), SubResource("Resource_qjirn"), SubResource("Resource_c66sj"), SubResource("Resource_oedjn"), SubResource("Resource_78igl"), SubResource("Resource_weobx")])
+initial_dialog = SubResource("Resource_g3n1m")
 
 [node name="GhostConsumeSound" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

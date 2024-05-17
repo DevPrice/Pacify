@@ -8,11 +8,14 @@ class_name Level extends Node3D
 @export var begin_dialogs: Array[LevelDialog] = []
 @export var _player: Character
 
+@export var initial_dialog: LevelDialog
+
 signal pellets_remaining_changed(remaining: int)
 signal level_completed
 signal level_failed
 
 var _nav_ready = false
+var _attempts = 0
 
 var remaining_pellets: int = 0:
 	get: return remaining_pellets
@@ -107,20 +110,20 @@ func start_level() -> void:
 	_spawn_ghosts()
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_DISABLED)
 	await get_tree().create_timer(2.0).timeout
-	await _spawn_pellets()
-	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_INHERIT)
 	if begin_dialogs and begin_dialogs.size() > 0:
 		var ghosts = get_tree().get_nodes_in_group("ghost")
-		var dialog = begin_dialogs.pick_random()
+		var dialog = initial_dialog if _attempts == 0 and initial_dialog else begin_dialogs.pick_random()
+		Dialogic.VAR.attempts = _attempts
 		var layout := Dialogic.start(dialog.timeline)
 		if _player: _player.register_character(layout)
 		for g in ghosts:
 			g.process_mode = Node.PROCESS_MODE_DISABLED
 			g.register_character(layout)
 		await Dialogic.timeline_ended
-		await get_tree().create_timer(1, false).timeout
-		for g in ghosts:
-			g.process_mode = Node.PROCESS_MODE_INHERIT
+	await _spawn_pellets()
+	await get_tree().create_timer(1, false).timeout
+	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_INHERIT)
+	_attempts += 1
 
 func clear_level() -> void:
 	get_tree().call_group("pellet", "queue_free")

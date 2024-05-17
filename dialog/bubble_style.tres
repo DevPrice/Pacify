@@ -48,4 +48,4 @@ name = "bubble_style"
 base_scene = SubResource("PackedScene_8cfdp")
 base_overrides = {}
 layers = Array[ExtResource("3_vi5ey")]([SubResource("Resource_g13c1"), SubResource("Resource_niy78")])
-metadata/_latest_layer = 1
+metadata/_latest_layer = -1

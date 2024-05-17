@@ -74,6 +74,7 @@ anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_jdhpk")
 padding = Vector2(8, 8)
+bubble_offset = Vector2(120, -80)
 
 [node name="Tail" type="Line2D" parent="."]
 width = 96.0
