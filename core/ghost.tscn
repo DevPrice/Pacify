@@ -9,6 +9,16 @@ height = 2.5
 [sub_resource type="SphereShape3D" id="SphereShape3D_ywurr"]
 radius = 0.6
 
+[sub_resource type="Animation" id="Animation_6pmqw"]
+resource_name = "grow"
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.4, 0.4, 0.4, 0.2, 1, 1, 1, 1)
+
 [sub_resource type="Animation" id="Animation_vjgx6"]
 resource_name = "shrink"
 step = 0.05
@@ -19,16 +29,6 @@ tracks/0/path = NodePath("Body")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.2, 1, 0.4, 0.4, 0.4)
-
-[sub_resource type="Animation" id="Animation_6pmqw"]
-resource_name = "grow"
-tracks/0/type = "scale_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.4, 0.4, 0.4, 0.2, 1, 1, 1, 1)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_12v1b"]
 _data = {
