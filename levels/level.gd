@@ -141,7 +141,7 @@ func _on_power_pellet_consumed():
 			g.mode = Ghost.Mode.FLEE
 	var timer := Timer.new()
 	timer.one_shot = true
-	timer.wait_time = 6
+	timer.wait_time = 4
 	timer.autostart = true
 	timer.name = "FleeTimer"
 	add_child(timer)

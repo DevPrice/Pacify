@@ -14,6 +14,8 @@ class_name Ghost extends CharacterBody3D
 @export var target: Node3D
 @export var wander_position: Vector3
 
+var _home_position := Vector3.ZERO
+
 var mode: Mode = Mode.IDLE:
 	get: return mode
 	set(value):
@@ -23,6 +25,7 @@ var mode: Mode = Mode.IDLE:
 signal touched_character(character: Character)
 
 func _ready():
+	_home_position = global_position
 	_update_color()
 	%TouchArea.body_entered.connect(
 		func (body: Node3D):
@@ -40,6 +43,23 @@ func _process(_delta):
 		%NavigationAgent.target_position = NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, global_position + random_nearby)
 	elif mode == Mode.FLEE and target:
 		%NavigationAgent.target_position = _find_flee_target()
+	elif mode == Mode.RESPAWN:
+		if global_position.distance_to(_home_position) < .5:
+			mode = Mode.IDLE
+			var timer := Timer.new()
+			timer.one_shot = true
+			timer.wait_time = 1
+			timer.autostart = true
+			timer.timeout.connect(
+				func ():
+					timer.queue_free()
+					if mode == Mode.IDLE:
+						mode = Mode.WANDER if randf() < .5 else Mode.CHASE
+			)
+			add_child(timer)
+		else:
+			%NavigationAgent.target_position = NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, _home_position)
+		
 	_face_camera()
 
 func _physics_process(delta):
@@ -70,8 +90,15 @@ func _get_movement() -> Vector3:
 func _update_color() -> void:
 	if mode == Mode.FLEE:
 		_set_shader_params("modulate", flee_color)
+	elif mode == Mode.RESPAWN:
+		_set_shader_params("modulate", Color.WHITE)
 	else:
 		_set_shader_params("modulate", ghost_color)
+
+	if mode == Mode.RESPAWN:
+		%Body.scale = Vector3.ONE * .4
+	else:
+		%Body.scale = Vector3.ONE
 
 func _set_shader_params(param: String, value: Variant):
 	for geometry in %Body.find_children("*", "GeometryInstance3D"):
@@ -126,8 +153,9 @@ func _find_flee_target() -> Vector3:
 	return test_points[0]
 
 func _get_movement_speed_modifier() -> float:
-	if mode == Mode.FLEE:
-		return .5
+	match mode:
+		Mode.FLEE: return .5
+		Mode.RESPAWN: return 2
 	return 1
 
 enum Mode { IDLE, WANDER, CHASE, FLEE, RESPAWN }
