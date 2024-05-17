@@ -5,3 +5,4 @@ class_name GhostSpawn extends Resource
 @export var delay_seconds: float
 @export var wander_location: Vector3i
 @export var chase_interval: float = 7
+@export_file("*.dch") var dialog_character: String

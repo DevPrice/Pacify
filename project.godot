@@ -22,8 +22,16 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
 
-directories/dch_directory={}
-directories/dtl_directory={}
+directories/dch_directory={
+"captain": "res://dialog/captain.dch",
+"stinky": "res://dialog/stinky.dch",
+"tutorial": "res://dialog/tutorial.dch"
+}
+directories/dtl_directory={
+"intro_timeline": "res://dialog/intro_timeline.dtl"
+}
+layout/style_list=["res://dialog/bubble_style.tres"]
+layout/default_style="res://dialog/bubble_style.tres"
 
 [display]
 
@@ -39,6 +47,7 @@ folder_colors={
 "res://audio/": "blue",
 "res://blender/": "orange",
 "res://core/": "gray",
+"res://dialog/": "green",
 "res://fonts/": "yellow",
 "res://levels/": "red",
 "res://materials/": "purple",

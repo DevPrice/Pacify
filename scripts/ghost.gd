@@ -14,6 +14,8 @@ class_name Ghost extends CharacterBody3D
 @export var target: Node3D
 @export var wander_position: Vector3
 
+var spawn_settings: GhostSpawn
+
 var _home_position := Vector3.ZERO
 
 var mode: Mode = Mode.IDLE:
@@ -157,5 +159,9 @@ func _get_movement_speed_modifier() -> float:
 		Mode.FLEE: return .5
 		Mode.RESPAWN: return 2
 	return 1
+
+func register_character(layout: Node) -> void:
+	if spawn_settings and spawn_settings.dialog_character:
+		layout.register_character(load(spawn_settings.dialog_character), %DialogNode)
 
 enum Mode { IDLE, WANDER, CHASE, FLEE, RESPAWN }

@@ -5,6 +5,7 @@ class_name Level extends Node3D
 @export var ghost_scene: PackedScene
 @export var map: GridMap
 @export var ghost_spawns: Array[GhostSpawn] = []
+@export var begin_dialogs: Array[LevelDialog] = []
 @export var _player: Character
 
 signal pellets_remaining_changed(remaining: int)
@@ -79,6 +80,7 @@ func _spawn_ghosts() -> void:
 	if not ghost_scene or not map: return
 	for ghost_spawn in ghost_spawns:
 		var ghost: Ghost = ghost_scene.instantiate()
+		ghost.spawn_settings = ghost_spawn
 		ghost.position = map.map_to_local(ghost_spawn.location) + Vector3(0, -.5, 0)
 		ghost.ghost_color = ghost_spawn.color
 		ghost.target = _player
@@ -107,6 +109,16 @@ func start_level() -> void:
 	await get_tree().create_timer(2.0).timeout
 	await _spawn_pellets()
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_INHERIT)
+	if begin_dialogs and begin_dialogs.size() > 0:
+		var ghosts = get_tree().get_nodes_in_group("ghost")
+		var dialog = begin_dialogs.pick_random()
+		var layout := Dialogic.start(dialog.timeline)
+		for g in ghosts:
+			g.process_mode = Node.PROCESS_MODE_DISABLED
+			g.register_character(layout)
+		await Dialogic.timeline_ended
+		for g in ghosts:
+			g.process_mode = Node.PROCESS_MODE_INHERIT
 
 func clear_level() -> void:
 	get_tree().call_group("pellet", "queue_free")

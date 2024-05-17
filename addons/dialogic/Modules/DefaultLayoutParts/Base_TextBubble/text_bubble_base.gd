@@ -21,7 +21,7 @@ func _ready():
 	fallback_bubble.speaker_node = $Example/ExamplePoint
 
 
-func register_character(character:DialogicCharacter, node:Node2D):
+func register_character(character:DialogicCharacter, node: Node):
 	if not has_node('TextBubbleLayer'):
 		return
 

@@ -41,12 +41,18 @@ func _ready() -> void:
 	scale = Vector2.ZERO
 	modulate.a = 0.0
 	if speaker_node:
-		position = speaker_node.get_global_transform_with_canvas().origin
+		if speaker_node is Node2D:
+			position = speaker_node.get_global_transform_with_canvas().origin
+		if speaker_node is Node3D:
+			position = get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
 
 
 func _process(delta):
 	if speaker_node:
-		base_position = speaker_node.get_global_transform_with_canvas().origin
+		if speaker_node is Node2D:
+			position = speaker_node.get_global_transform_with_canvas().origin
+		if speaker_node is Node3D:
+			position = get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
 
 	var center := get_viewport_rect().size / 2.0
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cpb65bej6sqp3"]
+[gd_scene load_steps=26 format=3 uid="uid://cpb65bej6sqp3"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_op5oo"]
 [ext_resource type="MeshLibrary" uid="uid://cueyskc4kvs74" path="res://levels/grid_terrain.tres" id="1_ukg3o"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d1bgm2h5qht5u" path="res://core/ghost.tscn" id="3_ep4hy"]
 [ext_resource type="PackedScene" uid="uid://gyg6u06yua8e" path="res://core/power_pellet.tscn" id="3_vjvh1"]
 [ext_resource type="Script" path="res://scripts/ghost_spawn.gd" id="3_wje1x"]
+[ext_resource type="Script" path="res://scripts/level_dialog.gd" id="6_wg6f0"]
 [ext_resource type="AudioStream" uid="uid://c32lyn2e5syjg" path="res://audio/jingles_HIT08.ogg" id="7_kn2pb"]
 [ext_resource type="AudioStream" uid="uid://crg6864gr0g73" path="res://audio/jingles_HIT07.ogg" id="8_tx2p1"]
 [ext_resource type="AudioStream" uid="uid://cpm87c738b3se" path="res://audio/jingles_HIT03.ogg" id="9_xrp1c"]
@@ -23,6 +24,7 @@ location = Vector3i(-1, 0, 0)
 delay_seconds = 0.0
 wander_location = Vector3i(4, 0, -3)
 chase_interval = 7.0
+dialog_character = ""
 
 [sub_resource type="Resource" id="Resource_ou0vl"]
 script = ExtResource("3_wje1x")
@@ -31,6 +33,7 @@ location = Vector3i(0, 0, 0)
 delay_seconds = 4.0
 wander_location = Vector3i(-4, 0, -3)
 chase_interval = 8.0
+dialog_character = ""
 
 [sub_resource type="Resource" id="Resource_r41sr"]
 script = ExtResource("3_wje1x")
@@ -39,6 +42,7 @@ location = Vector3i(0, 0, 1)
 delay_seconds = 10.0
 wander_location = Vector3i(-4, 0, 3)
 chase_interval = 6.0
+dialog_character = "res://dialog/stinky.dch"
 
 [sub_resource type="Resource" id="Resource_u2kau"]
 script = ExtResource("3_wje1x")
@@ -47,6 +51,11 @@ location = Vector3i(0, 0, -1)
 delay_seconds = 18.0
 wander_location = Vector3i(4, 0, 3)
 chase_interval = 5.0
+dialog_character = ""
+
+[sub_resource type="Resource" id="Resource_3j8ge"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/intro_timeline.dtl"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_skle7"]
 streams_count = 5
@@ -87,6 +96,7 @@ power_pellet_scene = ExtResource("3_vjvh1")
 ghost_scene = ExtResource("3_ep4hy")
 map = NodePath("NavigationRegion/GridMap")
 ghost_spawns = Array[ExtResource("3_wje1x")]([SubResource("Resource_jk0qg"), SubResource("Resource_ou0vl"), SubResource("Resource_r41sr"), SubResource("Resource_u2kau")])
+begin_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_3j8ge")])
 
 [node name="GhostConsumeSound" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
