@@ -40,7 +40,7 @@ noise = SubResource("FastNoiseLite_ejxnv")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_60xbe"]
 shader = ExtResource("2_1mhvf")
 shader_parameter/radius = 1.39
-shader_parameter/ratio = Vector2(2.251, 1)
+shader_parameter/ratio = Vector2(2.25, 2.25)
 shader_parameter/crease = 0.12
 shader_parameter/speed = 2.53
 shader_parameter/texture_scale = 0.24

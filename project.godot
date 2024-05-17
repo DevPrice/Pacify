@@ -23,7 +23,10 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={
+"blurple": "res://dialog/blurple.dch",
 "captain": "res://dialog/captain.dch",
+"pink": "res://dialog/pink.dch",
+"red": "res://dialog/red.dch",
 "stinky": "res://dialog/stinky.dch",
 "tutorial": "res://dialog/tutorial.dch"
 }
