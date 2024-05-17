@@ -9,7 +9,7 @@ var _current_level: Level:
 	get:
 		if not _levels: return null
 		var size = _levels.size()
-		if size < 1 or _current_level_index < 0 or _current_level_index > size: return null
+		if size < 1 or _current_level_index < 0 or _current_level_index >= size: return null
 		return _levels[_current_level_index]
 
 func _ready():
@@ -28,12 +28,6 @@ func _init_hud():
 			ability_indicator.ability = ability
 			%Hud.add_ability(ability_indicator)
 
-func start_current_level() -> void:
-	var level = _current_level
-	if level:
-		level.level_completed.connect(start_next_level)
-		level.start_level()
-
 func start_next_level() -> void:
 	var level = _current_level
 	if level: level.clear_level()
@@ -43,6 +37,7 @@ func start_next_level() -> void:
 
 func _start_level(level: Level) -> void:
 	GameInstance.pausable = true
+	level.level_completed.connect(start_next_level)
 	level.level_failed.connect(_on_level_failed)
 	await level.start_level()
 	%Character.process_mode = Node.PROCESS_MODE_INHERIT
@@ -53,6 +48,7 @@ func _on_level_failed():
 	GameInstance.pausable = false
 	var level = _current_level
 	if level:
+		level.level_completed.disconnect(start_next_level)
 		level.level_failed.disconnect(_on_level_failed)
 		%Character.process_mode = PROCESS_MODE_DISABLED
 		await get_tree().create_timer(2.0).timeout

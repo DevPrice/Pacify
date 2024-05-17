@@ -17,13 +17,7 @@ signal level_failed
 var _nav_ready = false
 var _attempts = 0
 
-var remaining_pellets: int = 0:
-	get: return remaining_pellets
-	set(value):
-		var win = remaining_pellets > 0 and value <= 0
-		remaining_pellets = value
-		pellets_remaining_changed.emit(value)
-		if win: level_completed.emit()
+var remaining_pellets: int = 0
 
 func _ready():
 	await NavigationServer3D.map_changed
@@ -67,7 +61,7 @@ func _spawn_pellet(at: Vector3) -> void:
 	pellet.position = at
 	add_child(pellet)
 	remaining_pellets += 1
-	pellet.tree_exited.connect(func (): remaining_pellets -= 1)
+	pellet.consumed.connect(_on_pellet_consumed)
 	pellet.add_to_group("pellet")
 
 func _spawn_power_pellet(at: Vector3) -> void:
@@ -75,9 +69,13 @@ func _spawn_power_pellet(at: Vector3) -> void:
 	pellet.position = at
 	add_child(pellet)
 	remaining_pellets += 1
-	pellet.tree_exited.connect(func (): remaining_pellets -= 1)
 	pellet.consumed.connect(_on_power_pellet_consumed)
 	pellet.add_to_group("pellet")
+
+func _on_pellet_consumed():
+	remaining_pellets -= 1
+	if remaining_pellets <= 0:
+		level_completed.emit()
 
 func _spawn_ghosts() -> void:
 	if not ghost_scene or not map: return
@@ -122,6 +120,7 @@ func start_level() -> void:
 	_attempts += 1
 
 func clear_level() -> void:
+	remaining_pellets = 0
 	get_tree().call_group("pellet", "queue_free")
 	get_tree().call_group("ghost", "queue_free")
 
@@ -147,7 +146,10 @@ func _on_ghost_touched_character(ghost: Ghost, character: Character):
 			if ghost.spawn_settings and ghost.spawn_settings.victory_dialogs and ghost.spawn_settings.victory_dialogs.size() > 0:
 				var dialog = ghost.spawn_settings.victory_dialogs.pick_random()
 				for g in ghosts:
-					g.process_mode = Node.PROCESS_MODE_DISABLED
+					if g == ghost:
+						g.call_deferred("set", "process_mode", PROCESS_MODE_DISABLED)
+					else:
+						g.process_mode = PROCESS_MODE_DISABLED
 				await _play_timeline(dialog.timeline)
 			level_failed.emit()
 
@@ -161,6 +163,7 @@ func _play_timeline(timeline):
 	await Dialogic.timeline_ended
 
 func _on_power_pellet_consumed():
+	_on_pellet_consumed()
 	var existing_timer := get_node_or_null("FleeTimer")
 	if existing_timer: existing_timer.queue_free()
 
@@ -186,6 +189,5 @@ func _on_ghost_eaten(ghost: Ghost):
 	ghost.mode = Ghost.Mode.RESPAWN
 	%GhostConsumeSound.play()
 	Engine.time_scale = .05
-	var timer = get_tree().create_timer(.2, true, false, true)
-	await timer.timeout
+	await get_tree().create_timer(.2, true, false, true).timeout
 	Engine.time_scale = 1
