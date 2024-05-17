@@ -1,6 +1,7 @@
 class_name Level extends Node3D
 
 @export var pellet_scene: PackedScene
+@export var power_pellet_scene: PackedScene
 @export var ghost_scene: PackedScene
 @export var map: GridMap
 @export var ghost_spawns: Array[GhostSpawn] = []
@@ -27,9 +28,14 @@ func _ready():
 func _spawn_pellets() -> void:
 	if not _nav_ready: await NavigationServer3D.map_changed
 
-	var player_tile_location = map.local_to_map(_player.global_position - global_position)
+	var player_tile_location := map.local_to_map(_player.global_position - global_position)
 
-	var cells = map.get_used_cells()
+	var power_pellet_locations := %PowerPellets.find_children("*", "Node3D").map(
+		func (child: Node3D):
+			return map.local_to_map(child.position)
+	)
+
+	var cells := map.get_used_cells()
 	cells.sort_custom(
 		func (a: Vector3i, b: Vector3i):
 			if a.x != b.x:
@@ -46,11 +52,22 @@ func _spawn_pellets() -> void:
 			var pos = map.map_to_local(tile_location) + global_position
 			var closest_point = NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, pos)
 			if pos.distance_to(closest_point) < .5:
-				_spawn_pellet(local_position)
+				if power_pellet_locations.has(tile_location):
+					_spawn_power_pellet(local_position)
+				else:
+					_spawn_pellet(local_position)
 				await get_tree().create_timer(.016).timeout
 
 func _spawn_pellet(at: Vector3) -> void:
 	var pellet: Pellet = pellet_scene.instantiate()
+	pellet.position = at
+	add_child(pellet)
+	remaining_pellets += 1
+	pellet.tree_exited.connect(func (): remaining_pellets -= 1)
+	pellet.add_to_group("pellet")
+
+func _spawn_power_pellet(at: Vector3) -> void:
+	var pellet: Pellet = power_pellet_scene.instantiate()
 	pellet.position = at
 	add_child(pellet)
 	remaining_pellets += 1

@@ -33,7 +33,7 @@ radial_segments = 16
 rings = 8
 
 [node name="GPUParticles3D" type="GPUParticles3D"]
-instance_shader_parameters/modulate = Color(2, 2, 2, 1)
+instance_shader_parameters/modulate = Color(1, 0.582, 0.24, 1)
 instance_shader_parameters/modulate_wobble_scale = 4.0
 instance_shader_parameters/modulate_wobble_speed = 0.5
 emitting = false

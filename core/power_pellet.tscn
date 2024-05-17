@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://gyg6u06yua8e"]
+
+[ext_resource type="PackedScene" uid="uid://cbuyx8jif60i8" path="res://core/pellet.tscn" id="1_nxohe"]
+[ext_resource type="Material" uid="uid://dggf6722udriq" path="res://materials/pellet.tres" id="2_afak7"]
+[ext_resource type="Script" path="res://scripts/rotator.gd" id="3_b6txa"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_q3mcq"]
+radius = 0.4
+height = 0.8
+
+[node name="Pellet" instance=ExtResource("1_nxohe")]
+
+[node name="MeshInstance3D" parent="." index="0"]
+transform = Transform3D(0.429213, 0.819463, 0.37981, -0.572061, 0.572061, -0.587785, -0.698943, 0.0350102, 0.71432, 0, 0, 0)
+instance_shader_parameters/modulate = Color(1, 0.392, 0.24, 1)
+mesh = SubResource("SphereMesh_q3mcq")
+surface_material_override/0 = ExtResource("2_afak7")
+script = ExtResource("3_b6txa")
