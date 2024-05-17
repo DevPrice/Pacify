@@ -149,7 +149,10 @@ func _execute() -> void:
 				await advance
 
 		else:
-			await advance
+			# await advance
+			# avoid awaiting, seems to put an error in the debugger
+			advance.connect(end_text_event)
+			return
 
 	end_text_event()
 
