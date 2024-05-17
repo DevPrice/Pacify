@@ -53,7 +53,7 @@ func _process(_delta):
 			mode = Mode.IDLE
 			var timer := Timer.new()
 			timer.one_shot = true
-			timer.wait_time = 1
+			timer.wait_time = 2
 			timer.autostart = true
 			timer.timeout.connect(
 				func ():

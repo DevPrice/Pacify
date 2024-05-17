@@ -118,6 +118,7 @@ func start_level() -> void:
 			g.process_mode = Node.PROCESS_MODE_DISABLED
 			g.register_character(layout)
 		await Dialogic.timeline_ended
+		await get_tree().create_timer(1, false).timeout
 		for g in ghosts:
 			g.process_mode = Node.PROCESS_MODE_INHERIT
 
