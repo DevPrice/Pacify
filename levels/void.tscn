@@ -88,7 +88,10 @@ mesh = SubResource("QuadMesh_66e4o")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape3D_jlth1")
 
-[node name="UI" type="Control" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="UI" type="Control" parent="UILayer"]
 unique_name_in_owner = true
 process_mode = 3
 layout_mode = 3
@@ -99,6 +102,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_2hxet")
 
-[node name="MainMenu" parent="UI" instance=ExtResource("6_vupde")]
+[node name="MainMenu" parent="UILayer/UI" instance=ExtResource("6_vupde")]
 unique_name_in_owner = true
 layout_mode = 1
