@@ -1,14 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://gyg6u06yua8e"]
+[gd_scene load_steps=9 format=3 uid="uid://gyg6u06yua8e"]
 
 [ext_resource type="PackedScene" uid="uid://cbuyx8jif60i8" path="res://core/pellet.tscn" id="1_nxohe"]
 [ext_resource type="Material" uid="uid://dggf6722udriq" path="res://materials/pellet.tres" id="2_afak7"]
+[ext_resource type="AudioStream" uid="uid://b1otorh2fcgqf" path="res://audio/jingles_HIT06.ogg" id="2_jxxcj"]
+[ext_resource type="AudioStream" uid="uid://g68ttpfxqc2t" path="res://audio/jingles_HIT01.ogg" id="3_6kd4d"]
 [ext_resource type="Script" path="res://scripts/rotator.gd" id="3_b6txa"]
+[ext_resource type="AudioStream" uid="uid://cofeju8tbvc0x" path="res://audio/jingles_HIT10.ogg" id="4_dvoda"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_c58be"]
+streams_count = 3
+stream_0/stream = ExtResource("2_jxxcj")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("3_6kd4d")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("4_dvoda")
+stream_2/weight = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_q3mcq"]
 radius = 0.4
 height = 0.8
 
 [node name="Pellet" instance=ExtResource("1_nxohe")]
+_consume_sound = SubResource("AudioStreamRandomizer_c58be")
 
 [node name="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(0.429213, 0.819463, 0.37981, -0.572061, 0.572061, -0.587785, -0.698943, 0.0350102, 0.71432, 0, 0, 0)

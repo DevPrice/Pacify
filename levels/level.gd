@@ -129,6 +129,7 @@ func _on_ghost_touched_character(ghost: Ghost, character: Character):
 		elif ghost.mode != Ghost.Mode.RESPAWN:
 			for g in ghosts:
 				g.mode = Ghost.Mode.IDLE
+			%LoseSound.play()
 			level_failed.emit()
 
 func _on_power_pellet_consumed():
@@ -155,3 +156,4 @@ func _end_flee():
 
 func _on_ghost_eaten(ghost: Ghost):
 	ghost.mode = Ghost.Mode.RESPAWN
+	%GhostConsumeSound.play()
