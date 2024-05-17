@@ -23,6 +23,21 @@ GameInstance="*res://scripts/game_instance.gd"
 
 window/stretch/mode="canvas_items"
 
+[file_customization]
+
+folder_colors={
+"res://audio/": "blue",
+"res://blender/": "orange",
+"res://core/": "gray",
+"res://fonts/": "yellow",
+"res://levels/": "red",
+"res://materials/": "purple",
+"res://scripts/": "teal",
+"res://textures/": "green",
+"res://themes/": "orange",
+"res://ui/": "pink"
+}
+
 [input]
 
 ui_accept={
