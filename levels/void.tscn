@@ -64,9 +64,8 @@ environment = SubResource("Environment_r2c2d")
 
 [node name="Level" type="Node3D" parent="."]
 
-[node name="Tutorial" parent="Level" node_paths=PackedStringArray("completion_zone", "_player") instance=ExtResource("5_4o4v6")]
+[node name="Tutorial" parent="Level" node_paths=PackedStringArray("_player") instance=ExtResource("5_4o4v6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 87)
-completion_zone = NodePath("../../TutorialCompleteArea")
 _player = NodePath("../../Character")
 
 [node name="Maze" parent="Level" node_paths=PackedStringArray("_player") instance=ExtResource("1_2sene")]

@@ -47,7 +47,9 @@ directories/dtl_directory={
 "tutorial_begin_stay_out_void": "res://dialog/tutorial_begin_stay_out_void.dtl",
 "tutorial_begin_weird": "res://dialog/tutorial_begin_weird.dtl",
 "tutorial_camera_suggest": "res://dialog/tutorial_camera_suggest.dtl",
-"tutorial_jump": "res://dialog/tutorial_jump.dtl"
+"tutorial_jump": "res://dialog/tutorial_jump.dtl",
+"tutorial_pellet_consumed": "res://dialog/tutorial_pellet_consumed.dtl",
+"tutorial_pellet_seen": "res://dialog/tutorial_pellet_seen.dtl"
 }
 layout/style_list=["res://dialog/bubble_style.tres"]
 layout/default_style="res://dialog/bubble_style.tres"
