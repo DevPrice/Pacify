@@ -43,7 +43,7 @@ material = SubResource("ShaderMaterial_yql42")
 flip_faces = true
 size = Vector2(2, 2)
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jlth1"]
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_i3ol3"]
 
 [node name="World" type="Node3D" node_paths=PackedStringArray("_levels")]
 script = ExtResource("1_5q3t5")
@@ -83,10 +83,14 @@ cast_shadow = 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_66e4o")
 
-[node name="Ground" type="StaticBody3D" parent="."]
+[node name="Ground" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_mask = 2
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("WorldBoundaryShape3D_jlth1")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("WorldBoundaryShape3D_i3ol3")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 layer = 2

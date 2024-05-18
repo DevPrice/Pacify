@@ -18,6 +18,10 @@ func _ready():
 	%MainMenu.dismiss()
 	start_next_level()
 	_init_hud()
+	%Ground.body_entered.connect(
+		func (body: Node3D):
+			if body is Character: _on_level_failed()
+	)
 
 func _init_hud():
 	%Hud.visible = true
