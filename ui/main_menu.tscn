@@ -58,7 +58,7 @@ size_flags_vertical = 4
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Game Title"
+text = "Pacify"
 label_settings = SubResource("LabelSettings_uaq20")
 
 [node name="TitleGap" type="Control" parent="MarginContainer/VBoxContainer"]
