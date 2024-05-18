@@ -4,7 +4,7 @@ extends Node3D
 @export var _ability_indicator_scene: PackedScene
 @export var _levels: Array[Level] = []
 
-var _current_level_index: int = 0
+var _current_level_index: int = -1
 var _current_level: Level:
 	get:
 		if not _levels: return null

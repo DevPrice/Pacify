@@ -59,7 +59,6 @@ func _spawn_pellets() -> void:
 				else:
 					_spawn_pellet(local_position)
 				await get_tree().create_timer(.016, false).timeout
-				return # DELETEME
 
 	await get_tree().create_timer(1, false).timeout
 

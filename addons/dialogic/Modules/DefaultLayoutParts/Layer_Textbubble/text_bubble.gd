@@ -40,8 +40,15 @@ func get_dialog_text() -> DialogicNode_DialogText:
 func _update_bubble_position() -> void:
 	if speaker_node and is_instance_valid(speaker_node):
 		position = _get_speaker_position() + bubble_offset
+		var viewport_size = get_viewport().size
 		if position.y < get_viewport().size.y * .1:
 			position.y -= 3 * bubble_offset.y
+		if position.x > get_viewport().size.x * .9:
+			position.x -= 3 * bubble_offset.x
+		position = Vector2(
+			clamp(position.x, viewport_size.x * .2, viewport_size.x * .8),
+			clamp(position.y, viewport_size.y * .2, viewport_size.y * .8),
+		)
 
 func _ready() -> void:
 	scale = Vector2.ZERO
