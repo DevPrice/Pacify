@@ -13,6 +13,8 @@ config_version=5
 config/name="Untitled Jam Game"
 run/main_scene="res://levels/void.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
+boot_splash/bg_color=Color(0.0901961, 0.129412, 0.247059, 1)
+boot_splash/image="res://textures/GWJ-Full-Logo-tag-4k.png"
 config/icon="res://icon.svg"
 
 [autoload]
