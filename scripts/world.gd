@@ -54,6 +54,8 @@ func start_next_level() -> void:
 
 func _start_level(level: Level) -> void:
 	GameInstance.pausable = true
+	if level.music:
+		MusicPlayer.cross_fade(level.music)
 	level.level_completed.connect(start_next_level)
 	level.level_failed.connect(_on_level_failed)
 	%Character.process_mode = PROCESS_MODE_DISABLED

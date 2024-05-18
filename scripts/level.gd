@@ -9,6 +9,7 @@ class_name Level extends Node3D
 @export var end_dialogs: Array[LevelDialog] = []
 @export var _player: Character
 @export var initial_dialog: LevelDialog
+@export var music: AudioStream
 
 signal pellets_remaining_changed(remaining: int)
 signal level_completed
