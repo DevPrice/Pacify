@@ -6,22 +6,26 @@ class_name Level extends Node3D
 @export var map: GridMap
 @export var ghost_spawns: Array[GhostSpawn] = []
 @export var begin_dialogs: Array[LevelDialog] = []
+@export var end_dialogs: Array[LevelDialog] = []
 @export var _player: Character
-
 @export var initial_dialog: LevelDialog
 
 signal pellets_remaining_changed(remaining: int)
 signal level_completed
 signal level_failed
 
-var _nav_ready = false
-var _attempts = 0
+var _nav_ready := false
+var _attempts := 0
+var _duration := 0
 
 var remaining_pellets: int = 0
 
 func _ready():
 	await NavigationServer3D.map_changed
 	_nav_ready = true
+
+func _physics_process(delta):
+	_duration += delta
 
 func _spawn_pellets() -> void:
 	if not _nav_ready: await NavigationServer3D.map_changed
@@ -55,6 +59,7 @@ func _spawn_pellets() -> void:
 				else:
 					_spawn_pellet(local_position)
 				await get_tree().create_timer(.016, false).timeout
+				return # DELETEME
 
 	await get_tree().create_timer(1, false).timeout
 
@@ -77,7 +82,7 @@ func _spawn_power_pellet(at: Vector3) -> void:
 func _on_pellet_consumed():
 	remaining_pellets -= 1
 	if remaining_pellets <= 0:
-		level_completed.emit()
+		_on_level_completed()
 
 func _spawn_ghosts() -> void:
 	if not ghost_scene or not map: return
@@ -113,12 +118,10 @@ func start_level() -> void:
 	var dialog = _get_begin_dialog()
 	if dialog:
 		await get_tree().create_timer(1.0).timeout
-		var ghosts = get_tree().get_nodes_in_group("ghost")
-		for g in ghosts:
-			g.process_mode = Node.PROCESS_MODE_DISABLED
 		await _play_timeline(dialog.timeline)
 	await _spawn_pellets()
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_INHERIT)
+	_duration = 0
 	_attempts += 1
 
 func clear_level() -> void:
@@ -199,3 +202,20 @@ func _get_begin_dialog():
 	if _attempts == 0 and initial_dialog: return initial_dialog
 	if begin_dialogs and begin_dialogs.size() > 0: return begin_dialogs.pick_random()
 	return null
+
+func _get_end_dialog():
+	if end_dialogs and end_dialogs.size() > 0: return end_dialogs.pick_random()
+	return null
+
+func _on_level_completed():
+	var duration := _duration
+	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_DISABLED)
+	_player.process_mode = PROCESS_MODE_DISABLED
+	await get_tree().create_timer(1.0).timeout
+	var dialog = _get_end_dialog()
+	if dialog:
+		await get_tree().create_timer(1.0).timeout
+		await _play_timeline(dialog.timeline)
+	get_tree().call_group("ghost", "shrink")
+	await get_tree().create_timer(2.0).timeout
+	level_completed.emit()

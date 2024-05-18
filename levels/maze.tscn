@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cpb65bej6sqp3"]
+[gd_scene load_steps=38 format=3 uid="uid://cpb65bej6sqp3"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_op5oo"]
 [ext_resource type="MeshLibrary" uid="uid://cueyskc4kvs74" path="res://levels/grid_terrain.tres" id="1_ukg3o"]
@@ -101,6 +101,10 @@ timeline = "res://dialog/begin_failure.dtl"
 script = ExtResource("6_wg6f0")
 timeline = "res://dialog/begin_what_captain.dtl"
 
+[sub_resource type="Resource" id="Resource_un808"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/end_timeline.dtl"
+
 [sub_resource type="Resource" id="Resource_g3n1m"]
 script = ExtResource("6_wg6f0")
 timeline = "res://dialog/intro_timeline.dtl"
@@ -145,6 +149,7 @@ ghost_scene = ExtResource("3_ep4hy")
 map = NodePath("NavigationRegion/GridMap")
 ghost_spawns = Array[ExtResource("3_wje1x")]([SubResource("Resource_jk0qg"), SubResource("Resource_ou0vl"), SubResource("Resource_r41sr"), SubResource("Resource_u2kau")])
 begin_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_vgyv8"), SubResource("Resource_qjirn"), SubResource("Resource_c66sj"), SubResource("Resource_oedjn"), SubResource("Resource_78igl"), SubResource("Resource_weobx"), SubResource("Resource_f2fu0")])
+end_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_un808")])
 initial_dialog = SubResource("Resource_g3n1m")
 
 [node name="GhostConsumeSound" type="AudioStreamPlayer" parent="."]

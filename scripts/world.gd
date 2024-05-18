@@ -4,7 +4,7 @@ extends Node3D
 @export var _ability_indicator_scene: PackedScene
 @export var _levels: Array[Level] = []
 
-var _current_level_index: int = -1
+var _current_level_index: int = 0
 var _current_level: Level:
 	get:
 		if not _levels: return null
@@ -37,7 +37,10 @@ func start_next_level() -> void:
 	if level: level.clear_level()
 	_current_level_index += 1
 	var next_level = _current_level
-	if next_level: _start_level(next_level)
+	if next_level:
+		_start_level(next_level)
+	else:
+		pass # SHOW VICTORY SCREEN
 
 func _start_level(level: Level) -> void:
 	GameInstance.pausable = true

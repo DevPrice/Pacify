@@ -38,6 +38,7 @@ directories/dtl_directory={
 "begin_waste_time": "res://dialog/begin_waste_time.dtl",
 "begin_why": "res://dialog/begin_why.dtl",
 "blurple_silent": "res://dialog/blurple_silent.dtl",
+"end_timeline": "res://dialog/end_timeline.dtl",
 "intro_timeline": "res://dialog/intro_timeline.dtl",
 "intro_tutorial": "res://dialog/intro_tutorial.dtl",
 "pink_dismissive": "res://dialog/pink_dismissive.dtl",
@@ -73,6 +74,7 @@ text/autopauses={}
 variables={
 "attempts": 0
 }
+glossary/default_case_sensitive=true
 
 [display]
 

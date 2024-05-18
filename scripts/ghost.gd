@@ -106,6 +106,10 @@ func _update_color() -> void:
 	elif %Body.scale.distance_to(Vector3.ONE) > .25:
 		%AnimationPlayer.play("grow")
 
+func shrink():
+	%AnimationPlayer.play("shrink")
+	await %AnimationPlayer.animation_finished
+
 func _set_shader_params(param: String, value: Variant):
 	for geometry in %Body.find_children("*", "GeometryInstance3D"):
 		if geometry is GeometryInstance3D:
