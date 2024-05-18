@@ -14,6 +14,9 @@ var _current_level: Level:
 		return _levels[_current_level_index]
 
 func _ready():
+	if Dialogic.current_timeline:
+		Dialogic.end_timeline()
+	MusicPlayer.play_default()
 	%Character.process_mode = PROCESS_MODE_DISABLED
 	await %MainMenu.start_pressed
 	%MainMenu.dismiss()
@@ -54,8 +57,11 @@ func start_next_level() -> void:
 
 func _start_level(level: Level) -> void:
 	GameInstance.pausable = true
+	if Dialogic.current_timeline:
+		Dialogic.end_timeline()
 	if level.music:
 		MusicPlayer.cross_fade(level.music)
+		
 	level.level_completed.connect(start_next_level)
 	level.level_failed.connect(_on_level_failed)
 	%Character.process_mode = PROCESS_MODE_DISABLED

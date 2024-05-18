@@ -60,6 +60,7 @@ func _spawn_pellets() -> void:
 				if power_pellet_locations.has(tile_location):
 					_spawn_power_pellet(local_position)
 				else:
+					pass
 					_spawn_pellet(local_position)
 				await get_tree().create_timer(.016, false).timeout
 

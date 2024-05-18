@@ -77,7 +77,9 @@ func _process(delta):
 	var p : Vector2 = base_position + direction * (safe_zone + lerp(bubble_rect.size.y, bubble_rect.size.x, abs(direction.x)) * 0.4)
 	p = p.clamp(bubble_rect.size / 2.0, get_viewport_rect().size - bubble_rect.size / 2.0)
 
+	var viewport_size = get_viewport().size
 	position = lerp(position, p, 10.0 * delta)
+	_clamp_to_screen()
 
 	var point_a : Vector2 = Vector2.ZERO
 
@@ -156,6 +158,14 @@ func _get_speaker_position() -> Vector2:
 	if speaker_node is Node3D:
 		var camera = get_viewport().get_camera_3d()
 		if camera:
-			return get_viewport().get_camera_3d().unproject_position(speaker_node.global_position)
+			return camera.unproject_position(speaker_node.global_position)
 	return Vector2.ZERO
+
+func _clamp_to_screen():
+	var t = get_viewport_transform()
+	var pos = global_position * t
+	var end = get_viewport().size
+	pos.x = clamp(pos.x, end.x * .2, end.x * .8)
+	pos.y = clamp(pos.y, end.y * .2, end.y * .8)
+	global_position = t.affine_inverse() * pos
 
