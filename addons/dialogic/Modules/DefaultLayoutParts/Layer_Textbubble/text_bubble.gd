@@ -10,7 +10,7 @@ var base_position := Vector2.ZERO
 
 var base_direction := Vector2(1.0, -1.0).normalized()
 var safe_zone := 50.0
-@export var padding := Vector2()
+var padding := Vector2()
 @export var bubble_offset := Vector2()
 
 
@@ -128,7 +128,7 @@ func _on_dialog_text_started_revealing_text():
 
 func _resize_bubble() -> void:
 	var bubble : Control = get_bubble()
-	var bubble_size :Vector2 = get_dialog_text().size+(padding*2)
+	var bubble_size :Vector2 = get_dialog_text().size + padding * 2
 	var half_size :Vector2= (bubble_size / 2.0)
 	get_dialog_text().pivot_offset = half_size
 	bubble.pivot_offset = half_size

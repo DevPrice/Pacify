@@ -35,7 +35,9 @@ overrides = {}
 script = ExtResource("3_vi5ey")
 scene = ExtResource("4_57vdg")
 overrides = {
+"box_corner_radius": "0.25",
 "box_modulate_by_character_color": "true",
+"box_padding": "Vector2(42, 18)",
 "name_label_font": "\"res://fonts/SueEllenFrancisco-Regular.ttf\"",
 "name_label_font_size": "24.0",
 "normal_font": "\"res://fonts/SueEllenFrancisco-Regular.ttf\"",
@@ -48,4 +50,4 @@ name = "bubble_style"
 base_scene = SubResource("PackedScene_8cfdp")
 base_overrides = {}
 layers = Array[ExtResource("3_vi5ey")]([SubResource("Resource_g13c1"), SubResource("Resource_niy78")])
-metadata/_latest_layer = -1
+metadata/_latest_layer = 1
