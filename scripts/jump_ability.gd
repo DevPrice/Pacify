@@ -11,6 +11,6 @@ func can_activate():
 func _activate():
 	_body.velocity.y = jump_velocity
 
-func _input(event: InputEvent):
+func _unhandled_input(event: InputEvent):
 	if input_action and event.is_action_pressed(input_action):
 		if try_activate(): get_viewport().set_input_as_handled()

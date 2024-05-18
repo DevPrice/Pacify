@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://4f0ln3ivc7n1"]
+[gd_scene load_steps=9 format=3 uid="uid://4f0ln3ivc7n1"]
 
 [ext_resource type="Script" path="res://scripts/tutorial_level.gd" id="1_fpl7i"]
 [ext_resource type="PackedScene" uid="uid://cdx6vcwe4dfkd" path="res://blender/void.blend" id="2_nx6ak"]
 [ext_resource type="Script" path="res://scripts/level_dialog.gd" id="2_somux"]
+[ext_resource type="Script" path="res://scripts/dialog_trigger.gd" id="4_ki6tw"]
 
 [sub_resource type="Resource" id="Resource_7fnw6"]
 script = ExtResource("2_somux")
@@ -15,6 +16,9 @@ timeline = "res://dialog/tutorial_begin_stay_out_void.dtl"
 [sub_resource type="Resource" id="Resource_5nvsr"]
 script = ExtResource("2_somux")
 timeline = "res://dialog/intro_tutorial.dtl"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6n4br"]
+size = Vector3(6, 4, 4)
 
 [node name="Tutorial" type="Node3D"]
 script = ExtResource("1_fpl7i")
@@ -30,5 +34,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 16)
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="DeadEndTrigger" type="Area3D" parent="."]
+collision_mask = 2
+script = ExtResource("4_ki6tw")
+dialog = "res://dialog/tutorial_camera_suggest.dtl"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeadEndTrigger"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -28.3224, 4, -49.8091)
+shape = SubResource("BoxShape3D_6n4br")
 
 [connection signal="timeout" from="Timer" to="." method="_update_player_spawn"]
