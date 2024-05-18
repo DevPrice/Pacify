@@ -46,7 +46,8 @@ directories/dtl_directory={
 "stinky_what_captain": "res://dialog/begin_what_captain.dtl",
 "tutorial_begin_stay_out_void": "res://dialog/tutorial_begin_stay_out_void.dtl",
 "tutorial_begin_weird": "res://dialog/tutorial_begin_weird.dtl",
-"tutorial_camera_suggest": "res://dialog/tutorial_camera_suggest.dtl"
+"tutorial_camera_suggest": "res://dialog/tutorial_camera_suggest.dtl",
+"tutorial_jump": "res://dialog/tutorial_jump.dtl"
 }
 layout/style_list=["res://dialog/bubble_style.tres"]
 layout/default_style="res://dialog/bubble_style.tres"
