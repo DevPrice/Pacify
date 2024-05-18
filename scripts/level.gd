@@ -213,6 +213,7 @@ func _on_level_completed():
 	completion_time = _duration
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_DISABLED)
 	_player.process_mode = PROCESS_MODE_DISABLED
+	MusicPlayer.stop_music()
 	await get_tree().create_timer(1.0).timeout
 	var dialog = _get_end_dialog()
 	if dialog:

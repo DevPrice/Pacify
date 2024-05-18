@@ -22,3 +22,12 @@ func cross_fade(track: AudioStream, duration: float = 4):
 	if duration > 0:
 		var in_tween = get_tree().create_tween()
 		in_tween.tween_property(track_player, "volume_db", 0, duration).set_trans(Tween.TRANS_QUAD)
+
+func stop_music(fade_duration: float = 4):
+	for player in get_children():
+		if fade_duration > 0:
+			var out_tween = get_tree().create_tween()
+			out_tween.tween_property(player, "volume_db", -60, fade_duration).set_trans(Tween.TRANS_QUAD)
+			out_tween.finished.connect(player.queue_free)
+		else:
+			player.queue_free()

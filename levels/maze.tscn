@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cpb65bej6sqp3"]
+[gd_scene load_steps=39 format=3 uid="uid://cpb65bej6sqp3"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_op5oo"]
 [ext_resource type="MeshLibrary" uid="uid://cueyskc4kvs74" path="res://levels/grid_terrain.tres" id="1_ukg3o"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/ghost_spawn.gd" id="3_wje1x"]
 [ext_resource type="Script" path="res://scripts/level_dialog.gd" id="6_wg6f0"]
 [ext_resource type="AudioStream" uid="uid://c32lyn2e5syjg" path="res://audio/jingles_HIT08.ogg" id="7_kn2pb"]
+[ext_resource type="AudioStream" uid="uid://cyj2g3etgjhyo" path="res://audio/ToPassTime_Godmode.mp3" id="7_qnsad"]
 [ext_resource type="AudioStream" uid="uid://crg6864gr0g73" path="res://audio/jingles_HIT07.ogg" id="8_tx2p1"]
 [ext_resource type="AudioStream" uid="uid://cpm87c738b3se" path="res://audio/jingles_HIT03.ogg" id="9_xrp1c"]
 [ext_resource type="AudioStream" uid="uid://clj7gqqm0akkk" path="res://audio/jingles_HIT04.ogg" id="10_eb8yd"]
@@ -151,6 +152,7 @@ ghost_spawns = Array[ExtResource("3_wje1x")]([SubResource("Resource_jk0qg"), Sub
 begin_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_vgyv8"), SubResource("Resource_qjirn"), SubResource("Resource_c66sj"), SubResource("Resource_oedjn"), SubResource("Resource_78igl"), SubResource("Resource_weobx"), SubResource("Resource_f2fu0")])
 end_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_un808")])
 initial_dialog = SubResource("Resource_g3n1m")
+music = ExtResource("7_qnsad")
 
 [node name="GhostConsumeSound" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

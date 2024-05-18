@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://400d25k12og1"]
+[gd_scene load_steps=3 format=3 uid="uid://400d25k12og1"]
 
 [ext_resource type="Script" path="res://scripts/music_player.gd" id="1_qvrhm"]
+[ext_resource type="AudioStream" uid="uid://c2hqq7r84wu73" path="res://audio/IntoTheVoid_TrackTribe.mp3" id="2_embeq"]
 
 [node name="MusicPlayer" type="Node"]
 process_mode = 3
 script = ExtResource("1_qvrhm")
+default_track = ExtResource("2_embeq")
