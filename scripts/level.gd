@@ -14,9 +14,11 @@ signal pellets_remaining_changed(remaining: int)
 signal level_completed
 signal level_failed
 
+var completion_time := 0
+
 var _nav_ready := false
-var _attempts := 0
-var _duration := 0
+var _attempts: int = 0
+var _duration: float = 0
 
 var remaining_pellets: int = 0
 
@@ -207,7 +209,7 @@ func _get_end_dialog():
 	return null
 
 func _on_level_completed():
-	var duration := _duration
+	completion_time = _duration
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_DISABLED)
 	_player.process_mode = PROCESS_MODE_DISABLED
 	await get_tree().create_timer(1.0).timeout

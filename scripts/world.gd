@@ -2,6 +2,7 @@ extends Node3D
 
 @export var _paused_scene: PackedScene
 @export var _ability_indicator_scene: PackedScene
+@export var _victory_scene: PackedScene
 @export var _levels: Array[Level] = []
 
 var _current_level_index: int = -1
@@ -25,7 +26,6 @@ func _ready():
 
 func _init_hud():
 	%Hud.visible = true
-
 	if _ability_indicator_scene:
 		for ability in %Character.find_children("*", "Ability", false):
 			var ability_indicator: AbilityIndicator = _ability_indicator_scene.instantiate()
@@ -40,7 +40,17 @@ func start_next_level() -> void:
 	if next_level:
 		_start_level(next_level)
 	else:
-		pass # SHOW VICTORY SCREEN
+		GameInstance.pausable = false
+		level.level_completed.disconnect(start_next_level)
+		level.level_failed.disconnect(_on_level_failed)
+		var victory_menu: VictoryMenu = _victory_scene.instantiate()
+		victory_menu.set_completion_time(level.completion_time)
+		%UI.add_child(victory_menu)
+		await victory_menu.play_again
+		%UI.remove_child(victory_menu)
+		_current_level_index -= 2
+		level._attempts = 0
+		start_next_level()
 
 func _start_level(level: Level) -> void:
 	GameInstance.pausable = true
