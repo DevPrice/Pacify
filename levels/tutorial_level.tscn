@@ -21,12 +21,11 @@ script = ExtResource("1_fpl7i")
 begin_dialogs = Array[ExtResource("2_somux")]([SubResource("Resource_7fnw6"), SubResource("Resource_s2s7g")])
 initial_dialog = SubResource("Resource_5nvsr")
 
-[node name="Level" parent="." instance=ExtResource("2_nx6ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="void" parent="." instance=ExtResource("2_nx6ak")]
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 16)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0

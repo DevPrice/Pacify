@@ -43,18 +43,17 @@ func _start_level(level: Level) -> void:
 	GameInstance.pausable = true
 	level.level_completed.connect(start_next_level)
 	level.level_failed.connect(_on_level_failed)
+	%Character.process_mode = PROCESS_MODE_DISABLED
 	await level.start_level()
 	%Character.process_mode = Node.PROCESS_MODE_INHERIT
-	%Character.velocity = Vector3.ZERO
-	%Character.reset()
 
 func _on_level_failed():
 	GameInstance.pausable = false
+	%Character.process_mode = PROCESS_MODE_DISABLED
 	var level = _current_level
 	if level:
 		level.level_completed.disconnect(start_next_level)
 		level.level_failed.disconnect(_on_level_failed)
-		%Character.process_mode = PROCESS_MODE_DISABLED
 		await get_tree().create_timer(2.0).timeout
 		_start_level(level)
 

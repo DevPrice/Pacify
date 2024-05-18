@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://csp2nkbtfsphk"]
+[gd_scene load_steps=18 format=3 uid="uid://csp2nkbtfsphk"]
 
 [ext_resource type="PackedScene" uid="uid://cpb65bej6sqp3" path="res://levels/maze.tscn" id="1_2sene"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_5q3t5"]
@@ -45,6 +45,9 @@ size = Vector2(2, 2)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_i3ol3"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_pxl2o"]
+size = Vector3(20, 2, 18)
+
 [node name="World" type="Node3D" node_paths=PackedStringArray("_levels")]
 script = ExtResource("1_5q3t5")
 _paused_scene = ExtResource("2_0vk6k")
@@ -61,16 +64,17 @@ environment = SubResource("Environment_r2c2d")
 
 [node name="Level" type="Node3D" parent="."]
 
-[node name="Tutorial" parent="Level" node_paths=PackedStringArray("_player") instance=ExtResource("5_4o4v6")]
+[node name="Tutorial" parent="Level" node_paths=PackedStringArray("completion_zone", "_player") instance=ExtResource("5_4o4v6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 87)
+completion_zone = NodePath("../../TutorialCompleteArea")
 _player = NodePath("../../Character")
 
 [node name="Maze" parent="Level" node_paths=PackedStringArray("_player") instance=ExtResource("1_2sene")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 26)
 _player = NodePath("../../Character")
 
 [node name="Character" parent="." instance=ExtResource("2_ibh2c")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.268, 26)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 0, 103)
 movement_speed = 4.0
 
 [node name="Hud" parent="Character" instance=ExtResource("6_eum3a")]
@@ -109,3 +113,10 @@ script = ExtResource("7_2hxet")
 [node name="MainMenu" parent="UILayer/UI" instance=ExtResource("6_vupde")]
 unique_name_in_owner = true
 layout_mode = 1
+
+[node name="TutorialCompleteArea" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TutorialCompleteArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+shape = SubResource("BoxShape3D_pxl2o")

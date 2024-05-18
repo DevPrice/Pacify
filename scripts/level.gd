@@ -54,7 +54,7 @@ func _spawn_pellets() -> void:
 					_spawn_power_pellet(local_position)
 				else:
 					_spawn_pellet(local_position)
-				await get_tree().create_timer(.016).timeout
+				await get_tree().create_timer(.016, false).timeout
 
 	await get_tree().create_timer(1, false).timeout
 
@@ -129,6 +129,7 @@ func clear_level() -> void:
 func _reset_player() -> void:
 	if not _player or not %PlayerSpawn: return
 
+	_player.reset()
 	if _player.global_position.distance_to(%PlayerSpawn.global_position) > .1:
 		var tween = create_tween()
 		tween.tween_property(_player, "global_position", %PlayerSpawn.global_position, .25)
