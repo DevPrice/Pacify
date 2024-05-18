@@ -56,6 +56,8 @@ func _spawn_pellets() -> void:
 					_spawn_pellet(local_position)
 				await get_tree().create_timer(.016).timeout
 
+	await get_tree().create_timer(1, false).timeout
+
 func _spawn_pellet(at: Vector3) -> void:
 	var pellet: Pellet = pellet_scene.instantiate()
 	pellet.position = at
@@ -107,15 +109,15 @@ func start_level() -> void:
 	await _reset_player()
 	_spawn_ghosts()
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_DISABLED)
-	await get_tree().create_timer(2.0).timeout
-	if begin_dialogs and begin_dialogs.size() > 0:
-		var dialog = initial_dialog if _attempts == 0 and initial_dialog else begin_dialogs.pick_random()
+	await get_tree().create_timer(1.0).timeout
+	var dialog = _get_begin_dialog()
+	if dialog:
+		await get_tree().create_timer(1.0).timeout
 		var ghosts = get_tree().get_nodes_in_group("ghost")
 		for g in ghosts:
 			g.process_mode = Node.PROCESS_MODE_DISABLED
 		await _play_timeline(dialog.timeline)
 	await _spawn_pellets()
-	await get_tree().create_timer(1, false).timeout
 	get_tree().set_group("ghost", "process_mode", PROCESS_MODE_INHERIT)
 	_attempts += 1
 
@@ -125,9 +127,9 @@ func clear_level() -> void:
 	get_tree().call_group("ghost", "queue_free")
 
 func _reset_player() -> void:
-	if not _player: return
+	if not _player or not %PlayerSpawn: return
 
-	if _player.global_position.distance_to(%PlayerSpawn.global_position) > .2:
+	if _player.global_position.distance_to(%PlayerSpawn.global_position) > .1:
 		var tween = create_tween()
 		tween.tween_property(_player, "global_position", %PlayerSpawn.global_position, .25)
 		tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
@@ -191,3 +193,8 @@ func _on_ghost_eaten(ghost: Ghost):
 	Engine.time_scale = .05
 	await get_tree().create_timer(.2, true, false, true).timeout
 	Engine.time_scale = 1
+
+func _get_begin_dialog():
+	if _attempts == 0 and initial_dialog: return initial_dialog
+	if begin_dialogs and begin_dialogs.size() > 0: return begin_dialogs.pick_random()
+	return null

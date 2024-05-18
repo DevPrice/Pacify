@@ -39,10 +39,13 @@ directories/dtl_directory={
 "begin_why": "res://dialog/begin_why.dtl",
 "blurple_silent": "res://dialog/blurple_silent.dtl",
 "intro_timeline": "res://dialog/intro_timeline.dtl",
+"intro_tutorial": "res://dialog/intro_tutorial.dtl",
 "pink_dismissive": "res://dialog/pink_dismissive.dtl",
 "red_haha": "res://dialog/red_haha.dtl",
 "stinky_easy": "res://dialog/stinky_easy.dtl",
-"stinky_what_captain": "res://dialog/begin_what_captain.dtl"
+"stinky_what_captain": "res://dialog/begin_what_captain.dtl",
+"tutorial_begin_stay_out_void": "res://dialog/tutorial_begin_stay_out_void.dtl",
+"tutorial_begin_weird": "res://dialog/tutorial_begin_weird.dtl"
 }
 layout/style_list=["res://dialog/bubble_style.tres"]
 layout/default_style="res://dialog/bubble_style.tres"

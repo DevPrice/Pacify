@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://cpb65bej6sqp3" path="res://levels/maze.tscn" id="1_2sene"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_5q3t5"]
-[ext_resource type="PackedScene" uid="uid://cdx6vcwe4dfkd" path="res://blender/void.blend" id="1_megdj"]
 [ext_resource type="PackedScene" uid="uid://de3ytn4pq28ro" path="res://ui/pause_menu.tscn" id="2_0vk6k"]
 [ext_resource type="PackedScene" uid="uid://b7gskgungub07" path="res://core/character.tscn" id="2_ibh2c"]
 [ext_resource type="Shader" path="res://materials/shaders/outline.gdshader" id="3_7ow1e"]
 [ext_resource type="PackedScene" uid="uid://cjjtoxqrrekvj" path="res://ui/ability_indicator.tscn" id="3_vcnw0"]
+[ext_resource type="PackedScene" uid="uid://4f0ln3ivc7n1" path="res://levels/tutorial_level.tscn" id="5_4o4v6"]
 [ext_resource type="PackedScene" uid="uid://3je4aljuxv2f" path="res://ui/hud.tscn" id="6_eum3a"]
 [ext_resource type="PackedScene" uid="uid://b6oevb2fve0ye" path="res://ui/main_menu.tscn" id="6_vupde"]
 [ext_resource type="Script" path="res://scripts/auto_focus.gd" id="7_2hxet"]
@@ -49,7 +49,7 @@ size = Vector2(2, 2)
 script = ExtResource("1_5q3t5")
 _paused_scene = ExtResource("2_0vk6k")
 _ability_indicator_scene = ExtResource("3_vcnw0")
-_levels = [NodePath("Level/Maze")]
+_levels = [NodePath("Level/Tutorial"), NodePath("Level/Maze")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.493163, 0.858026, 0.143462, -0.692962, 0.287761, 0.661058, 0.525922, -0.425423, 0.736492, 5.01265, 5.12324, 0)
@@ -61,12 +61,12 @@ environment = SubResource("Environment_r2c2d")
 
 [node name="Level" type="Node3D" parent="."]
 
+[node name="Tutorial" parent="Level" node_paths=PackedStringArray("_player") instance=ExtResource("5_4o4v6")]
+_player = NodePath("../../Character")
+
 [node name="Maze" parent="Level" node_paths=PackedStringArray("_player") instance=ExtResource("1_2sene")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 26)
 _player = NodePath("../../Character")
-
-[node name="void" parent="Level" instance=ExtResource("1_megdj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Character" parent="." instance=ExtResource("2_ibh2c")]
 unique_name_in_owner = true
