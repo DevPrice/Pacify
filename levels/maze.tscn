@@ -1,6 +1,6 @@
 [gd_scene load_steps=37 format=3 uid="uid://cpb65bej6sqp3"]
 
-[ext_resource type="Script" path="res://levels/level.gd" id="1_op5oo"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_op5oo"]
 [ext_resource type="MeshLibrary" uid="uid://cueyskc4kvs74" path="res://levels/grid_terrain.tres" id="1_ukg3o"]
 [ext_resource type="PackedScene" uid="uid://cbuyx8jif60i8" path="res://core/pellet.tscn" id="2_6617j"]
 [ext_resource type="PackedScene" uid="uid://d1bgm2h5qht5u" path="res://core/ghost.tscn" id="3_ep4hy"]
