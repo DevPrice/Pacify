@@ -17,7 +17,7 @@ func reset() -> void:
 	velocity = Vector3.ZERO
 	for ability in find_children("*", "Ability", false):
 		ability.remaining_cooldown = 0
-	_rotate_camera(-_camera_pos_index)
+	_reset_camera()
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -67,6 +67,13 @@ func _rotate_camera(amount: int) -> void:
 	var result_rotation = _camera_pos_index * Vector3(0, PI / 2, 0)
 	tween.tween_property(%CameraArm, "rotation", result_rotation, .2) \
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+
+func _reset_camera():
+	var offset = _camera_pos_index % 4
+	if offset < 2:
+		_rotate_camera(-offset)
+	else:
+		_rotate_camera(4 - offset)
 
 func _get_movement_input() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_up", "move_down")
