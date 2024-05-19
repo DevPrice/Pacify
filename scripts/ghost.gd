@@ -73,7 +73,7 @@ func _physics_process(delta):
 
 	var direction = _get_movement()
 	if direction:
-		velocity = direction * movement_speed * _get_movement_speed_modifier()
+		velocity = direction * movement_speed * DifficultyServer.current_difficulty.ghost_movement_scale * _get_movement_speed_modifier()
 	else:
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 		velocity.z = move_toward(velocity.z, 0, movement_speed)

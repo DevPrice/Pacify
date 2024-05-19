@@ -17,7 +17,7 @@ func try_activate() -> bool:
 	if can_activate():
 		_activate()
 		_fx()
-		remaining_cooldown = cooldown_seconds
+		remaining_cooldown = cooldown_seconds * DifficultyServer.current_difficulty.cooldown_scale
 		activated.emit()
 		return true
 	return false
@@ -31,4 +31,4 @@ func _fx() -> void:
 
 func cooldown_percent() -> float:
 	if cooldown_seconds <= 0: return 1
-	return 1 - remaining_cooldown / cooldown_seconds
+	return 1 - remaining_cooldown / (cooldown_seconds * DifficultyServer.current_difficulty.cooldown_scale)
