@@ -17,6 +17,8 @@ var _current_level: Level:
 func _ready():
 	if Dialogic.current_timeline:
 		Dialogic.end_timeline()
+	if DifficultyServer.current_difficulty == DifficultyServer.hard:
+		DifficultyServer.current_difficulty = DifficultyServer.normal
 	MusicPlayer.play_default()
 	%Character.process_mode = PROCESS_MODE_DISABLED
 	%MainMenu.start_pressed.connect(_game_start)
