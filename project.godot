@@ -50,6 +50,7 @@ directories/dtl_directory={
 "begin_waste_time": "res://dialog/begin_waste_time.dtl",
 "begin_why": "res://dialog/begin_why.dtl",
 "blurple_silent": "res://dialog/blurple_silent.dtl",
+"easy_mode": "res://dialog/easy_mode.dtl",
 "end_timeline": "res://dialog/end_timeline.dtl",
 "intro_timeline": "res://dialog/intro_timeline.dtl",
 "intro_tutorial": "res://dialog/intro_tutorial.dtl",

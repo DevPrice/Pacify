@@ -22,6 +22,8 @@ func set_completion_time(completion_time: float):
 	else:
 		var time_string := "%2d:%0.3f" % [minutes, seconds]
 		%StatsLabel.text = "Completed in %s." % time_string
+	
+	%DifficultyLabel.text = DifficultyServer.current_difficulty.resource_name
 
 func appear() -> void:
 	%UIAnimations.play("show")

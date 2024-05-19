@@ -62,6 +62,7 @@ func start_next_level() -> void:
 		%UI.remove_child(victory_menu)
 		_current_level_index -= 2
 		level._attempts = 0
+		DifficultyServer.current_difficulty = DifficultyServer.normal
 		start_next_level()
 
 func _start_level(level: Level) -> void:

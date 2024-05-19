@@ -10,6 +10,7 @@ class_name Level extends Node3D
 @export var _player: Character
 @export var initial_dialog: LevelDialog
 @export var music: AudioStream
+@export var easy_mode_dialog: LevelDialog
 
 signal pellets_remaining_changed(remaining: int)
 signal level_completed
@@ -106,7 +107,7 @@ func _spawn_ghosts() -> void:
 			var timer = Timer.new()
 			timer.one_shot = true
 			timer.autostart = true
-			timer.wait_time = ghost_spawn.delay_seconds
+			timer.wait_time = ghost_spawn.delay_seconds * DifficultyServer.current_difficulty.ghost_spawn_delay_scale
 			timer.timeout.connect(func (): ghost.start(ghost_spawn.chase_interval))
 			ghost.add_child(timer)
 		else:
@@ -203,6 +204,7 @@ func _on_ghost_eaten(ghost: Ghost):
 
 func _get_begin_dialog():
 	if _attempts == 0 and initial_dialog: return initial_dialog
+	if _attempts % 3 == 0 and DifficultyServer.current_difficulty == DifficultyServer.normal: return easy_mode_dialog
 	if begin_dialogs and begin_dialogs.size() > 0: return begin_dialogs.pick_random()
 	return null
 

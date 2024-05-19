@@ -22,3 +22,9 @@ func toggle_paused() -> void:
 	var tree = get_tree()
 	if tree:
 		tree.paused = not tree.paused
+
+func enable_easy_mode():
+	DifficultyServer.current_difficulty = DifficultyServer.easy
+
+func enable_hard_mode():
+	DifficultyServer.current_difficulty = DifficultyServer.hard

@@ -23,7 +23,7 @@ func get_bubble() -> Control:
 
 
 func get_choice_container() -> Container:
-	return $DialogText/ChoiceContainer
+	return %ChoiceContainer
 
 
 func get_name_label_panel() -> PanelContainer:

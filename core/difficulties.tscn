@@ -8,18 +8,21 @@ resource_name = "Easy"
 script = ExtResource("2_if001")
 ghost_movement_scale = 0.6
 cooldown_scale = 0.5
+ghost_spawn_delay_scale = 1.2
 
 [sub_resource type="Resource" id="Resource_aymw3"]
 resource_name = "Normal"
 script = ExtResource("2_if001")
 ghost_movement_scale = 1.0
 cooldown_scale = 1.0
+ghost_spawn_delay_scale = 1.0
 
 [sub_resource type="Resource" id="Resource_uchfp"]
 resource_name = "Hard"
 script = ExtResource("2_if001")
 ghost_movement_scale = 1.1
 cooldown_scale = 2.0
+ghost_spawn_delay_scale = 0.5
 
 [node name="Node" type="Node"]
 script = ExtResource("1_rcvma")

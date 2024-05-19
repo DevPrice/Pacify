@@ -131,6 +131,7 @@ script = ExtResource("6_5gd03")
 name_label_root = NodePath("..")
 
 [node name="ChoiceContainer" type="HBoxContainer" parent="DialogText"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
