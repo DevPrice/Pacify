@@ -1,9 +1,15 @@
 if {victories} == 0:
 	pink: We knew you would come.
+	blurple: ...
+	stinky: I don't think he can even understand us.
+	stinky: Hello? Can you hear us?
 else:
 	pink: You came back?
 	red: I truly hate you.
-blurple: ...
-stinky: I don't think he can even understand us.
-stinky: Hello? Can you hear us?
+	red: No more playing around, let's turn up the heat.
+	- Turn it up
+		red: You don't stand a chance.
+		do GameInstance.enable_hard_mode()
+	- No, this is hard enough already
+		red: Whatever, we'll still crush you.
 red: Enough talk, let's get him!
