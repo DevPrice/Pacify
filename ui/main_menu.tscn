@@ -57,8 +57,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Pacify"
+text = "GAME TITLE"
 label_settings = SubResource("LabelSettings_uaq20")
 
 [node name="TitleGap" type="Control" parent="MarginContainer/VBoxContainer"]

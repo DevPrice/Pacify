@@ -4,6 +4,7 @@ signal start_pressed
 signal settings_pressed
 
 func _ready():
+	%Title.text = ProjectSettings.get_setting_with_override("application/config/name")
 	%StartButton.pressed.connect(_on_start)
 	%SettingsButton.pressed.connect(_on_settings)
 	%ExitButton.pressed.connect(_on_exit)
