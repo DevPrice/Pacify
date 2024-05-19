@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cpb65bej6sqp3"]
+[gd_scene load_steps=45 format=3 uid="uid://cpb65bej6sqp3"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_op5oo"]
 [ext_resource type="MeshLibrary" uid="uid://cueyskc4kvs74" path="res://levels/grid_terrain.tres" id="1_ukg3o"]
@@ -22,6 +22,14 @@
 script = ExtResource("6_wg6f0")
 timeline = "res://dialog/red_haha.dtl"
 
+[sub_resource type="Resource" id="Resource_bg30g"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/red_abhor.dtl"
+
+[sub_resource type="Resource" id="Resource_rbp17"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/red_got_you.dtl"
+
 [sub_resource type="Resource" id="Resource_jk0qg"]
 script = ExtResource("3_wje1x")
 color = Color(0.89, 0.445, 0.445, 1)
@@ -30,11 +38,15 @@ delay_seconds = 0.0
 wander_location = Vector3i(4, 0, -3)
 chase_interval = 7.0
 dialog_character = "res://dialog/red.dch"
-victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_bptf4")])
+victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_bptf4"), SubResource("Resource_bg30g"), SubResource("Resource_rbp17")])
 
 [sub_resource type="Resource" id="Resource_0lgwf"]
 script = ExtResource("6_wg6f0")
 timeline = "res://dialog/pink_dismissive.dtl"
+
+[sub_resource type="Resource" id="Resource_o1bqr"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/pink_game.dtl"
 
 [sub_resource type="Resource" id="Resource_ou0vl"]
 script = ExtResource("3_wje1x")
@@ -44,11 +56,19 @@ delay_seconds = 4.0
 wander_location = Vector3i(-4, 0, -3)
 chase_interval = 8.0
 dialog_character = "res://dialog/pink.dch"
-victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_0lgwf")])
+victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_0lgwf"), SubResource("Resource_o1bqr")])
 
 [sub_resource type="Resource" id="Resource_0a75g"]
 script = ExtResource("6_wg6f0")
 timeline = "res://dialog/stinky_easy.dtl"
+
+[sub_resource type="Resource" id="Resource_ivaxn"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/stinky_game_over.dtl"
+
+[sub_resource type="Resource" id="Resource_n885s"]
+script = ExtResource("6_wg6f0")
+timeline = "res://dialog/stinky_name.dtl"
 
 [sub_resource type="Resource" id="Resource_r41sr"]
 script = ExtResource("3_wje1x")
@@ -58,7 +78,7 @@ delay_seconds = 10.0
 wander_location = Vector3i(-4, 0, 3)
 chase_interval = 6.0
 dialog_character = "res://dialog/stinky.dch"
-victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_0a75g")])
+victory_dialogs = Array[ExtResource("6_wg6f0")]([SubResource("Resource_0a75g"), SubResource("Resource_ivaxn"), SubResource("Resource_n885s")])
 
 [sub_resource type="Resource" id="Resource_6jbgq"]
 script = ExtResource("6_wg6f0")

@@ -8,7 +8,7 @@ if {victories} == 0:
 	captain: ...
 	stinky: Captain?
 	[wait time="1.0"]
-	stinky: Or should I say, C.A.P.T.A.I.N.
+	stinky: Or should I say, C.A.P.T.A.I.N.?
 	pink: Control And Protect Through Apathy, Indifference, Neglect
 	pink: That's why you're really here.
 elif {victories} == 1:
