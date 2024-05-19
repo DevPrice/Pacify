@@ -102,3 +102,4 @@ func _notification(what):
 		var pause_menu = %UI.get_node_or_null("PauseMenu")
 		if pause_menu:
 			pause_menu.dismiss()
+			get_tree().create_timer(2, true, true, true).timeout.connect(pause_menu.queue_free)
