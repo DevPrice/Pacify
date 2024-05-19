@@ -14,15 +14,15 @@ func _on_quit_to_menu():
 
 func set_completion_time(completion_time: float):
 	var minutes: int = int(completion_time) / 60
-	var seconds: int = fmod(completion_time, 60)
-	
+	var seconds: float = fmod(completion_time, 60)
+
 	if completion_time < 60:
-		var time_string := "%2d:%02d" % [minutes, int(seconds)]
+		var time_string := "%02d:%06.03f" % [minutes, seconds]
 		%StatsLabel.text = "Completed in %s." % time_string
 	else:
-		var time_string := "%2d:%0.3f" % [minutes, seconds]
+		var time_string := "%02d:%02d" % [minutes, int(seconds)]
 		%StatsLabel.text = "Completed in %s." % time_string
-	
+
 	%DifficultyLabel.text = DifficultyServer.current_difficulty.resource_name
 
 func appear() -> void:
