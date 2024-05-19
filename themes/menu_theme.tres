@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://bllt7k6sjj8bi"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://bllt7k6sjj8bi"]
 
 [ext_resource type="FontFile" uid="uid://iseqpbc8ays2" path="res://fonts/SueEllenFrancisco-Regular.ttf" id="1_0ujlv"]
 [ext_resource type="StyleBox" uid="uid://b34q4rv0ewu4t" path="res://themes/style_box_theme.tres" id="1_ovfg0"]
@@ -78,6 +78,12 @@ border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v88tx"]
+bg_color = Color(0.266575, 0.266575, 0.266575, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mh8g"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2ccu"]
 content_margin_left = 16.0
 content_margin_right = 16.0
@@ -127,6 +133,8 @@ Button/styles/focus = SubResource("StyleBoxFlat_s6hdh")
 Button/styles/hover = SubResource("StyleBoxFlat_f3q3h")
 Button/styles/normal = SubResource("StyleBoxFlat_0nodq")
 Button/styles/pressed = SubResource("StyleBoxFlat_h26wq")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_v88tx")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_2mh8g")
 Label/colors/font_color = Color(0, 0, 0, 1)
 MarginContainer/constants/margin_bottom = 32
 MarginContainer/constants/margin_left = 32
