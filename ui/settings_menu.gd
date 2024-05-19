@@ -9,6 +9,19 @@ func _ready():
 	_refresh()
 	%CloseButton.pressed.connect(close)
 	%FullscreenButton.pressed.connect(GameInstance.toggle_fullscreen)
+	%AASlider.value_changed.connect(
+		func (value: float):
+			match int(round(value)):
+				2:
+					get_viewport().use_taa = false
+					get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_FSR2
+				1:
+					get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
+					get_viewport().use_taa = true
+				_:
+					get_viewport().use_taa = false
+					get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
+	)
 	%MasterSlider.value_changed.connect(
 		func (value: float):
 			AudioServer.set_bus_volume_db(_master_bus, linear_to_db(value))
@@ -36,3 +49,9 @@ func _refresh():
 	%MasterSlider.value = db_to_linear(AudioServer.get_bus_volume_db(_master_bus))
 	%MusicSlider.value = db_to_linear(AudioServer.get_bus_volume_db(_music_bus))
 	%EffectsSlider.value = db_to_linear(AudioServer.get_bus_volume_db(_fx_bus))
+	if get_viewport().scaling_3d_mode == Viewport.SCALING_3D_MODE_FSR2:
+		%AASlider.value = 2
+	elif get_viewport().use_taa:
+		%AASlider.value = 1
+	else:
+		%AASlider.value = 0

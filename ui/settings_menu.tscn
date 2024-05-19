@@ -94,13 +94,45 @@ size_flags_vertical = 3
 [node name="Video" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
 layout_mode = 2
 
-[node name="Margin" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video"]
 layout_mode = 2
 
-[node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer/TabContainer/Video/Margin"]
+[node name="Margin" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer"]
+layout_mode = 2
+
+[node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/Margin"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Fullscreen"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Anti-aliasing"
+
+[node name="SliderHolder" type="Control" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AASlider" type="HSlider" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer/SliderHolder"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -8.0
+offset_right = -10.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 2.0
 
 [node name="Audio" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
 visible = false
