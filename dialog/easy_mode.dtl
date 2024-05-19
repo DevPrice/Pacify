@@ -1,6 +1,5 @@
 pink: It seems like you're having trouble.
 stinky: Should we ease up a bit?
-[wait time="2.0" hide_text="false"]
 - Yes, this is too hard [if true == true]
 	stinky: I figured as much.
 	do GameInstance.enable_easy_mode()

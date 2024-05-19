@@ -17,5 +17,5 @@ shader_parameter/scale_max_distance = 80.0
 shader_parameter/scale_max = 4.0
 shader_parameter/hatch_intensity = 1.0
 shader_parameter/hatch_spacing = Vector2(6, 6)
-shader_parameter/shadow_threshold = 0.5
+shader_parameter/shadow_threshold = 1.0
 shader_parameter/roughness = 0.0
