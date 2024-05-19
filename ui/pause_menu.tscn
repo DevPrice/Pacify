@@ -76,6 +76,7 @@ size_flags_vertical = 4
 layout_mode = 2
 text = "Paused"
 label_settings = SubResource("LabelSettings_uaq20")
+horizontal_alignment = 1
 
 [node name="TitleGap" type="Control" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
