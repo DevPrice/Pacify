@@ -1,6 +1,6 @@
 red: Just get out already!
 [wait time="1.0"]
-red: [speed=10]Get out! Get out! Get out![speed=1]
+red: [speed=8]Get out! Get out! Get out![speed=1]
 red: Get out! Get out!
 red: [speed=.5]Get out! Get out!
 red: [speed=.25]Getoutgetoutgetoutgetout!![speed=1]

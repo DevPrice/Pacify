@@ -1,3 +1,7 @@
-stinky: Why do you keep trying?
-stinky: You've already failed {attempts} times.
-stinky: Guess you'll fail {attempts} more.
+if {attempts} > 0:
+	stinky: Why do you keep trying?
+	stinky: You've already failed {attempts} times.
+	stinky: Guess you'll fail {attempts} more.
+else:
+	stinky: See? There's no hope.
+	stinky: You might as well give up now.

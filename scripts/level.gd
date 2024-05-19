@@ -16,10 +16,11 @@ signal pellets_remaining_changed(remaining: int)
 signal level_completed
 signal level_failed
 
-var completion_time := 0.0
+var completion_time: float = 0
 
 var _nav_ready := false
 var _attempts: int = 0
+var _victories: int = 0
 var _duration: float = 0
 
 var remaining_pellets: int = 0
@@ -165,6 +166,7 @@ func _on_ghost_touched_character(ghost: Ghost, character: Character):
 
 func _play_timeline(timeline):
 	Dialogic.VAR.attempts = _attempts
+	Dialogic.VAR.victories = _victories
 	var layout := Dialogic.start(timeline)
 	if _player: _player.register_character(layout)
 	var ghosts = get_tree().get_nodes_in_group("ghost")
@@ -203,7 +205,7 @@ func _on_ghost_eaten(ghost: Ghost):
 	Engine.time_scale = 1
 
 func _get_begin_dialog():
-	if _attempts == 0 and initial_dialog: return initial_dialog
+	if _attempts == 0 and _victories == 0 and initial_dialog: return initial_dialog
 	if _attempts % 3 == 0 and DifficultyServer.current_difficulty == DifficultyServer.normal: return easy_mode_dialog
 	if begin_dialogs and begin_dialogs.size() > 0: return begin_dialogs.pick_random()
 	return null
@@ -224,4 +226,5 @@ func _on_level_completed():
 		await _play_timeline(dialog.timeline)
 	get_tree().call_group("ghost", "shrink")
 	await get_tree().create_timer(2.0).timeout
+	_victories += 1
 	level_completed.emit()

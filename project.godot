@@ -85,7 +85,8 @@ save/autosave_delay=60.0
 save/encryption_on_exports_only=true
 text/autopauses={}
 variables={
-"attempts": 0
+"attempts": 0,
+"victories": 0
 }
 glossary/default_case_sensitive=true
 

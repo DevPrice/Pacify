@@ -1,13 +1,21 @@
-pink: So that's it. You consumed everything.
-pink: There's nothing left.
-red: We have to leave now, Blurple.
-stinky: And it's all his fault.
-blurple: ...
-stinky: Who are you?
-captain: ...
-stinky: Captain?
-[wait time="1.0"]
-stinky: Or should I say, C.A.P.T.A.I.N.
-pink: Control And Protect Through Apathy, Indifference, Neglect
-pink: That's why you're really here.
+if {victories} == 0:
+	pink: So that's it. You consumed everything.
+	pink: There's nothing left.
+	red: We have to leave now, Blurple.
+	stinky: And it's all his fault.
+	blurple: ...
+	stinky: Who are you?
+	captain: ...
+	stinky: Captain?
+	[wait time="1.0"]
+	stinky: Or should I say, C.A.P.T.A.I.N.
+	pink: Control And Protect Through Apathy, Indifference, Neglect
+	pink: That's why you're really here.
+else:
+	pink: You've bested us again.
+	Maybe there's no hope for us.
+	captain: Tell me what you meant before.
+	captain: About C.A.P.T.A.I.N.
+	stinky: Oh, that?
+	stinky: I was messing around. Don't be so serious.
 pink: You can't run from us forever.

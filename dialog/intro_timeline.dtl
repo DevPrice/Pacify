@@ -1,4 +1,8 @@
-pink: We knew you would come.
+if {victories} == 0:
+	pink: We knew you would come.
+else:
+	pink: You came back?
+	red: I truly hate you.
 blurple: ...
 stinky: I don't think he can even understand us.
 stinky: Hello? Can you hear us?
