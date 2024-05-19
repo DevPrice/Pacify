@@ -134,6 +134,38 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 2.0
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Line wobble"
+
+[node name="SliderHolder" type="Control" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WobbleSlider" type="HSlider" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer2/SliderHolder"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -8.0
+offset_right = -10.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.25
+max_value = 1.0
+step = 0.25
+value = 0.25
+
 [node name="Audio" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2

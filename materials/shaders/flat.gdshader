@@ -2,6 +2,7 @@ shader_type spatial;
 
 render_mode diffuse_toon, specular_toon, world_vertex_coords;
 
+global uniform float global_wobble_intensity;
 global uniform sampler3D noise_texture : hint_default_white, filter_linear_mipmap, repeat_enable;
 
 instance uniform vec3 modulate : source_color = vec3(1.f);
@@ -48,7 +49,7 @@ void vertex() {
 	float dist = length(CAMERA_POSITION_WORLD - VERTEX);
 	float distance_scale = mapToRange(dist, scale_min_distance, scale_max_distance, 1.f, scale_max);
 
-	VERTEX += noise * wobble_scale * modulate_wobble_scale * distance_scale;
+	VERTEX += noise * wobble_scale * modulate_wobble_scale * distance_scale * global_wobble_intensity;
 }
 
 float saturate(float x) {

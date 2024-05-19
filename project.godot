@@ -229,3 +229,7 @@ noise_texture={
 "type": "sampler3D",
 "value": "res://textures/noise.tres"
 }
+global_wobble_intensity={
+"type": "float",
+"value": 1.0
+}

@@ -4,11 +4,18 @@ class_name SettingsMenu extends PanelContainer
 @onready var _music_bus = AudioServer.get_bus_index("Music")
 @onready var _fx_bus = AudioServer.get_bus_index("Effects")
 
+static var _wobble_intensity: float = 1
+
 func _ready():
 	get_window().size_changed.connect(_refresh)
 	_refresh()
 	%CloseButton.pressed.connect(close)
 	%FullscreenButton.pressed.connect(GameInstance.toggle_fullscreen)
+	%WobbleSlider.value_changed.connect(
+		func (value: float):
+			RenderingServer.global_shader_parameter_set("global_wobble_intensity", value)
+			SettingsMenu._wobble_intensity = value
+	)
 	%AASlider.value_changed.connect(
 		func (value: float):
 			match int(round(value)):
@@ -46,6 +53,7 @@ func close():
 func _refresh():
 	var window = get_window()
 	%FullscreenButton.button_pressed = window and window.mode == Window.MODE_FULLSCREEN
+	%WobbleSlider.value = SettingsMenu._wobble_intensity
 	%MasterSlider.value = db_to_linear(AudioServer.get_bus_volume_db(_master_bus))
 	%MusicSlider.value = db_to_linear(AudioServer.get_bus_volume_db(_music_bus))
 	%EffectsSlider.value = db_to_linear(AudioServer.get_bus_volume_db(_fx_bus))
