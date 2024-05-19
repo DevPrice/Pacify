@@ -16,7 +16,7 @@ signal pellets_remaining_changed(remaining: int)
 signal level_completed
 signal level_failed
 
-var completion_time := 0
+var completion_time := 0.0
 
 var _nav_ready := false
 var _attempts: int = 0
