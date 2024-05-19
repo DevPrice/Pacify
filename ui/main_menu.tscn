@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6oevb2fve0ye"]
+[gd_scene load_steps=9 format=3 uid="uid://b6oevb2fve0ye"]
 
 [ext_resource type="Theme" uid="uid://bllt7k6sjj8bi" path="res://themes/menu_theme.tres" id="1_2k1uy"]
 [ext_resource type="FontFile" uid="uid://iseqpbc8ays2" path="res://fonts/SueEllenFrancisco-Regular.ttf" id="1_bro5g"]
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="2_hy2r4"]
+[ext_resource type="Script" path="res://scripts/egg.gd" id="4_flis2"]
+[ext_resource type="AudioStream" uid="uid://cu2omwbhumj7a" path="res://audio/pac.wav" id="5_r1ate"]
 
 [sub_resource type="Animation" id="Animation_1lg6h"]
 resource_name = "dismiss"
@@ -59,8 +61,10 @@ size_flags_vertical = 4
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 0
 text = "GAME TITLE"
 label_settings = SubResource("LabelSettings_uaq20")
+script = ExtResource("4_flis2")
 
 [node name="TitleGap" type="Control" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -90,3 +94,8 @@ text = "Exit"
 [node name="SpaceBottom" type="Control" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_r1ate")
+volume_db = -8.0
