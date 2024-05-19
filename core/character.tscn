@@ -1,7 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://b7gskgungub07"]
+[gd_scene load_steps=18 format=3 uid="uid://b7gskgungub07"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_llamu"]
-[ext_resource type="Shader" path="res://materials/shaders/flat.gdshader" id="2_4quj4"]
+[ext_resource type="PackedScene" uid="uid://bkfqmvh3qhc05" path="res://blender/captain.blend" id="2_m23ux"]
 [ext_resource type="Script" path="res://scripts/jump_ability.gd" id="3_4h2eb"]
 [ext_resource type="Texture2D" uid="uid://dl2n5gxgovcvs" path="res://textures/arrow_n.svg" id="4_gyjvj"]
 [ext_resource type="AudioStream" uid="uid://ctl1qsrraw5nt" path="res://audio/footstep_concrete_000.ogg" id="4_stnt8"]
@@ -16,32 +16,6 @@
 [ext_resource type="AudioStream" uid="uid://vuq3vx6xsbbv" path="res://audio/impactPlank_medium_004.ogg" id="13_ntx8f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eyh12"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_toucl"]
-render_priority = 0
-shader = ExtResource("2_4quj4")
-shader_parameter/is_dynamic = true
-shader_parameter/uv_scale = Vector2(1, 1)
-shader_parameter/tint = Color(1, 1, 0.52, 1)
-shader_parameter/specular_size = 0.0
-shader_parameter/noise_scale = 0.25
-shader_parameter/wobble_speed = 4.0
-shader_parameter/wobble_scale = 0.02
-shader_parameter/scale_min_distance = 10.0
-shader_parameter/scale_max_distance = 80.0
-shader_parameter/scale_max = 4.0
-shader_parameter/hatch_intensity = 1.0
-shader_parameter/hatch_spacing = Vector2(4, 4)
-shader_parameter/shadow_threshold = 0.5
-shader_parameter/roughness = 0.2
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cduba"]
-material = SubResource("ShaderMaterial_toucl")
-
-[sub_resource type="SphereMesh" id="SphereMesh_egicc"]
-material = SubResource("ShaderMaterial_toucl")
-radius = 0.6
-height = 1.2
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_12mcx"]
 streams_count = 5
@@ -86,14 +60,7 @@ shape = SubResource("CapsuleShape3D_eyh12")
 [node name="Body" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="Capsule" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_cduba")
-skeleton = NodePath("../..")
-
-[node name="Head" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.649, -0.128156)
-mesh = SubResource("SphereMesh_egicc")
+[node name="captain" parent="Body" instance=ExtResource("2_m23ux")]
 
 [node name="CameraHolder" type="Node3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
