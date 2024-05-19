@@ -34,6 +34,10 @@ _subresources={
 "Captain": {
 "use_external/enabled": true,
 "use_external/path": "res://materials/captain.tres"
+},
+"Visor": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/visor.tres"
 }
 }
 }
