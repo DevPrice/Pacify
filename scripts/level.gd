@@ -205,8 +205,8 @@ func _on_ghost_eaten(ghost: Ghost):
 	Engine.time_scale = 1
 
 func _get_begin_dialog():
-	if _attempts == 0 and _victories == 0 and initial_dialog: return initial_dialog
-	if _attempts % 3 == 0 and DifficultyServer.current_difficulty == DifficultyServer.normal: return easy_mode_dialog
+	if _attempts == 0 and initial_dialog: return initial_dialog
+	if _attempts % 3 == 0 and _victories == 0 and DifficultyServer.current_difficulty == DifficultyServer.normal: return easy_mode_dialog
 	if begin_dialogs and begin_dialogs.size() > 0: return begin_dialogs.pick_random()
 	return null
 
