@@ -11,11 +11,17 @@ if {victories} == 0:
 	stinky: Or should I say, C.A.P.T.A.I.N.
 	pink: Control And Protect Through Apathy, Indifference, Neglect
 	pink: That's why you're really here.
-else:
+elif {victories} == 1:
 	pink: You've bested us again.
-	Maybe there's no hope for us.
+	pink: Maybe there's no hope for us.
+	blurple: ...
 	captain: Tell me what you meant before.
 	captain: About C.A.P.T.A.I.N.
 	stinky: Oh, that?
 	stinky: I was messing around. Don't be so serious.
+else:
+	red: This is impossible!
+	pink: We surrender.
+	[wait time="1.0"]
+	pink: ...for now.
 pink: You can't run from us forever.
