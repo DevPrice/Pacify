@@ -90,8 +90,10 @@ text = "Back"
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 1
 
 [node name="Video" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Margin" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video"]
@@ -103,7 +105,6 @@ layout_mode = 2
 text = "Fullscreen"
 
 [node name="Audio" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Margin" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Audio"]
