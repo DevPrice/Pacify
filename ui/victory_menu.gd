@@ -14,9 +14,14 @@ func _on_quit_to_menu():
 
 func set_completion_time(completion_time: float):
 	var minutes: int = int(completion_time) / 60
-	var seconds: int = int(completion_time) % 60
-	var time_string := "%2d:%02d" % [minutes, seconds]
-	%StatsLabel.text = "Completed in %s." % time_string
+	var seconds: int = fmod(completion_time, 60)
+	
+	if completion_time < 60:
+		var time_string := "%2d:%02d" % [minutes, int(seconds)]
+		%StatsLabel.text = "Completed in %s." % time_string
+	else:
+		var time_string := "%2d:%0.3f" % [minutes, seconds]
+		%StatsLabel.text = "Completed in %s." % time_string
 
 func appear() -> void:
 	%UIAnimations.play("show")
