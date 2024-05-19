@@ -1,16 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://csp2nkbtfsphk"]
+[gd_scene load_steps=21 format=3 uid="uid://csp2nkbtfsphk"]
 
 [ext_resource type="PackedScene" uid="uid://cpb65bej6sqp3" path="res://levels/maze.tscn" id="1_2sene"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_5q3t5"]
 [ext_resource type="PackedScene" uid="uid://de3ytn4pq28ro" path="res://ui/pause_menu.tscn" id="2_0vk6k"]
 [ext_resource type="PackedScene" uid="uid://b7gskgungub07" path="res://core/character.tscn" id="2_ibh2c"]
 [ext_resource type="Shader" path="res://materials/shaders/outline.gdshader" id="3_7ow1e"]
+[ext_resource type="PackedScene" uid="uid://biacgdr7qj558" path="res://ui/settings_menu.tscn" id="3_hlixy"]
 [ext_resource type="PackedScene" uid="uid://cjjtoxqrrekvj" path="res://ui/ability_indicator.tscn" id="3_vcnw0"]
 [ext_resource type="PackedScene" uid="uid://bg8ol536vorl7" path="res://ui/victory_menu.tscn" id="4_ue14o"]
 [ext_resource type="PackedScene" uid="uid://4f0ln3ivc7n1" path="res://levels/tutorial_level.tscn" id="5_4o4v6"]
 [ext_resource type="PackedScene" uid="uid://3je4aljuxv2f" path="res://ui/hud.tscn" id="6_eum3a"]
 [ext_resource type="PackedScene" uid="uid://b6oevb2fve0ye" path="res://ui/main_menu.tscn" id="6_vupde"]
 [ext_resource type="Script" path="res://scripts/auto_focus.gd" id="7_2hxet"]
+[ext_resource type="Script" path="res://levels/control_stack.gd" id="11_tlcxj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7ey73"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -52,6 +54,7 @@ size = Vector3(20, 2, 18)
 [node name="World" type="Node3D" node_paths=PackedStringArray("_levels")]
 script = ExtResource("1_5q3t5")
 _paused_scene = ExtResource("2_0vk6k")
+_settings_scene = ExtResource("3_hlixy")
 _ability_indicator_scene = ExtResource("3_vcnw0")
 _victory_scene = ExtResource("4_ue14o")
 _levels = [NodePath("Level/Tutorial"), NodePath("Level/Maze")]
@@ -101,8 +104,7 @@ shape = SubResource("WorldBoundaryShape3D_i3ol3")
 [node name="UILayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="UI" type="Control" parent="UILayer"]
-unique_name_in_owner = true
+[node name="UIRoot" type="Control" parent="UILayer"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -112,7 +114,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_2hxet")
 
-[node name="MainMenu" parent="UILayer/UI" instance=ExtResource("6_vupde")]
+[node name="UI" type="Control" parent="UILayer/UIRoot"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_tlcxj")
+
+[node name="MainMenu" parent="UILayer/UIRoot/UI" instance=ExtResource("6_vupde")]
 unique_name_in_owner = true
 layout_mode = 1
 

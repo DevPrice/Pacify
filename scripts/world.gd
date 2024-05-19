@@ -1,6 +1,7 @@
 extends Node3D
 
 @export var _paused_scene: PackedScene
+@export var _settings_scene: PackedScene
 @export var _ability_indicator_scene: PackedScene
 @export var _victory_scene: PackedScene
 @export var _levels: Array[Level] = []
@@ -18,7 +19,11 @@ func _ready():
 		Dialogic.end_timeline()
 	MusicPlayer.play_default()
 	%Character.process_mode = PROCESS_MODE_DISABLED
-	await %MainMenu.start_pressed
+	%MainMenu.start_pressed.connect(_game_start)
+	%MainMenu.settings_pressed.connect(_show_settings)
+
+func _game_start():
+	%MainMenu.start_pressed.disconnect(_game_start)
 	%MainMenu.dismiss()
 	start_next_level()
 	_init_hud()
@@ -26,6 +31,10 @@ func _ready():
 		func (body: Node3D):
 			if body is Character: _on_level_failed()
 	)
+
+func _show_settings():
+	var settings_menu = _settings_scene.instantiate()
+	%UI.add_child(settings_menu)
 
 func _init_hud():
 	%Hud.visible = true
@@ -85,6 +94,7 @@ func _notification(what):
 			existing_menu.free()
 		if _paused_scene:
 			var pause_menu: PauseMenu = _paused_scene.instantiate()
+			pause_menu.settings_pressed.connect(_show_settings)
 			pause_menu.name = "PauseMenu"
 			%UI.add_child(pause_menu)
 			pause_menu.appear()

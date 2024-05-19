@@ -1,8 +1,14 @@
 class_name PauseMenu extends PanelContainer
 
+signal settings_pressed
+
 func _ready():
 	%ResumeButton.pressed.connect(_on_resume)
+	%SettingsButton.pressed.connect(_on_settings)
 	%QuitToMenuButton.pressed.connect(_on_quit_to_menu)
+
+func _on_settings():
+	settings_pressed.emit()
 
 func _on_resume():
 	get_tree().paused = false
