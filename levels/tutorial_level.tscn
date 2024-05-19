@@ -67,7 +67,7 @@ script = ExtResource("4_ki6tw")
 dialog = "res://dialog/tutorial_pellet_seen.dtl"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PelletTrigger"]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -16.7584, 4, -66.5062)
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -16.2713, 4, -66.8407)
 shape = SubResource("BoxShape3D_4sxpw")
 
 [node name="FinalJumpTrigger" type="Area3D" parent="."]
@@ -76,7 +76,7 @@ script = ExtResource("4_ki6tw")
 dialog = "res://dialog/tutorial_jump_gap.dtl"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FinalJumpTrigger"]
-transform = Transform3D(-0.536887, 0, -0.843654, 0, 1, 0, 0.843654, 0, -0.536887, -14.6298, 4, -81.1204)
+transform = Transform3D(-0.361478, 0, -0.932381, 0, 1, 0, 0.932381, 0, -0.361478, -13.5922, 4, -81.3247)
 shape = SubResource("BoxShape3D_4sxpw")
 
 [node name="Pellet" parent="." instance=ExtResource("5_b8x4a")]
